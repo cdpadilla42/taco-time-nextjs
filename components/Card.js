@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useRouter } from 'next/router';
 
 const StyledCard = styled.div`
   border: 1px solid rgba(0, 0, 0, 0.04);
@@ -11,6 +12,10 @@ const StyledCard = styled.div`
   color: #111;
   font-family: Inter, Helvetica, Arial, sans-serif;
   overflow: hidden;
+
+  &:hover {
+    cursor: pointer;
+  }
 
   img {
     width: 208px;
@@ -34,8 +39,15 @@ const StyledCard = styled.div`
 `;
 
 const Card = () => {
+  const router = useRouter();
+
+  function handleClick(e) {
+    console.log('you clicked', e.currentTarget);
+    router.push(`/item/${e.currentTarget}`);
+  }
+
   return (
-    <StyledCard>
+    <StyledCard onClick={handleClick} tabIndex={0}>
       <img src="https://picsum.photos/id/237/200/300" alt="" />
       <div className="details">
         <h4>Chips and Guac</h4>
