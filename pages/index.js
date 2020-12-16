@@ -32,7 +32,7 @@ const Index = () => {
   // )
 };
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const apolloClient = initializeApollo();
 
   await apolloClient.query({

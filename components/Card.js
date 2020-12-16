@@ -2,21 +2,24 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledCard = styled.div`
-  border: 1px solid green;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.04);
+  border-radius: 5px;
   display: flex;
   flex-direction: column;
   width: 210px;
   color: #111;
   font-family: Inter, Helvetica, Arial, sans-serif;
-  display: inline-block;
+  overflow: hidden;
 
   img {
-    max-width: 600px;
-    max-height: 210px;
+    width: 208px;
+    height: 140px;
   }
 
   .details {
     margin: 0.8rem;
+    height: 130px;
   }
 
   h4 {

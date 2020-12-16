@@ -4,6 +4,14 @@ import styled from 'styled-components';
 
 const StyledCardCarousel = styled.div`
   width: 100%;
+  /* border: 1px solid blue; */
+  display: flex;
+  overflow: scroll;
+  gap: 0.5rem;
+
+  & > * {
+    flex: 0 0 208px;
+  }
 `;
 
 const CardCarousel = () => {
