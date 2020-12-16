@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+
 const StyledCard = styled.div`
   border: 1px solid green;
   display: flex;
@@ -7,6 +8,7 @@ const StyledCard = styled.div`
   width: 210px;
   color: #111;
   font-family: Inter, Helvetica, Arial, sans-serif;
+  display: inline-block;
 
   img {
     max-width: 600px;
