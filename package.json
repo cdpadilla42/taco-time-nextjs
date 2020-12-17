@@ -17,5 +17,8 @@
     "react-dom": "^16.7.0",
     "styled-components": "^5.2.1"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "babel-plugin-styled-components": "^1.12.0"
+  }
 }
