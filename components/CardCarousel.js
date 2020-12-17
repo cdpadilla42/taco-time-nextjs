@@ -1,6 +1,7 @@
 import React from 'react';
 import Card from './Card';
 import styled from 'styled-components';
+import arr from '../lib/dummyData';
 
 const StyledCardCarousel = styled.div`
   width: 100%;
@@ -15,15 +16,6 @@ const StyledCardCarousel = styled.div`
 `;
 
 const CardCarousel = () => {
-  const dummyData = {
-    img: 'https://picsum.photos/id/237/200/300',
-    name: 'Chips & Guac',
-    description: 'Yummy green good stuff!',
-    _id: Math.random() * 100,
-  };
-  const arr = new Array(6);
-  arr.fill(dummyData);
-
   return (
     <StyledCardCarousel>
       {arr.map((item) => (
