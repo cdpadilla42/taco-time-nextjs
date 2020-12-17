@@ -51,10 +51,10 @@ const Card = ({ item }) => {
 
   return (
     <StyledCard onClick={handleClick} tabIndex={0} onKeyUp={handleKey}>
-      <img src="https://picsum.photos/id/237/200/300" alt="" />
+      <img src={item.img} alt="" />
       <div className="details">
-        <h4>Chips and Guac</h4>
-        <p>Yummy Green Gooey stuff</p>
+        <h4>{item.name}</h4>
+        <p>{item.description}</p>
       </div>
     </StyledCard>
   );

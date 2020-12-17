@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useQuery } from '@apollo/client';
 import { initializeApollo } from '../apollo/client';
 import CardCarousel from '../components/CardCarousel';
+import ItemFrom from '../components/ItemForm';
 
 const ViewerQuery = gql`
   query ViewerQuery {
@@ -19,7 +20,12 @@ const Index = () => {
     data: { viewer },
   } = useQuery(ViewerQuery);
 
-  return <CardCarousel />;
+  return (
+    <>
+      <ItemFrom />
+      <CardCarousel />
+    </>
+  );
 
   // return (
   //   <div>
