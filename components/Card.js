@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useRouter } from 'next/router';
 
 const StyledCard = styled.div`
-  border: 1px solid rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.04);
   border-radius: 5px;
   display: flex;
@@ -41,15 +41,16 @@ const StyledCard = styled.div`
 const Card = ({ item }) => {
   const router = useRouter();
 
-  function handleClick(e) {
-    console.log('you clicked', e.currentTarget);
+  function handleClick() {
     router.push(`/item/${item._id}`);
   }
 
-  function handleKey() {}
+  function handleKey(e) {
+    if (e.key === 'Enter') handleClick();
+  }
 
   return (
-    <StyledCard onClick={handleClick} tabIndex={0}>
+    <StyledCard onClick={handleClick} tabIndex={0} onKeyUp={handleKey}>
       <img src="https://picsum.photos/id/237/200/300" alt="" />
       <div className="details">
         <h4>Chips and Guac</h4>
