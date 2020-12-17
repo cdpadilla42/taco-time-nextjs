@@ -38,13 +38,15 @@ const StyledCard = styled.div`
   }
 `;
 
-const Card = () => {
+const Card = ({ item }) => {
   const router = useRouter();
 
   function handleClick(e) {
     console.log('you clicked', e.currentTarget);
-    router.push(`/item/${e.currentTarget}`);
+    router.push(`/item/${item._id}`);
   }
+
+  function handleKey() {}
 
   return (
     <StyledCard onClick={handleClick} tabIndex={0}>
