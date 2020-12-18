@@ -10,7 +10,6 @@ const StyledCard = styled.div`
   flex-direction: column;
   width: 210px;
   color: #111;
-  font-family: Inter, Helvetica, Arial, sans-serif;
   overflow: hidden;
 
   &:hover {
