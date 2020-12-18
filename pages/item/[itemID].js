@@ -15,6 +15,8 @@ const StyledItemDetails = styled.div`
     background-color: rgba(0, 0, 0, 0.05);
     padding: 0.6rem;
     margin: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 
     h2 {
       margin: 1rem 0.5rem;
@@ -25,6 +27,7 @@ const StyledItemDetails = styled.div`
   .option {
     border: 1px solid rgba(0, 0, 0, 0.1);
     margin: 1rem;
+    box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.04);
   }
 
   .option:hover {
