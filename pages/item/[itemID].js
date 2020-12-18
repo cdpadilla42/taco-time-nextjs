@@ -20,6 +20,21 @@ const StyledItemDetails = styled.div`
       margin: 1rem 0.5rem;
     }
   }
+
+  /* single option */
+  .option {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    margin: 1rem;
+  }
+
+  .option:hover {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.08);
+  }
+
+  .option.selected {
+    border: 2px solid rgba(0, 0, 0, 1);
+  }
 `;
 
 const itemDisplay = () => {
@@ -43,7 +58,11 @@ const itemDisplay = () => {
                 <h2>{customizeable.title}</h2>
               </div>
               {customizeable.options.map((option) => {
-                return <p>{option.name}</p>;
+                return (
+                  <div className="option">
+                    <p>{option.name}</p>
+                  </div>
+                );
               })}
             </>
           );
