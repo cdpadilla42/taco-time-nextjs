@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import { dummyData } from '../../lib/dummyData';
 import styled from 'styled-components';
 
-// TODO style this bad boy
 const StyledItemDetails = styled.div`
   img {
     display: block;
@@ -28,6 +27,12 @@ const StyledItemDetails = styled.div`
     border: 1px solid rgba(0, 0, 0, 0.1);
     margin: 1rem;
     box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.04);
+    width: 100%;
+    display: block;
+    background-color: rgba(0, 0, 0, 0);
+    font-family: inherit;
+    font-size: inherit;
+    text-align: left;
   }
 
   .option:hover {
@@ -62,9 +67,11 @@ const itemDisplay = () => {
               </div>
               {customizeable.options.map((option) => {
                 return (
-                  <div className="option">
-                    <p>{option.name}</p>
-                  </div>
+                  <button className="option">
+                    <p>
+                      {option.name} {option.price ? ` + $${option.price}` : ''}
+                    </p>
+                  </button>
                 );
               })}
             </>
