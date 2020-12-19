@@ -1,5 +1,6 @@
 import { ApolloServer } from 'apollo-server-micro';
 import { schema } from '../../apollo/schema';
+import connectDb from '../../lib/mongoose';
 
 const apolloServer = new ApolloServer({ schema });
 
@@ -9,4 +10,5 @@ export const config = {
   },
 };
 
-export default apolloServer.createHandler({ path: '/api/graphql' });
+const server = apolloServer.createHandler({ path: '/api/graphql' });
+export default connectDb(server);
