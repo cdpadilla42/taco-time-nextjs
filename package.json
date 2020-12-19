@@ -11,6 +11,7 @@
     "apollo-server-micro": "^2.14.2",
     "formik": "^2.2.6",
     "graphql": "^14.0.2",
+    "graphql-tools": "^7.0.2",
     "next": "latest",
     "prop-types": "^15.6.2",
     "react": "^16.7.0",
@@ -19,6 +20,7 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "babel-plugin-import-graphql": "^2.7.0",
     "babel-plugin-styled-components": "^1.12.0"
   }
 }

@@ -6,6 +6,7 @@ type User {
 
 type Query {
   viewer: User
+  item: Item
 }
 
 type Item {
@@ -13,7 +14,7 @@ type Item {
   name: String!
   desciption: String
   _id: ID
-  price: Number!
+  price: Int!
   customizations: [Customization!]
 }
 
@@ -26,5 +27,5 @@ type Customization {
 
 type Option {
   name: String!
-  price: Number
+  price: Int
 }
