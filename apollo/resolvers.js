@@ -9,8 +9,9 @@ export const resolvers = {
     },
   },
   Mutation: {
-    addItem() {
-      return { message: "You've MUTATED!!!" };
+    addItem(_, args) {
+      console.log(args);
+      return args.input;
     },
   },
 };

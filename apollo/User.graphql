@@ -11,11 +11,28 @@ type Query {
 
 # TODO Adjust Later
 input ItemInput {
+  img: String!
   name: String!
+  description: String
+  _id: ID
+  price: Int!
+  customizations: [CustomizationInput]
+}
+
+input CustomizationInput {
+  name: String!
+  title: String!
+  required: Boolean!
+  options: [OptionInput]
+}
+
+input OptionInput {
+  name: String!
+  price: Int
 }
 
 type Mutation {
-  addItem(item: ItemInput): Item
+  addItem(input: ItemInput): Item
 }
 
 type Item {
