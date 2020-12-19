@@ -7,3 +7,24 @@ type User {
 type Query {
   viewer: User
 }
+
+type Item {
+  img: String!
+  name: String!
+  desciption: String
+  _id: ID
+  price: Number!
+  customizations: [Customization!]
+}
+
+type Customization {
+  name: String!
+  title: String!
+  required: Boolean!
+  options: [Option!]
+}
+
+type Option {
+  name: String!
+  price: Number
+}
