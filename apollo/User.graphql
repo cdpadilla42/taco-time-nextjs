@@ -9,6 +9,15 @@ type Query {
   item: Item
 }
 
+# TODO Adjust Later
+input ItemInput {
+  name: String!
+}
+
+type Mutation {
+  addItem(item: ItemInput): Item
+}
+
 type Item {
   img: String!
   name: String!

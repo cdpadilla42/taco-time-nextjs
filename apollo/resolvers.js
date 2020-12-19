@@ -8,4 +8,9 @@ export const resolvers = {
       return { message: 'items here!' };
     },
   },
+  Mutation: {
+    addItem() {
+      return { message: "You've MUTATED!!!" };
+    },
+  },
 };
