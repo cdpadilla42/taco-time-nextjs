@@ -40,6 +40,7 @@ const StyledCard = styled.div`
 const Card = ({ item }) => {
   const router = useRouter();
 
+  console.log(item.name, item);
   function handleClick() {
     router.push(`/item/${item._id}`);
   }

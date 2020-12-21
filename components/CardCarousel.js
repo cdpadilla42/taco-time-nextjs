@@ -15,10 +15,10 @@ const StyledCardCarousel = styled.div`
   }
 `;
 
-const CardCarousel = () => {
+const CardCarousel = ({ itemsArr }) => {
   return (
     <StyledCardCarousel>
-      {arr.map((item) => (
+      {itemsArr.map((item) => (
         <Card item={item} />
       ))}
     </StyledCardCarousel>

@@ -10,22 +10,23 @@ const ItemsQuery = gql`
       name
       price
       img
+      _id
     }
   }
 `;
 
 const Index = () => {
   const {
-    data: { item },
+    data: { item: itemsArr },
   } = useQuery(ItemsQuery);
 
-  console.log(item);
+  console.log(itemsArr);
   return (
     <>
       <ItemFrom />
-      <CardCarousel />
-      {item.map((itemObj) => {
-        return <span>{itemObj.name}</span>;
+      <CardCarousel itemsArr={itemsArr} />
+      {itemsArr.map((item) => {
+        return <span>{item.name}</span>;
       })}
     </>
   );
