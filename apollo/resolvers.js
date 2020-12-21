@@ -11,6 +11,11 @@ export const resolvers = {
       console.log(result);
       return result;
     },
+
+    async itemById(_, { id }) {
+      const result = await Item.findById(id);
+      return result;
+    },
   },
   Mutation: {
     // Possible enhancement: Seperate Customization entries to be reusable between items
