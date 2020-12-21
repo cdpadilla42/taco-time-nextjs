@@ -12,11 +12,14 @@ export const resolvers = {
   },
   Mutation: {
     addItem(_, args) {
-      const newItem = new Item({
-        name: 'Test',
-        price: 1000,
-        img: 'cool',
-      });
+      const newItem = new Item(args.input);
+      console.log(
+        { newItem },
+        'cust',
+        newItem.customizations,
+        'options',
+        newItem.customizations.options
+      );
 
       newItem.save((err, result) => {
         if (err) {
@@ -25,8 +28,7 @@ export const resolvers = {
           console.log(result);
         }
       });
-      console.log(args);
-      return args.input;
+      return newItem;
     },
   },
 };

@@ -9,7 +9,6 @@ type Query {
   item: Item
 }
 
-# TODO Adjust Later
 input ItemInput {
   img: String!
   name: String!
