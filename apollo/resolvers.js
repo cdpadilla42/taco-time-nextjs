@@ -6,12 +6,15 @@ export const resolvers = {
       return { id: 1, name: 'John Smith', status: 'cached' };
     },
 
-    item() {
-      return { message: 'items here!' };
+    async item() {
+      const result = await Item.find({});
+      console.log(result);
+      return result;
     },
   },
   Mutation: {
-    addItem(_, args) {
+    // Possible enhancement: Seperate Customization entries to be reusable between items
+    async addItem(_, args) {
       const newItem = new Item(args.input);
       console.log(
         { newItem },
@@ -21,14 +24,15 @@ export const resolvers = {
         newItem.customizations.options
       );
 
-      newItem.save((err, result) => {
+      const result = await newItem.save((err, result) => {
         if (err) {
-          console.error(err);
+          return console.error(err);
         } else {
           console.log(result);
+          return newItem;
         }
       });
-      return newItem;
+      return result;
     },
   },
 };

@@ -6,7 +6,7 @@ type User {
 
 type Query {
   viewer: User
-  item: Item
+  item: [Item]
 }
 
 input ItemInput {
@@ -37,7 +37,7 @@ type Mutation {
 type Item {
   img: String!
   name: String!
-  desciption: String
+  description: String
   _id: ID
   price: Int!
   customizations: [Customization!]
