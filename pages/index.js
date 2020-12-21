@@ -4,25 +4,29 @@ import { initializeApollo } from '../apollo/client';
 import CardCarousel from '../components/CardCarousel';
 import ItemFrom from '../components/ItemForm';
 
-const ViewerQuery = gql`
-  query ViewerQuery {
-    viewer {
-      id
+const ItemsQuery = gql`
+  query ItemQuery {
+    item {
       name
-      status
+      price
+      img
     }
   }
 `;
 
 const Index = () => {
   const {
-    data: { viewer },
-  } = useQuery(ViewerQuery);
+    data: { item },
+  } = useQuery(ItemsQuery);
 
+  console.log(item);
   return (
     <>
       <ItemFrom />
       <CardCarousel />
+      {item.map((itemObj) => {
+        return <span>{itemObj.name}</span>;
+      })}
     </>
   );
 
@@ -41,7 +45,7 @@ export async function getServerSideProps() {
   const apolloClient = initializeApollo();
 
   await apolloClient.query({
-    query: ViewerQuery,
+    query: ItemsQuery,
   });
 
   return {
