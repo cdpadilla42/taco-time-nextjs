@@ -3,11 +3,32 @@ import { useRouter } from 'next/router';
 import { dummyData } from '../../lib/dummyData';
 import styled from 'styled-components';
 import gql from 'graphql-tag';
+import { useQuery } from '@apollo/client';
+import { initializeApollo } from '../../apollo/client';
 
 const ItemByIdQuery = gql`
   query getItem($id: ID!) {
     itemById(id: $id) {
       name
+      description
+      price
+      customizations {
+        name
+        title
+        required
+        options {
+          name
+          price
+        }
+      }
+    }
+  }
+`;
+
+const ItemsQuery = gql`
+  query ItemQuery {
+    item {
+      _id
     }
   }
 `;
@@ -55,13 +76,25 @@ const StyledItemDetails = styled.div`
 `;
 
 const itemDisplay = () => {
-  const testItem = dummyData;
-
   const router = useRouter();
   const { itemID } = router.query;
+
+  console.log(itemID);
+
+  const {
+    data: { itemById: item },
+  } = useQuery(ItemByIdQuery, {
+    variables: {
+      id: itemID,
+    },
+  });
+
+  console.log(item, 'from the itemDisplay');
+  const testItem = dummyData;
   return (
     <StyledItemDetails>
       <div className="container">
+        <span>{item.name}</span>
         <img src={testItem.img} alt="" />
         <h2>{testItem.name}</h2>
         <p>$1,000,000</p>
@@ -93,29 +126,55 @@ const itemDisplay = () => {
 
 // // This function gets called at build time
 // export async function getStaticPaths() {
+//   const apolloClient = initializeApollo();
+
+//   await apolloClient.query({
+//     query: ItemsQuery,
+//   });
+
+//   const itemIds = apolloClient.cache.extract();
+
+//   console.log(itemIds);
+
+//   return {
+//     props: {
+//       initialApolloState: apolloClient.cache.extract(),
+//     },
+//   };
+
+//   // * Notes from docs ------------
+
 //   // Call an external API endpoint to get posts
-//   const res = await fetch('https://.../posts')
-//   const posts = await res.json()
+//   const res = await fetch('https://.../posts');
+//   const posts = await res.json();
 
 //   // Get the paths we want to pre-render based on posts
 //   const paths = posts.map((post) => ({
 //     params: { id: post.id },
-//   }))
+//   }));
 
 //   // We'll pre-render only these paths at build time.
 //   // { fallback: false } means other routes should 404.
-//   return { paths, fallback: false }
+//   return { paths, fallback: false };
 // }
 
-// // This also gets called at build time
-// export async function getStaticProps({ params }) {
-//   // params contains the post `id`.
-//   // If the route is like /posts/1, then params.id is 1
-//   const res = await fetch(`https://.../posts/${params.id}`)
-//   const post = await res.json()
+export async function getServerSideProps({ params }) {
+  const apolloClient = initializeApollo();
 
-//   // Pass post data to the page via props
-//   return { props: { post } }
-// }
+  const variables = {
+    id: params.itemID,
+  };
+
+  await apolloClient.query({
+    query: ItemByIdQuery,
+    variables,
+  });
+
+  return {
+    props: {
+      initialApolloState: apolloClient.cache.extract(),
+    },
+  };
+}
 
 export default itemDisplay;
