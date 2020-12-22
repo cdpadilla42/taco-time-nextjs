@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/client';
 import { initializeApollo } from '../../apollo/client';
+import { priceToString } from '../../lib/utility';
 
 const ItemByIdQuery = gql`
   query getItem($id: ID!) {
@@ -12,6 +13,7 @@ const ItemByIdQuery = gql`
       name
       description
       price
+      img
       customizations {
         name
         title
@@ -36,7 +38,7 @@ const ItemsQuery = gql`
 const StyledItemDetails = styled.div`
   img {
     display: block;
-    width: 300;
+    width: 300px;
     margin: 0 auto;
   }
 
@@ -94,11 +96,10 @@ const itemDisplay = () => {
   return (
     <StyledItemDetails>
       <div className="container">
-        <span>{item.name}</span>
-        <img src={testItem.img} alt="" />
-        <h2>{testItem.name}</h2>
-        <p>$1,000,000</p>
-        <p>{testItem.description}</p>
+        <img src={item.img} alt="" />
+        <h2>{item.name}</h2>
+        <p>{priceToString(item.price)}</p>
+        <p>{item.description}</p>
       </div>
       <div className="options">
         {testItem.customizations.map((customizeable) => {
