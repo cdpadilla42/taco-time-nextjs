@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import { dummyData } from '../../lib/dummyData';
 import styled from 'styled-components';
@@ -6,6 +6,7 @@ import gql from 'graphql-tag';
 import { useQuery } from '@apollo/client';
 import { initializeApollo } from '../../apollo/client';
 import { priceToString } from '../../lib/utility';
+import CustomizationDisplay from '../../components/CustomizationDisplay';
 
 const ItemByIdQuery = gql`
   query getItem($id: ID!) {
@@ -75,6 +76,24 @@ const StyledItemDetails = styled.div`
 `;
 
 const itemDisplay = () => {
+  const [selectedOptions, setSelectedOptions] = useState({});
+
+  /*
+
+  Hold state at the top,
+
+  Dynamically create state for your options here:
+
+  {
+    tortilla: flour,
+    ingredients: [
+      noPineapple
+    ]
+  }
+
+  Submit with form
+  */
+
   const router = useRouter();
   const { itemID } = router.query;
 
@@ -98,28 +117,10 @@ const itemDisplay = () => {
       <div className="options">
         {item.customizations.map((customizeable) => {
           return (
-            <React.Fragment key={customizeable.name}>
-              <div className="title">
-                <h2>{customizeable.title}</h2>
-                {customizeable.required && <p>Required</p>}
-              </div>
-              {customizeable.options.map((option) => {
-                return (
-                  <button className="option" key={option.name}>
-                    <p>
-                      <span>{option.name}</span>
-                      {option.price ? (
-                        <span className="added-price">{`+ ${priceToString(
-                          option.price
-                        )}`}</span>
-                      ) : (
-                        ''
-                      )}
-                    </p>
-                  </button>
-                );
-              })}
-            </React.Fragment>
+            <CustomizationDisplay
+              key={customizeable.name}
+              customizeable={customizeable}
+            />
           );
         })}
       </div>

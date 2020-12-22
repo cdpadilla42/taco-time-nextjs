@@ -25,9 +25,6 @@ const Index = () => {
     <>
       <ItemFrom />
       <CardCarousel itemsArr={itemsArr} />
-      {itemsArr.map((item) => {
-        return <span>{item.name}</span>;
-      })}
     </>
   );
 
