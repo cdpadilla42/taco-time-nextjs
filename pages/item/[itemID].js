@@ -27,14 +27,6 @@ const ItemByIdQuery = gql`
   }
 `;
 
-const ItemsQuery = gql`
-  query ItemQuery {
-    item {
-      _id
-    }
-  }
-`;
-
 const StyledItemDetails = styled.div`
   img {
     display: block;
@@ -59,7 +51,7 @@ const StyledItemDetails = styled.div`
     border: 1px solid rgba(0, 0, 0, 0.1);
     margin: 1rem;
     box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.04);
-    width: 100%;
+    width: calc(100% - 2rem);
     display: block;
     background-color: rgba(0, 0, 0, 0);
     font-family: inherit;
@@ -75,13 +67,16 @@ const StyledItemDetails = styled.div`
   .option.selected {
     border: 2px solid rgba(0, 0, 0, 1);
   }
+
+  .added-price {
+    display: block;
+    float: right;
+  }
 `;
 
 const itemDisplay = () => {
   const router = useRouter();
   const { itemID } = router.query;
-
-  console.log(itemID);
 
   const {
     data: { itemById: item },
@@ -91,7 +86,6 @@ const itemDisplay = () => {
     },
   });
 
-  console.log(item, 'from the itemDisplay');
   const testItem = dummyData;
   return (
     <StyledItemDetails>
@@ -102,62 +96,36 @@ const itemDisplay = () => {
         <p>{item.description}</p>
       </div>
       <div className="options">
-        {testItem.customizations.map((customizeable) => {
+        {item.customizations.map((customizeable) => {
           return (
-            <>
+            <React.Fragment key={customizeable.name}>
               <div className="title">
                 <h2>{customizeable.title}</h2>
+                {customizeable.required && <p>Required</p>}
               </div>
               {customizeable.options.map((option) => {
                 return (
-                  <button className="option">
+                  <button className="option" key={option.name}>
                     <p>
-                      {option.name} {option.price ? ` + $${option.price}` : ''}
+                      <span>{option.name}</span>
+                      {option.price ? (
+                        <span className="added-price">{`+ ${priceToString(
+                          option.price
+                        )}`}</span>
+                      ) : (
+                        ''
+                      )}
                     </p>
                   </button>
                 );
               })}
-            </>
+            </React.Fragment>
           );
         })}
       </div>
     </StyledItemDetails>
   );
 };
-
-// // This function gets called at build time
-// export async function getStaticPaths() {
-//   const apolloClient = initializeApollo();
-
-//   await apolloClient.query({
-//     query: ItemsQuery,
-//   });
-
-//   const itemIds = apolloClient.cache.extract();
-
-//   console.log(itemIds);
-
-//   return {
-//     props: {
-//       initialApolloState: apolloClient.cache.extract(),
-//     },
-//   };
-
-//   // * Notes from docs ------------
-
-//   // Call an external API endpoint to get posts
-//   const res = await fetch('https://.../posts');
-//   const posts = await res.json();
-
-//   // Get the paths we want to pre-render based on posts
-//   const paths = posts.map((post) => ({
-//     params: { id: post.id },
-//   }));
-
-//   // We'll pre-render only these paths at build time.
-//   // { fallback: false } means other routes should 404.
-//   return { paths, fallback: false };
-// }
 
 export async function getServerSideProps({ params }) {
   const apolloClient = initializeApollo();
