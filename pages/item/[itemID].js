@@ -4,8 +4,8 @@ import { dummyData } from '../../lib/dummyData';
 import styled from 'styled-components';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/client';
-import { initializeApollo } from '../../apollo/client';
 import { priceToString } from '../../lib/utility';
+import { initializeApollo } from '../../apollo/client';
 import CustomizationDisplay from '../../components/CustomizationDisplay';
 
 const ItemByIdQuery = gql`
@@ -120,6 +120,8 @@ const itemDisplay = () => {
             <CustomizationDisplay
               key={customizeable.name}
               customizeable={customizeable}
+              selectedOptions={selectedOptions}
+              setSelectedOptions={setSelectedOptions}
             />
           );
         })}
