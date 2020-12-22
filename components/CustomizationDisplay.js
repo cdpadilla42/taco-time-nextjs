@@ -16,6 +16,10 @@ const CustomizationDisplay = ({
     console.log(customizeable.name, option.name);
   }
 
+  function isOptionSelected(customizableName, option) {
+    return selectedOptions[customizableName] === option;
+  }
+
   return (
     <>
       <div className="title">
@@ -25,7 +29,11 @@ const CustomizationDisplay = ({
       {customizeable.options.map((option) => {
         return (
           <button
-            className="option"
+            className={
+              isOptionSelected(customizeable.name, option.name)
+                ? 'option selected'
+                : 'option'
+            }
             key={option.name}
             onClick={() => handleClick(option)}
           >
