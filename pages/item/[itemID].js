@@ -7,6 +7,7 @@ import { useQuery } from '@apollo/client';
 import { priceToString } from '../../lib/utility';
 import { initializeApollo } from '../../apollo/client';
 import CustomizationDisplay from '../../components/CustomizationDisplay';
+import AddItemToCart from '../../components/AddItemToCart';
 
 const ItemByIdQuery = gql`
   query getItem($id: ID!) {
@@ -132,6 +133,7 @@ const itemDisplay = () => {
           );
         })}
       </div>
+      <AddItemToCart />
     </StyledItemDetails>
   );
 };
