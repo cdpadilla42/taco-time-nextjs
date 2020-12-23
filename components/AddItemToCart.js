@@ -2,11 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledAddItemToCart = styled.div`
+  position: sticky;
+  bottom: 1px;
+
   .quantity_row {
     display: flex;
     background-color: rgba(0, 0, 0, 0.8);
     border-top: 1px solid rgba(0, 0, 0, 0.04);
-    position: sticky;
+
     span {
       flex: 1;
     }
