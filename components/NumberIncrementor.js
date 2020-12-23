@@ -5,16 +5,18 @@ const StyledNumberIncrementor = styled.div`
   display: flex;
 
   button {
-    margin: 0;
     border: none;
     box-shadow: none;
     box-sizing: border-box;
-    padding: 0;
+    font-size: inherit;
+    font-family: inherit;
   }
 
   .plus,
   .minus,
   .value {
+    margin: 0;
+    padding: 0;
     border: 1px solid rgb(217, 217, 217);
     width: 2rem;
     height: 2rem;
@@ -29,16 +31,25 @@ const StyledNumberIncrementor = styled.div`
   }
 `;
 
-const NumberIncrementor = () => {
+const NumberIncrementor = ({ quantity, setQuantity }) => {
+  function increment() {
+    setQuantity((prevState) => prevState + 1);
+  }
+
+  function decrement() {
+    if (quantity === 1) return;
+    setQuantity((prevState) => prevState - 1);
+  }
+
   return (
     <StyledNumberIncrementor>
-      <button className="minus">
+      <button className="minus" onClick={decrement}>
         <span>-</span>
       </button>
       <div className="value">
-        <span>{'1'}</span>
+        <span>{quantity}</span>
       </div>
-      <button className="plus">
+      <button className="plus" onClick={increment}>
         <span>+</span>
       </button>
     </StyledNumberIncrementor>

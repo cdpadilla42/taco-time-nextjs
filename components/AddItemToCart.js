@@ -20,7 +20,7 @@ const StyledAddItemToCart = styled.div`
     }
   }
 
-  button {
+  .add_to_cart_button {
     box-sizing: border-box;
     margin: 1rem;
     width: calc(100% - 2rem);
@@ -34,16 +34,16 @@ const StyledAddItemToCart = styled.div`
   }
 `;
 
-const AddItemToCart = () => {
+const AddItemToCart = ({ quantity, setQuantity }) => {
   return (
     <StyledAddItemToCart>
       <div className="quantity_row">
         <span className="quantity_text">Quantity</span>
         <div className="quantity_row__input">
-          <NumberIncrementor />
+          <NumberIncrementor quantity={quantity} setQuantity={setQuantity} />
         </div>
       </div>
-      <button>
+      <button className="add_to_cart_button">
         <span>Add to Cart</span>
         <span>$$$</span>
       </button>

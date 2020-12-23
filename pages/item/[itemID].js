@@ -60,7 +60,6 @@ const StyledItemDetails = styled.div`
     font-family: inherit;
     font-size: inherit;
     text-align: left;
-    display: border-box;
     box-sizing: border-box;
   }
 
@@ -82,6 +81,7 @@ const StyledItemDetails = styled.div`
 
 const itemDisplay = () => {
   const [selectedOptions, setSelectedOptions] = useState({});
+  const [quantity, setQuantity] = useState(1);
 
   /*
 
@@ -133,7 +133,7 @@ const itemDisplay = () => {
           );
         })}
       </div>
-      <AddItemToCart />
+      <AddItemToCart quantity={quantity} setQuantity={setQuantity} />
     </StyledItemDetails>
   );
 };
