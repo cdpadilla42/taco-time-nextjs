@@ -7,11 +7,13 @@ const StyledAddItemToCart = styled.div`
   bottom: 1px;
   background-color: rgb(242, 242, 242);
   border-top: 1px solid rgb(217, 217, 217);
+  padding: 1rem 0;
 
   .quantity_row {
     display: flex;
     margin: 1rem;
     padding: 0.5rem 0;
+    margin-top: 0;
 
     .quantity_text {
       flex: 1;
@@ -23,6 +25,7 @@ const StyledAddItemToCart = styled.div`
   .add_to_cart_button {
     box-sizing: border-box;
     margin: 1rem;
+    margin-bottom: 0;
     width: calc(100% - 2rem);
     padding: 1rem;
     text-align: center;
