@@ -4,14 +4,24 @@ import styled from 'styled-components';
 const StyledNumberIncrementor = styled.div`
   display: flex;
 
-  div {
+  button {
+    margin: 0;
+    border: none;
+    box-shadow: none;
     box-sizing: border-box;
+    padding: 0;
+  }
+
+  .plus,
+  .minus,
+  .value {
     border: 1px solid rgb(217, 217, 217);
     width: 2rem;
     height: 2rem;
     display: flex;
     justify-content: center;
     align-items: center;
+    box-sizing: border-box;
 
     span {
       text-align: center;
