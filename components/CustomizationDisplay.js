@@ -37,7 +37,7 @@ const CustomizationDisplay = ({
             key={option.name}
             onClick={() => handleClick(option)}
           >
-            <p>
+            <span>
               <span>{option.name}</span>
               {option.price ? (
                 <span className="added-price">{`+ ${priceToString(
@@ -46,7 +46,7 @@ const CustomizationDisplay = ({
               ) : (
                 ''
               )}
-            </p>
+            </span>
           </button>
         );
       })}

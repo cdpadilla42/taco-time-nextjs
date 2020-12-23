@@ -49,8 +49,9 @@ const StyledItemDetails = styled.div`
 
   /* single option */
   .option {
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    border: 2px solid rgba(0, 0, 0, 0.1);
     margin: 1rem;
+    padding: 1rem;
     box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.04);
     width: calc(100% - 2rem);
     display: block;
@@ -58,6 +59,8 @@ const StyledItemDetails = styled.div`
     font-family: inherit;
     font-size: inherit;
     text-align: left;
+    display: border-box;
+    box-sizing: border-box;
   }
 
   .option:hover {
@@ -67,6 +70,7 @@ const StyledItemDetails = styled.div`
 
   .option.selected {
     border: 2px solid rgba(0, 0, 0, 1);
+    background-color: rgba(0, 0, 0, 0.08);
   }
 
   .added-price {
@@ -93,6 +97,8 @@ const itemDisplay = () => {
 
   Submit with form
   */
+
+  // TODO: Fix border resizing on item selection
 
   const router = useRouter();
   const { itemID } = router.query;
