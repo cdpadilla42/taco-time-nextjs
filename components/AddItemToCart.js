@@ -1,18 +1,36 @@
 import React from 'react';
 import styled from 'styled-components';
+import NumberIncrementor from './NumberIncrementor';
 
 const StyledAddItemToCart = styled.div`
   position: sticky;
   bottom: 1px;
+  background-color: rgb(242, 242, 242);
+  border-top: 1px solid rgb(217, 217, 217);
 
   .quantity_row {
     display: flex;
-    background-color: rgba(0, 0, 0, 0.8);
-    border-top: 1px solid rgba(0, 0, 0, 0.04);
+    margin: 1rem;
+    padding: 0.5rem 0;
 
-    span {
+    .quantity_text {
       flex: 1;
+      display: flex;
+      align-items: center;
     }
+  }
+
+  button {
+    box-sizing: border-box;
+    margin: 1rem;
+    width: calc(100% - 2rem);
+    padding: 1rem;
+    text-align: center;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.04);
+    display: block;
+    font-family: inherit;
+    font-size: inherit;
   }
 `;
 
@@ -20,8 +38,10 @@ const AddItemToCart = () => {
   return (
     <StyledAddItemToCart>
       <div className="quantity_row">
-        <span>Quantity</span>
-        <div className="quantity_row__input">buttons here</div>
+        <span className="quantity_text">Quantity</span>
+        <div className="quantity_row__input">
+          <NumberIncrementor />
+        </div>
       </div>
       <button>
         <span>Add to Cart</span>
