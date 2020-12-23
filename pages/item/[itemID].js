@@ -30,6 +30,9 @@ const ItemByIdQuery = gql`
 `;
 
 const StyledItemDetails = styled.div`
+  max-width: 1278px;
+  margin: 0 auto;
+
   img {
     display: block;
     width: 300px;
