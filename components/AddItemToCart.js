@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import NumberIncrementor from './NumberIncrementor';
+import { priceToString } from '../lib/utility';
 
 const StyledAddItemToCart = styled.div`
   position: sticky;
@@ -47,7 +48,11 @@ const StyledAddItemToCart = styled.div`
   }
 `;
 
-const AddItemToCart = ({ quantity, setQuantity }) => {
+const AddItemToCart = ({ quantity, setQuantity, price }) => {
+  function displayTotalPrice() {
+    return priceToString(price * quantity);
+  }
+
   return (
     <StyledAddItemToCart>
       <div className="quantity_row">
@@ -58,7 +63,7 @@ const AddItemToCart = ({ quantity, setQuantity }) => {
       </div>
       <button className="add_to_cart_button">
         <span>Add to Cart</span>
-        <span className="total_price">$$$</span>
+        <span className="total_price">{displayTotalPrice()}</span>
       </button>
     </StyledAddItemToCart>
   );

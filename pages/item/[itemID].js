@@ -136,7 +136,11 @@ const itemDisplay = () => {
           );
         })}
       </div>
-      <AddItemToCart quantity={quantity} setQuantity={setQuantity} />
+      <AddItemToCart
+        quantity={quantity}
+        setQuantity={setQuantity}
+        price={item.price}
+      />
     </StyledItemDetails>
   );
 };
