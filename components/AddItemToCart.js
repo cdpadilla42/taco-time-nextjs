@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import NumberIncrementor from './NumberIncrementor';
 import { priceToString } from '../lib/utility';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 const StyledAddItemToCart = styled.div`
   position: sticky;
@@ -40,17 +41,53 @@ const StyledAddItemToCart = styled.div`
   }
 
   .total_price {
+    width: 4rem;
+    text-align: center;
+    display: block;
     position: absolute;
     right: 1rem;
     top: 6px;
     border: 2px solid rgb(217, 217, 217);
     padding: 0.5rem;
+    overflow: hidden;
+  }
+
+  .total_amount-enter {
+    background-color: red;
+    transition: transform 0.5s;
+    transform: translateY(200%);
+
+    display: block;
+
+    &.total_amount-enter-active {
+      transform: translateY(0);
+    }
+  }
+
+  .total_amount-exit {
+    display: block;
+    background-color: yellow;
+    transition: transform 0.5s;
+    transform: translateY(0);
+    position: absolute;
+    top: 8px;
+    left: 0;
+    width: 5rem;
+    text-align: center;
+
+    &.total_amount-exit-active {
+      transform: translateY(-200%);
+    }
   }
 `;
 
 const AddItemToCart = ({ quantity, setQuantity, price }) => {
-  function displayTotalPrice() {
+  function displayTotalPrice(price) {
     return priceToString(price * quantity);
+  }
+
+  function calcTotalPriceInCents(price) {
+    return price * quantity;
   }
 
   return (
@@ -63,7 +100,15 @@ const AddItemToCart = ({ quantity, setQuantity, price }) => {
       </div>
       <button className="add_to_cart_button">
         <span>Add to Cart</span>
-        <span className="total_price">{displayTotalPrice()}</span>
+        <TransitionGroup component="span" className="total_price">
+          <CSSTransition
+            classNames="total_amount"
+            key={calcTotalPriceInCents(price)}
+            timeout={{ enter: 500, exit: 500 }}
+          >
+            <span>{displayTotalPrice(price)}</span>
+          </CSSTransition>
+        </TransitionGroup>
       </button>
     </StyledAddItemToCart>
   );

@@ -64,6 +64,7 @@ const StyledItemDetails = styled.div`
     font-size: inherit;
     text-align: left;
     box-sizing: border-box;
+    transition: background-color 0.4s ease;
   }
 
   .option:hover {
