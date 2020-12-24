@@ -38,6 +38,12 @@ const StyledAddItemToCart = styled.div`
     font-size: inherit;
     cursor: pointer;
     position: relative;
+    transition: background-color 0.4s ease, color 0.4s ease;
+  }
+
+  .add_to_cart_button:hover {
+    background-color: #5794ff;
+    color: white;
   }
 
   .total_price {
@@ -53,7 +59,6 @@ const StyledAddItemToCart = styled.div`
   }
 
   .total_amount-enter {
-    background-color: red;
     transition: transform 0.5s;
     transform: translateY(200%);
 
@@ -66,7 +71,6 @@ const StyledAddItemToCart = styled.div`
 
   .total_amount-exit {
     display: block;
-    background-color: yellow;
     transition: transform 0.5s;
     transform: translateY(0);
     position: absolute;
