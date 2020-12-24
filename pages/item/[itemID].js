@@ -141,6 +141,7 @@ const itemDisplay = () => {
         quantity={quantity}
         setQuantity={setQuantity}
         price={item.price}
+        itemID={itemID}
       />
     </StyledItemDetails>
   );

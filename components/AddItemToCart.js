@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
 import NumberIncrementor from './NumberIncrementor';
 import { priceToString } from '../lib/utility';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
@@ -85,13 +86,25 @@ const StyledAddItemToCart = styled.div`
   }
 `;
 
-const AddItemToCart = ({ quantity, setQuantity, price }) => {
+const AddItemToCart = ({ quantity, setQuantity, price, itemID }) => {
+  const dispatch = useDispatch();
+
   function displayTotalPrice(price) {
     return priceToString(price * quantity);
   }
 
   function calcTotalPriceInCents(price) {
     return price * quantity;
+  }
+
+  function handleAddToCartClick() {
+    dispatch({
+      type: 'ADD_TO_CART',
+      payload: {
+        id: itemID,
+        quantity,
+      },
+    });
   }
 
   return (
@@ -102,7 +115,7 @@ const AddItemToCart = ({ quantity, setQuantity, price }) => {
           <NumberIncrementor quantity={quantity} setQuantity={setQuantity} />
         </div>
       </div>
-      <button className="add_to_cart_button">
+      <button className="add_to_cart_button" onClick={handleAddToCartClick}>
         <span>Add to Cart</span>
         <TransitionGroup component="span" className="total_price">
           <CSSTransition
