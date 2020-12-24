@@ -34,6 +34,16 @@ const StyledAddItemToCart = styled.div`
     display: block;
     font-family: inherit;
     font-size: inherit;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .total_price {
+    position: absolute;
+    right: 1rem;
+    top: 6px;
+    border: 2px solid rgb(217, 217, 217);
+    padding: 0.5rem;
   }
 `;
 
@@ -48,7 +58,7 @@ const AddItemToCart = ({ quantity, setQuantity }) => {
       </div>
       <button className="add_to_cart_button">
         <span>Add to Cart</span>
-        <span>$$$</span>
+        <span className="total_price">$$$</span>
       </button>
     </StyledAddItemToCart>
   );

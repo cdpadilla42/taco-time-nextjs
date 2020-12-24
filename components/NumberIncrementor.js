@@ -10,6 +10,7 @@ const StyledNumberIncrementor = styled.div`
     box-sizing: border-box;
     font-size: inherit;
     font-family: inherit;
+    cursor: pointer;
   }
 
   .plus,
@@ -24,6 +25,10 @@ const StyledNumberIncrementor = styled.div`
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
+
+    .value {
+      background-color: #fff;
+    }
 
     span {
       text-align: center;
