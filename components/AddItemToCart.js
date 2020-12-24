@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
+import { useRouter } from 'next/router';
 import NumberIncrementor from './NumberIncrementor';
 import { priceToString } from '../lib/utility';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
@@ -88,6 +89,7 @@ const StyledAddItemToCart = styled.div`
 
 const AddItemToCart = ({ quantity, setQuantity, price, itemID }) => {
   const dispatch = useDispatch();
+  const router = useRouter();
 
   function displayTotalPrice(price) {
     return priceToString(price * quantity);
@@ -105,6 +107,7 @@ const AddItemToCart = ({ quantity, setQuantity, price, itemID }) => {
         quantity,
       },
     });
+    router.push('/');
   }
 
   return (
