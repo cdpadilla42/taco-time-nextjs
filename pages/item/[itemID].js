@@ -142,6 +142,7 @@ const itemDisplay = () => {
         setQuantity={setQuantity}
         price={item.price}
         itemID={itemID}
+        selectedOptions={selectedOptions}
       />
     </StyledItemDetails>
   );

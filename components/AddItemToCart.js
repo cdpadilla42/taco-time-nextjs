@@ -87,7 +87,13 @@ const StyledAddItemToCart = styled.div`
   }
 `;
 
-const AddItemToCart = ({ quantity, setQuantity, price, itemID }) => {
+const AddItemToCart = ({
+  quantity,
+  setQuantity,
+  price,
+  itemID,
+  selectedOptions,
+}) => {
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -105,6 +111,7 @@ const AddItemToCart = ({ quantity, setQuantity, price, itemID }) => {
       payload: {
         id: itemID,
         quantity,
+        selectedOptions,
       },
     });
     router.push('/');

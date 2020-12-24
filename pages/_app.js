@@ -7,6 +7,8 @@ import store from '../lib/redux';
 export default function App({ Component, pageProps }) {
   const apolloClient = useApollo(pageProps.initialApolloState);
 
+  // TODO Here, implement local storage to persist guest data. If user has items in local storage, add this to redux state
+
   return (
     <ApolloProvider client={apolloClient}>
       <ReduxProvider store={store}>
