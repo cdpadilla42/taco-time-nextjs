@@ -3,6 +3,7 @@ import { useQuery } from '@apollo/client';
 import { initializeApollo } from '../apollo/client';
 import CardCarousel from '../components/CardCarousel';
 import ItemFrom from '../components/ItemForm';
+import Cart from '../components/Cart';
 
 const ItemsQuery = gql`
   query ItemQuery {
@@ -25,6 +26,7 @@ const Index = () => {
     <>
       <ItemFrom />
       <CardCarousel itemsArr={itemsArr} />
+      <Cart />
     </>
   );
 
