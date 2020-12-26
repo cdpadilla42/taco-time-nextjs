@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import ButtonWithPrice from '../components/ButtonWithPrice';
 
 const StyledCart = styled.div`
   height: 100vh;
@@ -122,6 +123,7 @@ const Cart = () => {
           </div>
         </div>
       </div>
+      <ButtonWithPrice />
     </StyledCart>
   );
 };

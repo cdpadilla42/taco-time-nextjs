@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { displayTotalPrice, calcTotalPriceInCents } from '../lib/utility';
 
 const StyledButton = styled.button`
   box-sizing: border-box;
@@ -62,17 +63,17 @@ const StyledButton = styled.button`
   }
 `;
 
-const ButtonWithPrice = (props) => {
+const ButtonWithPrice = ({ price, handleClick }) => {
   return (
-    <StyledButton onClick={props.handleClick}>
+    <StyledButton onClick={handleClick}>
       <span>Add to Cart</span>
       <TransitionGroup component="span" className="total_price">
         <CSSTransition
           classNames="total_amount"
-          key={props.calcTotalPriceInCents(props.price) ?? props.price}
+          key={price}
           timeout={{ enter: 500, exit: 500 }}
         >
-          <span>{props.displayTotalPrice(props.price)}</span>
+          <span>{displayTotalPrice(price)}</span>
         </CSSTransition>
       </TransitionGroup>
     </StyledButton>

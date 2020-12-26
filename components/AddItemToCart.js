@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import NumberIncrementor from './NumberIncrementor';
 import { priceToString } from '../lib/utility';
 import ButtonWithPrice from './ButtonWithPrice';
+import { calcTotalPriceInCents } from '../lib/utility';
 
 const StyledAddItemToCart = styled.div`
   position: sticky;
@@ -49,14 +50,6 @@ const AddItemToCart = ({
     router.push('/');
   }
 
-  function displayTotalPrice(price) {
-    return priceToString(price * quantity);
-  }
-
-  function calcTotalPriceInCents(price) {
-    return price * quantity;
-  }
-
   return (
     <StyledAddItemToCart>
       <div className="quantity_row">
@@ -66,9 +59,7 @@ const AddItemToCart = ({
         </div>
       </div>
       <ButtonWithPrice
-        displayTotalPrice={displayTotalPrice}
-        calcTotalPriceInCents={calcTotalPriceInCents}
-        price={price}
+        price={calcTotalPriceInCents(price, quantity)}
         handleClick={handleAddToCartClick}
       />
     </StyledAddItemToCart>
