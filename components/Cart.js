@@ -27,6 +27,10 @@ const StyledCart = styled.div`
     }
   }
 
+  .items_display {
+    overflow: scroll;
+  }
+
   .item_row {
     padding: 1rem;
     display: flex;
