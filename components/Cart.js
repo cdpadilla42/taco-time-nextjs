@@ -30,6 +30,11 @@ const StyledCart = styled.div`
   .item_row {
     padding: 1rem;
     display: flex;
+    border-top: 1px solid rgb(217, 217, 217);
+
+    &:first-child {
+      border-top: none;
+    }
 
     .left {
       flex: 1;
@@ -80,6 +85,22 @@ const Cart = () => {
         <button>&times;</button>
       </div>
       <div className="items_display">
+        <div className="item_row">
+          <div className="left">
+            <div className="item_details">1 Fundido Sirloin</div>
+            <ul className="item_customizations">
+              <li>Flour</li>
+              <li>No Cheese</li>
+              <li>Extra Yummy</li>
+            </ul>
+          </div>
+          <div className="right">
+            <span className="price">$4.50</span>
+            <button className="remove">
+              <span>&times;</span>
+            </button>
+          </div>
+        </div>
         <div className="item_row">
           <div className="left">
             <div className="item_details">1 Fundido Sirloin</div>
