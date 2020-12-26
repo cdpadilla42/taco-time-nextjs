@@ -80,6 +80,24 @@ const StyledCart = styled.div`
     justify-content: center;
     cursor: pointer;
   }
+
+  .total_bottom_line {
+    background-color: rgb(242, 242, 242);
+    border-top: 1px solid rgb(217, 217, 217);
+    padding: 1rem 0;
+  }
+
+  .quantity_row {
+    display: flex;
+    margin: 0.5rem 1rem;
+    align-items: center;
+
+    .quantity_text {
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+  }
 `;
 
 const Cart = () => {
@@ -123,7 +141,17 @@ const Cart = () => {
           </div>
         </div>
       </div>
-      <ButtonWithPrice />
+      <div className="total_bottom_line">
+        <div className="quantity_row">
+          <span className="quantity_text">Sub Total</span>
+          <div className="quantity_row__right">$8.20</div>
+        </div>
+        <div className="quantity_row">
+          <span className="quantity_text">Estimated Tax</span>
+          <div className="quantity_row__right">$8.20</div>
+        </div>
+        <ButtonWithPrice />
+      </div>
     </StyledCart>
   );
 };
