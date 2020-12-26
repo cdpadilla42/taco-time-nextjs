@@ -103,8 +103,6 @@ const itemDisplay = () => {
   Submit with form
   */
 
-  // TODO: Fix border resizing on item selection
-
   const router = useRouter();
   const { itemID } = router.query;
 

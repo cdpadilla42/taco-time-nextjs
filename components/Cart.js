@@ -26,6 +26,50 @@ const StyledCart = styled.div`
       transform: translateY(-4px);
     }
   }
+
+  .item_row {
+    padding: 1rem;
+    display: flex;
+
+    .left {
+      flex: 1;
+    }
+
+    .right {
+      display: flex;
+    }
+  }
+
+  .item_customizations {
+    color: rgb(100, 100, 100);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    padding-left: 0.8rem;
+
+    li {
+      margin: 0.5rem 0;
+    }
+  }
+
+  .price {
+    display: block;
+    padding: 0 1rem;
+  }
+
+  .remove {
+    box-sizing: border-box;
+    background-color: black;
+    color: white;
+    border: none;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
 `;
 
 const Cart = () => {
@@ -41,11 +85,15 @@ const Cart = () => {
             <div className="item_details">1 Fundido Sirloin</div>
             <ul className="item_customizations">
               <li>Flour</li>
+              <li>No Cheese</li>
+              <li>Extra Yummy</li>
             </ul>
           </div>
           <div className="right">
             <span className="price">$4.50</span>
-            <button className="remove">&times;</button>
+            <button className="remove">
+              <span>&times;</span>
+            </button>
           </div>
         </div>
       </div>
