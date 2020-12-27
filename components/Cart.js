@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import ButtonWithPrice from '../components/ButtonWithPrice';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleCart, removeFromCart } from '../lib/redux';
+import CartItem from './CartItem';
 import { priceToString } from '../lib/utility';
 
 const StyledCart = styled.div`
@@ -131,50 +132,17 @@ const Cart = () => {
     dispatch(toggleCart());
   }
 
-  function handleItemRemoval(cartItemId) {
-    console.log(`Removing ${cartItemId}`);
-    // TODO Implement this in redux
-    dispatch(removeFromCart(cartItemId));
-  }
-
-  function renderCusomizations(item) {
-    return (
-      <ul className="item_customizations">
-        {Object.values(item.selectedOptions).map((customization) => (
-          <li key={`${item.cartItemId}${customization}`}>{customization}</li>
-        ))}
-      </ul>
-    );
-  }
-
-  function renderCartItems() {
-    return cartItems.map((item) => (
-      <React.Fragment key={item.cartItemId}>
-        <div className="item_row">
-          <div className="left">
-            <div className="item_details">{`${item.quantity} ${item.name}`}</div>
-            {renderCusomizations(item)}
-          </div>
-          <div className="right">
-            <span className="price">{priceToString(item.price)}</span>
-            <button className="remove">
-              <span onClick={() => handleItemRemoval(item.cartItemId)}>
-                &times;
-              </span>
-            </button>
-          </div>
-        </div>
-      </React.Fragment>
-    ));
-  }
-
   return (
     <StyledCart className={isCartOpen && 'closed'}>
       <div className="heading">
         <h4>Your Order</h4>
         <button onClick={handleClose}>&times;</button>
       </div>
-      <div className="items_display">{renderCartItems()}</div>
+      <div className="items_display">
+        {cartItems.map((item) => (
+          <CartItem item={item} />
+        ))}
+      </div>
       <div className="total_bottom_line">
         <div className="quantity_row">
           <span className="quantity_text">Sub Total</span>
