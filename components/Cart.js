@@ -130,6 +130,16 @@ const Cart = () => {
     dispatch(toggleCart());
   }
 
+  function renderCusomizations(item) {
+    return (
+      <ul className="item_customizations">
+        {Object.values(item.selectedOptions).map((customization) => (
+          <li key={`${item.name}${customization}`}>{customization}</li>
+        ))}
+      </ul>
+    );
+  }
+
   function renderCartItems() {
     function generateKey(item, index) {
       return `${index}${item.id} ${Object.values(item.selectedOptions)}`;
@@ -139,11 +149,7 @@ const Cart = () => {
         <div className="item_row">
           <div className="left">
             <div className="item_details">{`${item.quantity} ${item.name}`}</div>
-            <ul className="item_customizations">
-              <li>Flour</li>
-              <li>No Cheese</li>
-              <li>Extra Yummy</li>
-            </ul>
+            {renderCusomizations(item)}
           </div>
           <div className="right">
             <span className="price">$4.50</span>
