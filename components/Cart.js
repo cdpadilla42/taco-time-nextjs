@@ -1,9 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
 import ButtonWithPrice from '../components/ButtonWithPrice';
+import { useSelector } from 'react-redux';
 
 const StyledCart = styled.div`
   height: 100vh;
+  transform: translateX(0);
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #fff;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+
+  .closed {
+    transform: translateX(100%);
+  }
 
   .heading {
     padding: 1rem;
@@ -30,6 +43,7 @@ const StyledCart = styled.div`
 
   .items_display {
     overflow: scroll;
+    flex: 1;
   }
 
   .item_row {
@@ -101,6 +115,8 @@ const StyledCart = styled.div`
 `;
 
 const Cart = () => {
+  const { isCartOpen } = useSelector((state) => state);
+  console.log(isCartOpen);
   return (
     <StyledCart>
       <div className="heading">
