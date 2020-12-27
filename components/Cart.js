@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import ButtonWithPrice from '../components/ButtonWithPrice';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { toggleCart } from '../lib/redux';
 
 const StyledCart = styled.div`
   height: 100vh;
@@ -13,8 +14,9 @@ const StyledCart = styled.div`
   width: 100vw;
   display: flex;
   flex-direction: column;
+  transition: transform 0.2s ease;
 
-  .closed {
+  &.closed {
     transform: translateX(100%);
   }
 
@@ -115,13 +117,18 @@ const StyledCart = styled.div`
 `;
 
 const Cart = () => {
+  const dispatch = useDispatch();
   const { isCartOpen } = useSelector((state) => state);
   console.log(isCartOpen);
+
+  function handleClose() {
+    dispatch(toggleCart());
+  }
   return (
-    <StyledCart>
+    <StyledCart className={isCartOpen && 'closed'}>
       <div className="heading">
         <h4>Your Order</h4>
-        <button>&times;</button>
+        <button onClick={handleClose}>&times;</button>
       </div>
       <div className="items_display">
         <div className="item_row">
