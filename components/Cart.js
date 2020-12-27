@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import ButtonWithPrice from '../components/ButtonWithPrice';
 import { useSelector, useDispatch } from 'react-redux';
-import { toggleCart } from '../lib/redux';
+import { toggleCart, removeFromCart } from '../lib/redux';
 import { priceToString } from '../lib/utility';
 
 const StyledCart = styled.div`
@@ -134,6 +134,7 @@ const Cart = () => {
   function handleItemRemoval(cartItemId) {
     console.log(`Removing ${cartItemId}`);
     // TODO Implement this in redux
+    dispatch(removeFromCart(cartItemId));
   }
 
   function renderCusomizations(item) {
