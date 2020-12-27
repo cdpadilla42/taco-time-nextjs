@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import ButtonWithPrice from '../components/ButtonWithPrice';
 import { useSelector, useDispatch } from 'react-redux';
@@ -118,52 +118,51 @@ const StyledCart = styled.div`
 
 const Cart = () => {
   const dispatch = useDispatch();
-  const { isCartOpen } = useSelector((state) => state);
-  console.log(isCartOpen);
+  const { isCartOpen, cart: cartItems } = useSelector((state) => state);
+
+  useEffect(() => {
+    console.log('getting cart info from local storage');
+  }, []);
+
+  console.log('cartItems', cartItems);
 
   function handleClose() {
     dispatch(toggleCart());
   }
+
+  function renderCartItems() {
+    function generateKey(item, index) {
+      return `${index}${item.id} ${Object.values(item.selectedOptions)}`;
+    }
+    return cartItems.map((item, index) => (
+      <React.Fragment key={generateKey(item, index)}>
+        <div className="item_row">
+          <div className="left">
+            <div className="item_details">{`${item.quantity} ${item.name}`}</div>
+            <ul className="item_customizations">
+              <li>Flour</li>
+              <li>No Cheese</li>
+              <li>Extra Yummy</li>
+            </ul>
+          </div>
+          <div className="right">
+            <span className="price">$4.50</span>
+            <button className="remove">
+              <span>&times;</span>
+            </button>
+          </div>
+        </div>
+      </React.Fragment>
+    ));
+  }
+
   return (
     <StyledCart className={isCartOpen && 'closed'}>
       <div className="heading">
         <h4>Your Order</h4>
         <button onClick={handleClose}>&times;</button>
       </div>
-      <div className="items_display">
-        <div className="item_row">
-          <div className="left">
-            <div className="item_details">1 Fundido Sirloin</div>
-            <ul className="item_customizations">
-              <li>Flour</li>
-              <li>No Cheese</li>
-              <li>Extra Yummy</li>
-            </ul>
-          </div>
-          <div className="right">
-            <span className="price">$4.50</span>
-            <button className="remove">
-              <span>&times;</span>
-            </button>
-          </div>
-        </div>
-        <div className="item_row">
-          <div className="left">
-            <div className="item_details">1 Fundido Sirloin</div>
-            <ul className="item_customizations">
-              <li>Flour</li>
-              <li>No Cheese</li>
-              <li>Extra Yummy</li>
-            </ul>
-          </div>
-          <div className="right">
-            <span className="price">$4.50</span>
-            <button className="remove">
-              <span>&times;</span>
-            </button>
-          </div>
-        </div>
-      </div>
+      <div className="items_display">{renderCartItems()}</div>
       <div className="total_bottom_line">
         <div className="quantity_row">
           <span className="quantity_text">Sub Total</span>

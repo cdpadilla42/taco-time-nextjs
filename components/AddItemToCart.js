@@ -34,6 +34,7 @@ const AddItemToCart = ({
   price,
   itemID,
   selectedOptions,
+  name,
 }) => {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -45,6 +46,8 @@ const AddItemToCart = ({
         id: itemID,
         quantity,
         selectedOptions,
+        price,
+        name,
       },
     });
     router.push('/');
