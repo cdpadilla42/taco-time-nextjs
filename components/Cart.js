@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import ButtonWithPrice from '../components/ButtonWithPrice';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleCart } from '../lib/redux';
+import { priceToString } from '../lib/utility';
 
 const StyledCart = styled.div`
   height: 100vh;
@@ -130,31 +131,35 @@ const Cart = () => {
     dispatch(toggleCart());
   }
 
+  function handleItemRemoval(cartItemId) {
+    console.log(`Removing ${cartItemId}`);
+    // TODO Implement this in redux
+  }
+
   function renderCusomizations(item) {
     return (
       <ul className="item_customizations">
         {Object.values(item.selectedOptions).map((customization) => (
-          <li key={`${item.name}${customization}`}>{customization}</li>
+          <li key={`${item.cartItemId}${customization}`}>{customization}</li>
         ))}
       </ul>
     );
   }
 
   function renderCartItems() {
-    function generateKey(item, index) {
-      return `${index}${item.id} ${Object.values(item.selectedOptions)}`;
-    }
-    return cartItems.map((item, index) => (
-      <React.Fragment key={generateKey(item, index)}>
+    return cartItems.map((item) => (
+      <React.Fragment key={item.cartItemId}>
         <div className="item_row">
           <div className="left">
             <div className="item_details">{`${item.quantity} ${item.name}`}</div>
             {renderCusomizations(item)}
           </div>
           <div className="right">
-            <span className="price">$4.50</span>
+            <span className="price">{priceToString(item.price)}</span>
             <button className="remove">
-              <span>&times;</span>
+              <span onClick={() => handleItemRemoval(item.cartItemId)}>
+                &times;
+              </span>
             </button>
           </div>
         </div>

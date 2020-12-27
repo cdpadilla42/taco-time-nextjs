@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { v4 as uuid } from 'uuid';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import NumberIncrementor from './NumberIncrementor';
@@ -48,6 +49,7 @@ const AddItemToCart = ({
         selectedOptions,
         price,
         name,
+        cartItemId: uuid(),
       },
     });
     router.push('/');
