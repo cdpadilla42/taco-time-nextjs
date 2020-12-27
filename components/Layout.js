@@ -1,5 +1,6 @@
 import React from 'react';
 import { createGlobalStyle } from 'styled-components';
+import Nav from './Nav';
 
 const Layout = ({ children }) => {
   const GlobalStyle = createGlobalStyle`
@@ -19,6 +20,7 @@ const Layout = ({ children }) => {
   return (
     <div className="layout">
       <GlobalStyle />
+      <Nav />
       {children}
     </div>
   );
