@@ -4,6 +4,7 @@ import { dummyData } from '../../lib/dummyData';
 import styled from 'styled-components';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/client';
+import connectDb from '../../lib/mongoose';
 import { priceToString } from '../../lib/utility';
 import { initializeApollo } from '../../apollo/client';
 import CustomizationDisplay from '../../components/CustomizationDisplay';
@@ -147,6 +148,8 @@ const itemDisplay = () => {
 };
 
 export async function getServerSideProps({ params }) {
+  connectDb()();
+
   const apolloClient = initializeApollo();
 
   const variables = {
