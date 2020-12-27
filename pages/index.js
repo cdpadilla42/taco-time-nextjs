@@ -5,6 +5,8 @@ import CardCarousel from '../components/CardCarousel';
 import ItemFrom from '../components/ItemForm';
 import Cart from '../components/Cart';
 
+import connectDb from '../lib/mongoose';
+
 const ItemsQuery = gql`
   query ItemQuery {
     item {
@@ -42,6 +44,7 @@ const Index = () => {
 };
 
 export async function getServerSideProps() {
+  await connectDb()();
   const apolloClient = initializeApollo();
 
   await apolloClient.query({
