@@ -89,7 +89,7 @@ const StyledCart = styled.div`
 
   .quantity_row {
     display: flex;
-    margin: 0.5rem 1rem;
+    margin: 1rem 1rem;
     align-items: center;
 
     .quantity_text {
