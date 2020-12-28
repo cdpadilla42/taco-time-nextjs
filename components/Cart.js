@@ -169,9 +169,9 @@ const Cart = () => {
         <h4>Your Order</h4>
         <button onClick={handleClose}>&times;</button>
       </div>
-      <TransitionGroup component="div" className="items_display">
-        {cartItems.length ? (
-          cartItems.map((item) => (
+      {cartItems.length !== 0 ? (
+        <TransitionGroup component="div" className="items_display">
+          {cartItems.map((item) => (
             <CSSTransition
               classNames="row_transition"
               key={item.cartItemId}
@@ -179,12 +179,14 @@ const Cart = () => {
             >
               <CartItem item={item} key={item.cartItemId} />
             </CSSTransition>
-          ))
-        ) : (
+          ))}
+        </TransitionGroup>
+      ) : (
+        <div className="items_display">
           <div className="empty_cart_prompt">No items in the cart!</div>
-        )}
-      </TransitionGroup>
-      {cartItems.length && (
+        </div>
+      )}
+      {cartItems.length !== 0 && (
         <>
           <div className="total_bottom_line">
             <div className="quantity_row">
