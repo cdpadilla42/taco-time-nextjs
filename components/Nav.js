@@ -71,8 +71,7 @@ const Nav = () => {
     dispatch(toggleCart());
   }
 
-  async function showToast(message) {
-    // setToastMessage(message);
+  async function showToast() {
     console.log('toast on');
     setIsToastShowing(true);
     await wait(4000);
@@ -84,7 +83,6 @@ const Nav = () => {
     <StyledNav>
       <div className="home">House</div>
       <div className="logo">Taco Time!</div>
-      <button onClick={() => showToast('Yum!')}>Toast</button>
       <button onClick={handleClick}>Cart</button>
       <TransitionGroup component="div">
         {isToastShowing && (

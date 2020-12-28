@@ -46,6 +46,13 @@ const StyledCart = styled.div`
     }
   }
 
+  .empty_cart_prompt {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+
   .items_display {
     overflow: scroll;
     flex: 1;
@@ -142,6 +149,20 @@ const Cart = () => {
     dispatch(toggleCart());
   }
 
+  function calcCartPreTaxTotal() {
+    return cartItems.reduce((prev, current) => {
+      return prev + current.price * current.quantity;
+    }, 0);
+  }
+
+  function calcCartTax() {
+    return 0.025 * calcCartPreTaxTotal();
+  }
+
+  function calcCartTotalWithTax() {
+    return calcCartPreTaxTotal() + calcCartTax();
+  }
+
   return (
     <StyledCart className={isCartOpen && 'closed'}>
       <div className="heading">
@@ -149,28 +170,39 @@ const Cart = () => {
         <button onClick={handleClose}>&times;</button>
       </div>
       <TransitionGroup component="div" className="items_display">
-        {cartItems.map((item) => (
-          <CSSTransition
-            classNames="row_transition"
-            key={item.cartItemId}
-            timeout={{ exit: 200 }}
-          >
-            <CartItem item={item} key={item.cartItemId} />
-          </CSSTransition>
-        ))}
+        {cartItems.length ? (
+          cartItems.map((item) => (
+            <CSSTransition
+              classNames="row_transition"
+              key={item.cartItemId}
+              timeout={{ exit: 200 }}
+            >
+              <CartItem item={item} key={item.cartItemId} />
+            </CSSTransition>
+          ))
+        ) : (
+          <div className="empty_cart_prompt">No items in the cart!</div>
+        )}
       </TransitionGroup>
-
-      <div className="total_bottom_line">
-        <div className="quantity_row">
-          <span className="quantity_text">Sub Total</span>
-          <div className="quantity_row__right">$8.20</div>
-        </div>
-        <div className="quantity_row">
-          <span className="quantity_text">Estimated Tax</span>
-          <div className="quantity_row__right">$8.20</div>
-        </div>
-        <ButtonWithPrice />
-      </div>
+      {cartItems.length && (
+        <>
+          <div className="total_bottom_line">
+            <div className="quantity_row">
+              <span className="quantity_text">Sub Total</span>
+              <div className="quantity_row__right">
+                {priceToString(calcCartPreTaxTotal())}
+              </div>
+            </div>
+            <div className="quantity_row">
+              <span className="quantity_text">Estimated Tax</span>
+              <div className="quantity_row__right">
+                {priceToString(calcCartTax())}
+              </div>
+            </div>
+            <ButtonWithPrice price={calcCartTotalWithTax()} />
+          </div>
+        </>
+      )}
     </StyledCart>
   );
 };
