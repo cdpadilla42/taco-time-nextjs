@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { toggleCart } from '../lib/redux';
 import styled from 'styled-components';
 import wait from 'waait';
@@ -60,12 +60,19 @@ const StyledNav = styled.div`
 const Nav = () => {
   const dispatch = useDispatch();
   const [isToastShowing, setIsToastShowing] = useState(false);
+  const toastMessage = useSelector((state) => state.toastMessage);
+
+  useEffect(() => {
+    if (toastMessage === '') return;
+    showToast(toastMessage);
+  }, [toastMessage]);
 
   function handleClick() {
     dispatch(toggleCart());
   }
 
-  async function showToast() {
+  async function showToast(message) {
+    // setToastMessage(message);
     console.log('toast on');
     setIsToastShowing(true);
     await wait(4000);
@@ -77,7 +84,7 @@ const Nav = () => {
     <StyledNav>
       <div className="home">House</div>
       <div className="logo">Taco Time!</div>
-      <button onClick={showToast}>Toast</button>
+      <button onClick={() => showToast('Yum!')}>Toast</button>
       <button onClick={handleClick}>Cart</button>
       <TransitionGroup component="div">
         {isToastShowing && (
@@ -86,7 +93,7 @@ const Nav = () => {
             key="toaster"
             timeout={{ enter: 500, exit: 500 }}
           >
-            <div className="toast">Toast time!</div>
+            <div className="toast">{toastMessage}</div>
           </CSSTransition>
         )}
       </TransitionGroup>
