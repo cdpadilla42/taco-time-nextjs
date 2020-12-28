@@ -63,10 +63,10 @@ const StyledButton = styled.button`
   }
 `;
 
-const ButtonWithPrice = ({ price, handleClick }) => {
+const ButtonWithPrice = ({ price, handleClick, message }) => {
   return (
     <StyledButton onClick={handleClick}>
-      <span>Add to Cart</span>
+      <span>{message}</span>
       <TransitionGroup component="span" className="total_price">
         <CSSTransition
           classNames="total_amount"

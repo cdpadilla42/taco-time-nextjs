@@ -138,6 +138,7 @@ const StyledCart = styled.div`
 const Cart = () => {
   const dispatch = useDispatch();
   const { isCartOpen, cart: cartItems } = useSelector((state) => state);
+  const message = 'Checkout';
 
   useEffect(() => {
     console.log('getting cart info from local storage');
@@ -201,7 +202,7 @@ const Cart = () => {
                 {priceToString(calcCartTax())}
               </div>
             </div>
-            <ButtonWithPrice price={calcCartTotalWithTax()} />
+            <ButtonWithPrice price={calcCartTotalWithTax()} message={message} />
           </div>
         </>
       )}

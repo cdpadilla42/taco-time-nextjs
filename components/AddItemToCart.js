@@ -39,6 +39,7 @@ const AddItemToCart = ({
 }) => {
   const dispatch = useDispatch();
   const router = useRouter();
+  const message = 'Add Item to Cart';
 
   function handleAddToCartClick() {
     dispatch({
@@ -66,6 +67,7 @@ const AddItemToCart = ({
       <ButtonWithPrice
         price={calcTotalPriceInCents(price, quantity)}
         handleClick={handleAddToCartClick}
+        message={message}
       />
     </StyledAddItemToCart>
   );
