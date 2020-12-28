@@ -69,6 +69,15 @@ const StyledCart = styled.div`
     }
   }
 
+  .row_transition-exit {
+    transition: transform 0.2s;
+    transform: translateX(0);
+
+    &.row_transition-exit-active {
+      transform: translateX(100%);
+    }
+  }
+
   .item_customizations {
     color: rgb(100, 100, 100);
     list-style: none;
@@ -139,13 +148,12 @@ const Cart = () => {
         <h4>Your Order</h4>
         <button onClick={handleClose}>&times;</button>
       </div>
-      {/* <div className="items_display"> */}
       <TransitionGroup component="div" className="items_display">
         {cartItems.map((item) => (
           <CSSTransition
             classNames="row_transition"
             key={item.cartItemId}
-            timeout={{ enter: 5000, exit: 5000 }}
+            timeout={{ exit: 200 }}
           >
             <CartItem item={item} key={item.cartItemId} />
           </CSSTransition>

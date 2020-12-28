@@ -23,32 +23,20 @@ const CartItem = ({ item }) => {
   }
 
   return (
-    <>
-      {/* ------------------------------------- */}
-      {/* TODO Try extracting this outside of the mapping function */}
-      {/* ------------------------------------------ */}
-
-      <CSSTransition
-        classNames="row_transition"
-        key={item.cartItemId}
-        timeout={{ enter: 5000, exit: 5000 }}
-      >
-        <div className="item_row">
-          <div className="left">
-            <div className="item_details">{`${item.quantity} ${item.name}`}</div>
-            {renderCusomizations()}
-          </div>
-          <div className="right">
-            <span className="price">{priceToString(item.price)}</span>
-            <button className="remove">
-              <span onClick={() => handleItemRemoval(item.cartItemId)}>
-                &times;
-              </span>
-            </button>
-          </div>
-        </div>
-      </CSSTransition>
-    </>
+    <div className="item_row">
+      <div className="left">
+        <div className="item_details">{`${item.quantity} ${item.name}`}</div>
+        {renderCusomizations()}
+      </div>
+      <div className="right">
+        <span className="price">{priceToString(item.price)}</span>
+        <button className="remove">
+          <span onClick={() => handleItemRemoval(item.cartItemId)}>
+            &times;
+          </span>
+        </button>
+      </div>
+    </div>
   );
 };
 
