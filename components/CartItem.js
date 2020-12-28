@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { removeFromCart } from '../lib/redux';
 import { priceToString } from '../lib/utility';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 const CartItem = ({ item }) => {
   const dispatch = useDispatch();
@@ -11,7 +12,7 @@ const CartItem = ({ item }) => {
     dispatch(removeFromCart(cartItemId));
   }
 
-  function renderCusomizations(item) {
+  function renderCusomizations() {
     return (
       <ul className="item_customizations">
         {Object.values(item.selectedOptions).map((customization) => (
@@ -22,22 +23,32 @@ const CartItem = ({ item }) => {
   }
 
   return (
-    <React.Fragment key={item.cartItemId}>
-      <div className="item_row">
-        <div className="left">
-          <div className="item_details">{`${item.quantity} ${item.name}`}</div>
-          {renderCusomizations(item)}
+    <>
+      {/* ------------------------------------- */}
+      {/* TODO Try extracting this outside of the mapping function */}
+      {/* ------------------------------------------ */}
+
+      <CSSTransition
+        classNames="row_transition"
+        key={item.cartItemId}
+        timeout={{ enter: 5000, exit: 5000 }}
+      >
+        <div className="item_row">
+          <div className="left">
+            <div className="item_details">{`${item.quantity} ${item.name}`}</div>
+            {renderCusomizations()}
+          </div>
+          <div className="right">
+            <span className="price">{priceToString(item.price)}</span>
+            <button className="remove">
+              <span onClick={() => handleItemRemoval(item.cartItemId)}>
+                &times;
+              </span>
+            </button>
+          </div>
         </div>
-        <div className="right">
-          <span className="price">{priceToString(item.price)}</span>
-          <button className="remove">
-            <span onClick={() => handleItemRemoval(item.cartItemId)}>
-              &times;
-            </span>
-          </button>
-        </div>
-      </div>
-    </React.Fragment>
+      </CSSTransition>
+    </>
   );
 };
 

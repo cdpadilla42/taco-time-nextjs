@@ -1,6 +1,7 @@
 import React from 'react';
 import { createGlobalStyle } from 'styled-components';
 import Nav from './Nav';
+import Cart from '../components/Cart';
 
 const Layout = ({ children }) => {
   const GlobalStyle = createGlobalStyle`
@@ -21,6 +22,7 @@ const Layout = ({ children }) => {
     <div className="layout">
       <GlobalStyle />
       <Nav />
+      <Cart />
       {children}
     </div>
   );

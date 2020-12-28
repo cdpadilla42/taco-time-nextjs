@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import ButtonWithPrice from '../components/ButtonWithPrice';
 import { useSelector, useDispatch } from 'react-redux';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { toggleCart, removeFromCart } from '../lib/redux';
 import CartItem from './CartItem';
 import { priceToString } from '../lib/utility';
@@ -138,11 +139,19 @@ const Cart = () => {
         <h4>Your Order</h4>
         <button onClick={handleClose}>&times;</button>
       </div>
-      <div className="items_display">
+      {/* <div className="items_display"> */}
+      <TransitionGroup component="div" className="items_display">
         {cartItems.map((item) => (
-          <CartItem item={item} />
+          <CSSTransition
+            classNames="row_transition"
+            key={item.cartItemId}
+            timeout={{ enter: 5000, exit: 5000 }}
+          >
+            <CartItem item={item} key={item.cartItemId} />
+          </CSSTransition>
         ))}
-      </div>
+      </TransitionGroup>
+
       <div className="total_bottom_line">
         <div className="quantity_row">
           <span className="quantity_text">Sub Total</span>

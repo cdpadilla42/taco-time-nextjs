@@ -3,7 +3,6 @@ import { useQuery } from '@apollo/client';
 import { initializeApollo } from '../apollo/client';
 import CardCarousel from '../components/CardCarousel';
 import ItemFrom from '../components/ItemForm';
-import Cart from '../components/Cart';
 
 import connectDb from '../lib/mongoose';
 
@@ -28,7 +27,6 @@ const Index = () => {
     <>
       <ItemFrom />
       <CardCarousel itemsArr={itemsArr} />
-      <Cart />
     </>
   );
 
