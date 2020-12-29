@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import ButtonWithPrice from '../components/ButtonWithPrice';
 import { useSelector, useDispatch } from 'react-redux';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import { useRouter } from 'next/router';
 import { toggleCart, removeFromCart } from '../lib/redux';
 import CartItem from './CartItem';
 import { priceToString } from '../lib/utility';
@@ -139,6 +140,7 @@ const Cart = () => {
   const dispatch = useDispatch();
   const { isCartOpen, cart: cartItems } = useSelector((state) => state);
   const message = 'Checkout';
+  const router = useRouter();
 
   useEffect(() => {
     console.log('getting cart info from local storage');
@@ -162,6 +164,11 @@ const Cart = () => {
 
   function calcCartTotalWithTax() {
     return calcCartPreTaxTotal() + calcCartTax();
+  }
+
+  function goToCheckout() {
+    router.push('/checkout');
+    handleClose();
   }
 
   return (
@@ -202,7 +209,11 @@ const Cart = () => {
                 {priceToString(calcCartTax())}
               </div>
             </div>
-            <ButtonWithPrice price={calcCartTotalWithTax()} message={message} />
+            <ButtonWithPrice
+              price={calcCartTotalWithTax()}
+              message={message}
+              handleClick={goToCheckout}
+            />
           </div>
         </>
       )}
