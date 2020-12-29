@@ -20,6 +20,7 @@ export const resolvers = {
   Mutation: {
     // Possible enhancement: Seperate Customization entries to be reusable between items
     async addItem(_, args) {
+      console.log('args', args);
       const newItem = new Item(args.input);
       console.log(
         { newItem },

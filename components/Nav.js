@@ -49,6 +49,7 @@ const StyledNav = styled.div`
     border: none;
     padding: 0.5rem;
     border-radius: 5px;
+    cursor: pointer;
   }
 
   .toast {

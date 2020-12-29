@@ -11,6 +11,7 @@ const ItemsQuery = gql`
       name
       price
       img
+      description
       _id
     }
   }

@@ -34,6 +34,7 @@ const ItemSchema = new Schema({
     required: true,
   },
   description: String,
+  category: String,
   price: {
     type: Number,
     required: true,
