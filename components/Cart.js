@@ -165,7 +165,7 @@ const Cart = () => {
   }
 
   return (
-    <StyledCart className={isCartOpen && 'closed'}>
+    <StyledCart className={!isCartOpen && 'closed'}>
       <div className="heading">
         <h4>Your Order</h4>
         <button onClick={handleClose}>&times;</button>
