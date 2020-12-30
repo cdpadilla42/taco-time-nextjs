@@ -114,7 +114,7 @@ const Nav = () => {
     <StyledNav>
       <div className="home">
         <Link href="/">
-          <a>Home</a>
+          <a>Menu</a>
         </Link>
       </div>
       <div className="logo">
