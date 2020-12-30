@@ -146,7 +146,7 @@ const itemDisplay = () => {
 };
 
 export async function getServerSideProps({ params }) {
-  connectDb()();
+  await connectDb()();
 
   const apolloClient = initializeApollo();
 
