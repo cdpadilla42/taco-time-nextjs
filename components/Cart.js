@@ -19,6 +19,7 @@ const StyledCart = styled.div`
   display: flex;
   flex-direction: column;
   transition: transform 0.2s ease;
+  z-index: 3;
 
   &.closed {
     transform: translateX(100%);

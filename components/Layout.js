@@ -12,7 +12,7 @@ const Layout = ({ children }) => {
     body {
       margin: 0;
       width: 100vw;
-      overflow-x: hidden;
+      overflow-xc: hidden;
     }
 
     p, h1, h2, h3, h4, h5, h6 {
@@ -23,6 +23,16 @@ const Layout = ({ children }) => {
     .page_wrap {
       max-width: 1278px;
       margin: 0 auto;
+      overflow-y: scroll;
+      height: 100%;
+    }
+
+    .layout {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      overflow-y: hidden;
+      overflow-x: hidden;
     }
 
     /* latin-ext */
@@ -45,12 +55,16 @@ const Layout = ({ children }) => {
 }
   `;
   return (
-    <div className="layout">
+    <>
       <GlobalStyle />
-      <Nav />
-      <Cart />
-      <div className="page_wrap">{children}</div>
-    </div>
+      <div className="layout">
+        <Cart />
+        <div className="page_wrap">
+          <Nav />
+          {children}
+        </div>
+      </div>
+    </>
   );
 };
 

@@ -29,7 +29,7 @@ const StyledIndex = styled.div`
   h1 {
     text-align: center;
     font-family: 'Merienda', cursive;
-    margin-top: ;
+    margin-top: 0;
   }
 
   h2 {
