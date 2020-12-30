@@ -1,5 +1,4 @@
 import React from 'react';
-import { priceToString } from '../lib/utility';
 
 const CustomizationDisplay = ({
   customizeable,
@@ -24,7 +23,7 @@ const CustomizationDisplay = ({
     <>
       <div className="title">
         <h2>{customizeable.title}</h2>
-        {customizeable.required && <p>Required</p>}
+        {/* {customizeable.required && <p>Required</p>} */}
       </div>
       {customizeable.options.map((option) => {
         return (
@@ -39,13 +38,13 @@ const CustomizationDisplay = ({
           >
             <span>
               <span>{option.name}</span>
-              {option.price ? (
+              {/* {option.price ? (
                 <span className="added-price">{`+ ${priceToString(
                   option.price
                 )}`}</span>
               ) : (
                 ''
-              )}
+              )} */}
             </span>
           </button>
         );
