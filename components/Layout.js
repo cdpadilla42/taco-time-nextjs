@@ -21,8 +21,7 @@ const Layout = ({ children }) => {
     }
 
     .page_wrap {
-      max-width: 1278px;
-      margin: 0 auto;
+      
       overflow-y: scroll;
       height: 100%;
     }
@@ -33,6 +32,11 @@ const Layout = ({ children }) => {
       position: relative;
       overflow-y: hidden;
       overflow-x: hidden;
+    }
+
+    main {
+      margin: 0 auto;
+      max-width: 1278px;
     }
 
     /* latin-ext */
@@ -61,7 +65,7 @@ const Layout = ({ children }) => {
         <Cart />
         <div className="page_wrap">
           <Nav />
-          {children}
+          <main>{children}</main>
         </div>
       </div>
     </>
