@@ -80,7 +80,8 @@ const Index = () => {
 
 export async function getServerSideProps() {
   try {
-    await connectDb()();
+    const asyncDB = connectDb();
+    await asyncDB();
     const apolloClient = initializeApollo();
 
     await apolloClient.query({
