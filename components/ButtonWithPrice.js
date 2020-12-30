@@ -61,12 +61,19 @@ const StyledButton = styled.button`
       transform: translateY(-200%);
     }
   }
+
+  .message {
+    @media (max-width: 600px) {
+      text-align: left;
+      display: block;
+    }
+  }
 `;
 
 const ButtonWithPrice = ({ price, handleClick, message }) => {
   return (
     <StyledButton onClick={handleClick}>
-      <span>{message}</span>
+      <span className="message">{message}</span>
       <TransitionGroup component="span" className="total_price">
         <CSSTransition
           classNames="total_amount"
