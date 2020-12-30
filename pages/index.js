@@ -1,4 +1,5 @@
 import gql from 'graphql-tag';
+import styled from 'styled-components';
 import { useQuery } from '@apollo/client';
 import { initializeApollo } from '../apollo/client';
 import CardCarousel from '../components/CardCarousel';
@@ -18,6 +19,18 @@ const ItemsQuery = gql`
   }
 `;
 
+const StyledIndex = styled.div`
+  padding: 1rem;
+  .section_heading {
+    border-bottom: 1px solid rgb(217, 217, 217);
+    margin: 1rem 0;
+  }
+
+  h2 {
+    margin: 1rem 0;
+  }
+`;
+
 const Index = () => {
   const {
     data: { item: itemsArr },
@@ -30,12 +43,16 @@ const Index = () => {
 
   console.log(itemsArr);
   return (
-    <>
-      <ItemFrom />
+    <StyledIndex>
+      <div className="section_heading">
+        <h2>Sides and Apetizers</h2>
+      </div>
       <CardCarousel itemsArr={filterByCategory('side')} />
+      <h2>Breakfast Tacos</h2>
       <CardCarousel itemsArr={filterByCategory('breakfast')} />
+      <h2>Lunch Tacos</h2>
       <CardCarousel itemsArr={filterByCategory('lunch')} />
-    </>
+    </StyledIndex>
   );
 
   // return (
