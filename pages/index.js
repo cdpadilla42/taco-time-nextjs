@@ -79,18 +79,22 @@ const Index = () => {
 };
 
 export async function getServerSideProps() {
-  await connectDb()();
-  const apolloClient = initializeApollo();
+  try {
+    await connectDb()();
+    const apolloClient = initializeApollo();
 
-  await apolloClient.query({
-    query: ItemsQuery,
-  });
+    await apolloClient.query({
+      query: ItemsQuery,
+    });
 
-  return {
-    props: {
-      initialApolloState: apolloClient.cache.extract(),
-    },
-  };
+    return {
+      props: {
+        initialApolloState: apolloClient.cache.extract(),
+      },
+    };
+  } catch (e) {
+    console.error(e);
+  }
 }
 
 export default Index;
