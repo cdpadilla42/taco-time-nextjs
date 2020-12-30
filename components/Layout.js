@@ -11,6 +11,8 @@ const Layout = ({ children }) => {
 
     body {
       margin: 0;
+      width: 100vw;
+      overflow-x: hidden;
     }
 
     p, h1, h2, h3, h4, h5, h6 {

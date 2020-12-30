@@ -12,6 +12,7 @@ const ItemsQuery = gql`
       price
       img
       description
+      category
       _id
     }
   }
@@ -22,11 +23,18 @@ const Index = () => {
     data: { item: itemsArr },
   } = useQuery(ItemsQuery);
 
+  function filterByCategory(categoryQuery) {
+    return itemsArr.filter((item) => item.category === categoryQuery);
+  }
+  console.log('filtered by lunch');
+
   console.log(itemsArr);
   return (
     <>
       <ItemFrom />
-      <CardCarousel itemsArr={itemsArr} />
+      <CardCarousel itemsArr={filterByCategory('side')} />
+      <CardCarousel itemsArr={filterByCategory('breakfast')} />
+      <CardCarousel itemsArr={filterByCategory('lunch')} />
     </>
   );
 
