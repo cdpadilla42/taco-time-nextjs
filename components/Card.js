@@ -38,6 +38,7 @@ const Card = ({ item }) => {
 
     p {
       font-size: 0.9rem;
+      margin: 0;
     }
   `;
 
@@ -55,7 +56,6 @@ const Card = ({ item }) => {
   return (
     <StyledCard onClick={handleClick} tabIndex={0} onKeyUp={handleKey}>
       <div className="image_display"></div>
-      {/* <img src={item.img} alt="" /> */}
       <div className="details">
         <h4>{item.name}</h4>
         <p>{item.description}</p>
