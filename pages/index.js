@@ -21,6 +21,7 @@ const ItemsQuery = gql`
 
 const StyledIndex = styled.div`
   padding: 1rem;
+
   .section_heading {
     border-bottom: 1px dotted #ef3340;
     margin: 1rem 0;
