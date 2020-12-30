@@ -12,7 +12,7 @@ const Layout = ({ children }) => {
     body {
       margin: 0;
       width: 100vw;
-      overflow-xc: hidden;
+      overflow-x: hidden;
     }
 
     p, h1, h2, h3, h4, h5, h6 {
@@ -21,9 +21,8 @@ const Layout = ({ children }) => {
     }
 
     .page_wrap {
-      
       overflow-y: scroll;
-      height: 100%;
+      height: calc(100vh - 50px);
     }
 
     .layout {
@@ -37,6 +36,7 @@ const Layout = ({ children }) => {
     main {
       margin: 0 auto;
       max-width: 1278px;
+      padding-top: 1rem;
     }
 
     /* latin-ext */
@@ -63,8 +63,8 @@ const Layout = ({ children }) => {
       <GlobalStyle />
       <div className="layout">
         <Cart />
+        <Nav />
         <div className="page_wrap">
-          <Nav />
           <main>{children}</main>
         </div>
       </div>

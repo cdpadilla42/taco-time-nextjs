@@ -16,7 +16,6 @@ const StyledNav = styled.div`
   font-weight: 700;
   border-top: 3px solid #ef3340;
   box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.1);
-  margin-bottom: 1rem;
   position: sticky;
   top: 0;
   left: 0;
