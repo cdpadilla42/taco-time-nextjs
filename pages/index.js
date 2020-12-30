@@ -22,8 +22,14 @@ const ItemsQuery = gql`
 const StyledIndex = styled.div`
   padding: 1rem;
   .section_heading {
-    border-bottom: 1px solid rgb(217, 217, 217);
+    border-bottom: 1px dotted #ef3340;
     margin: 1rem 0;
+  }
+
+  h1 {
+    text-align: center;
+    font-family: 'Merienda', cursive;
+    margin-top: ;
   }
 
   h2 {
@@ -44,13 +50,18 @@ const Index = () => {
   console.log(itemsArr);
   return (
     <StyledIndex>
+      <h1>Menu</h1>
       <div className="section_heading">
         <h2>Sides and Apetizers</h2>
       </div>
       <CardCarousel itemsArr={filterByCategory('side')} />
-      <h2>Breakfast Tacos</h2>
+      <div className="section_heading">
+        <h2>Breakfast Tacos</h2>
+      </div>
       <CardCarousel itemsArr={filterByCategory('breakfast')} />
-      <h2>Lunch Tacos</h2>
+      <div className="section_heading">
+        <h2>Lunch Tacos</h2>
+      </div>
       <CardCarousel itemsArr={filterByCategory('lunch')} />
     </StyledIndex>
   );
