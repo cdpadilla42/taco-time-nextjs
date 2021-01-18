@@ -19,7 +19,21 @@ const CustomizationDisplay = ({
         console.log('adding extras...');
         // if options have already been selected
         if (prevState[customizeable.name]) {
-          const resultArr = [...prevState[customizeable.name], option.name];
+          let resultArr;
+          // find current index of selected item if in state
+          const currentIndex = prevState[customizeable.name].indexOf(
+            option.name
+          );
+          if (currentIndex !== -1) {
+            // remove if found
+            resultArr = [
+              ...prevState[customizeable.name].splice(0, currentIndex),
+              ...prevState[customizeable.name].splice(currentIndex + 1),
+            ];
+            resultArr[currentIndex];
+          } else {
+            resultArr = [...prevState[customizeable.name], option.name];
+          }
           return {
             ...prevState,
             [customizeable.name]: resultArr,
