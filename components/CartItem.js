@@ -15,9 +15,21 @@ const CartItem = ({ item }) => {
   function renderCusomizations() {
     return (
       <ul className="item_customizations">
-        {Object.values(item.selectedOptions).map((customization) => (
-          <li key={`${item.cartItemId}${customization}`}>{customization}</li>
-        ))}
+        {Object.values(item.selectedOptions).map((customization) => {
+          if (typeof customization === 'string') {
+            return (
+              <li key={`${item.cartItemId}${customization}`}>
+                {customization}
+              </li>
+            );
+          } else {
+            return customization.map((customizationItem) => (
+              <li key={`${item.cartItemId}${customizationItem}`}>
+                {customizationItem}
+              </li>
+            ));
+          }
+        })}
       </ul>
     );
   }
