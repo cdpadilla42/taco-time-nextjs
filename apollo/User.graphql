@@ -25,6 +25,7 @@ input CustomizationInput {
   title: String!
   required: Boolean!
   options: [OptionInput]
+  selectMultiple: Boolean
 }
 
 input OptionInput {
@@ -51,6 +52,7 @@ type Customization {
   title: String!
   required: Boolean!
   options: [Option!]
+  selectMultiple: Boolean
 }
 
 type Option {

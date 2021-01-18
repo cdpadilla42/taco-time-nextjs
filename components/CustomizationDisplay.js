@@ -7,10 +7,31 @@ const CustomizationDisplay = ({
 }) => {
   function handleClick(option) {
     setSelectedOptions((prevState) => {
-      return {
-        ...prevState,
-        [customizeable.name]: option.name,
-      };
+      console.log('selectMultiple', customizeable.selectMultiple);
+      // if you can only select one option
+      if (!customizeable.selectMultiple) {
+        return {
+          ...prevState,
+          [customizeable.name]: option.name,
+        };
+        // if you can select multiple options
+      } else {
+        console.log('adding extras...');
+        // if options have already been selected
+        if (prevState[customizeable.name]) {
+          const resultArr = [...prevState[customizeable.name], option.name];
+          return {
+            ...prevState,
+            [customizeable.name]: resultArr,
+          };
+          // if no options have been selected
+        } else {
+          return {
+            ...prevState,
+            [customizeable.name]: [option.name],
+          };
+        }
+      }
     });
     console.log(customizeable.name, option.name);
   }

@@ -21,7 +21,7 @@ export const resolvers = {
     // Possible enhancement: Seperate Customization entries to be reusable between items
     async addItem(_, args) {
       console.log('args', args);
-      const newItem = new Item(args.input);
+      const newItem = await new Item(args.input);
       console.log(
         { newItem },
         'cust',

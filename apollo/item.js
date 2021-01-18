@@ -22,6 +22,10 @@ const CustomizationSchema = new Schema({
     required: true,
   },
   options: [OptionsSchema],
+  selectMultiple: {
+    type: Boolean,
+    required: true,
+  },
 });
 
 const ItemSchema = new Schema({
