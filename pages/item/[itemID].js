@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { dummyData } from '../../lib/dummyData';
 import styled from 'styled-components';
@@ -88,18 +88,10 @@ const itemDisplay = () => {
 
   /*
 
-  Hold state at the top,
+  Handling required:
 
-  Dynamically create state for your options here:
-
-  {
-    tortilla: flour,
-    ingredients: [
-      noPineapple
-    ]
-  }
-
-  Submit with form
+  Filter the list and put the required fields in the initial state with null values
+  when submitting, if any value is null, error
   */
 
   const router = useRouter();
@@ -113,7 +105,12 @@ const itemDisplay = () => {
     },
   });
 
-  const testItem = dummyData;
+  useEffect(() => {
+    item.customizations.forEach((customization) => {
+      console.log(customization.name, customization.required);
+    });
+  }, [item]);
+
   return (
     <StyledItemDetails>
       <div className="container">
