@@ -12,6 +12,10 @@ const CartItem = ({ item }) => {
     dispatch(removeFromCart(cartItemId));
   }
 
+  function calcItemTotal() {
+    return item.quantity * item.price;
+  }
+
   function renderCusomizations() {
     return (
       <ul className="item_customizations">
@@ -41,7 +45,7 @@ const CartItem = ({ item }) => {
         {renderCusomizations()}
       </div>
       <div className="right">
-        <span className="price">{priceToString(item.price)}</span>
+        <span className="price">{priceToString(calcItemTotal())}</span>
         <button className="remove">
           <span onClick={() => handleItemRemoval(item.cartItemId)}>
             &times;

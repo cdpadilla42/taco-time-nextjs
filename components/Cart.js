@@ -96,6 +96,7 @@ const StyledCart = styled.div`
 
     li {
       margin: 0.5rem 0;
+      text-transform: capitalize;
     }
   }
 
