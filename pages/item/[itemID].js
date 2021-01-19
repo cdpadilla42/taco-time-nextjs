@@ -108,6 +108,11 @@ const itemDisplay = () => {
   useEffect(() => {
     item.customizations.forEach((customization) => {
       console.log(customization.name, customization.required);
+      if (customization.required) {
+        setSelectedOptions((prevState) => {
+          return { ...prevState, [customization.name]: null };
+        });
+      }
     });
   }, [item]);
 
