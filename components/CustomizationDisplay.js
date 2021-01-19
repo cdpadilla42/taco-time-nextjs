@@ -51,7 +51,18 @@ const CustomizationDisplay = ({
   }
 
   function isOptionSelected(customizableName, option) {
-    return selectedOptions[customizableName] === option;
+    // TODO get me to work
+    const customization = selectedOptions[customizableName];
+    console.log({ customization });
+    if (customization === undefined) {
+      return false;
+    }
+    if (typeof customization === 'string') {
+      return selectedOptions[customizableName] === option;
+    } else if (Array.isArray(customization)) {
+      console.log(customization.includes(option), option);
+      return customization.includes(option);
+    }
   }
 
   return (
