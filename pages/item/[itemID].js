@@ -21,7 +21,7 @@ const ItemByIdQuery = gql`
         name
         title
         required
-        selectMultiple
+        # selectMultiple
         options {
           name
           price
