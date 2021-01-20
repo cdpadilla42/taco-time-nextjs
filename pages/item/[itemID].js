@@ -116,10 +116,39 @@ const itemDisplay = () => {
     });
   }, [item]);
 
+  console.log({ item });
+
   function verifyRequiredCustomizationsSelected() {
     return Object.keys(selectedOptions).every((key) => {
       return selectedOptions[key];
     });
+  }
+
+  function calculatePriceWithAddOns() {
+    // find every add on in state and check if there is an additional price
+    // if so, add it to the total
+    const addOnsTotalPrice = item.customizations.reduce((p, customization) => {
+      function extractPriceFromValue(valueInState) {
+        const optionObj = customization.options.find(
+          (option) => option.name === valueInState
+        );
+        // if so, add to total
+        if (optionObj.price) return optionObj.price;
+      }
+      const valueInState = selectedOptions[customization.name];
+      // if not in state, continue
+      if (!valueInState) return;
+      // access this customization in state
+      // Check if single value or array
+      if (typeof valueInState === 'string') {
+        // if single value, check if there is an added price
+        extractPriceFromValue(valueInState);
+      } else {
+        // TODO if an array, iterate through the array and do the above
+      }
+
+      return addOnsTotalPrice;
+    }, 0);
   }
 
   useEffect(() => {

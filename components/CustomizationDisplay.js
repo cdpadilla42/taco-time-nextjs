@@ -1,4 +1,5 @@
 import React from 'react';
+import { priceToString } from '../lib/utility';
 
 const CustomizationDisplay = ({
   customizeable,
@@ -87,13 +88,13 @@ const CustomizationDisplay = ({
           >
             <span>
               <span>{option.name}</span>
-              {/* {option.price ? (
+              {option.price ? (
                 <span className="added-price">{`+ ${priceToString(
                   option.price
                 )}`}</span>
               ) : (
                 ''
-              )} */}
+              )}
             </span>
           </button>
         );
