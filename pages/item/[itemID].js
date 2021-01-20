@@ -156,6 +156,10 @@ const itemDisplay = () => {
     return addOnsTotalPrice;
   }
 
+  function addPriceAndAddons() {
+    return calculateAddOnsTotal() + item.price;
+  }
+
   useEffect(() => {
     console.log('calculatePriceWithAddOns', calculateAddOnsTotal());
   }, [selectedOptions]);
@@ -188,11 +192,12 @@ const itemDisplay = () => {
       <AddItemToCart
         quantity={quantity}
         setQuantity={setQuantity}
-        price={item.price}
+        price={addPriceAndAddons()}
         itemID={itemID}
         selectedOptions={selectedOptions}
         name={item.name}
         submissionVerified={submissionVerified}
+        calculateAddOnsTotal={calculateAddOnsTotal}
       />
     </StyledItemDetails>
   );

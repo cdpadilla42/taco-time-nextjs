@@ -104,7 +104,6 @@ const ButtonWithPrice = ({
   message,
   submissionVerified = true,
 }) => {
-  // TODO: Fill inner button message by having error state, then conditionally showing message based on error state
   const [errorActive, setErrorActive] = useState(false);
 
   function buttonClick(e) {
