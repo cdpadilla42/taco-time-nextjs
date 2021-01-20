@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleCart } from '../lib/redux';
+import { toggleCart, clearToast } from '../lib/redux';
 import styled from 'styled-components';
 import wait from 'waait';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
@@ -107,6 +107,7 @@ const Nav = () => {
     await wait(4000);
     console.log('bye toast');
     setIsToastShowing(false);
+    dispatch(clearToast());
   }
 
   return (

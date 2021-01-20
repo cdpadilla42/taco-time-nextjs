@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { displayTotalPrice, calcTotalPriceInCents } from '../lib/utility';
@@ -105,6 +105,7 @@ const ButtonWithPrice = ({
   submissionVerified = true,
 }) => {
   // TODO: Fill inner button message by having error state, then conditionally showing message based on error state
+  const [errorActive, setErrorActive] = useState(false);
 
   function buttonClick(e) {
     const button = e.currentTarget;
@@ -112,9 +113,12 @@ const ButtonWithPrice = ({
       handleClick();
     } else {
       if (window !== undefined) {
-        window.alert('Must selected required options');
         button.classList.add('error');
-        setTimeout(() => button.classList.remove('error'), 5000);
+        setErrorActive(true);
+        setTimeout(() => {
+          button.classList.remove('error');
+          setErrorActive(false);
+        }, 5000);
       }
     }
   }
@@ -125,7 +129,9 @@ const ButtonWithPrice = ({
         submissionVerified ? 'verified submit_button' : 'submit_button'
       }
     >
-      <span className="message">{message}</span>
+      <span className="message">
+        {errorActive ? 'Please select required options' : message}
+      </span>
       <TransitionGroup component="span" className="total_price">
         <CSSTransition
           classNames="total_amount"
