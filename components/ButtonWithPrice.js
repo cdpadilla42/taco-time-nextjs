@@ -74,7 +74,7 @@ const ButtonWithPrice = ({
   price,
   handleClick,
   message,
-  submissionVerified = true,
+  submissionVerified,
 }) => {
   return (
     <StyledButton

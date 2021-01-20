@@ -36,6 +36,7 @@ const AddItemToCart = ({
   itemID,
   selectedOptions,
   name,
+  submissionVerified,
 }) => {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -68,6 +69,7 @@ const AddItemToCart = ({
         price={calcTotalPriceInCents(price, quantity)}
         handleClick={handleAddToCartClick}
         message={message}
+        submissionVerified={submissionVerified}
       />
     </StyledAddItemToCart>
   );

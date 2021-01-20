@@ -154,6 +154,7 @@ const itemDisplay = () => {
         itemID={itemID}
         selectedOptions={selectedOptions}
         name={item.name}
+        submissionVerified={submissionVerified}
       />
     </StyledItemDetails>
   );
