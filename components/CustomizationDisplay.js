@@ -67,7 +67,12 @@ const CustomizationDisplay = ({
     <>
       <div className="title">
         <h2>{customizeable.title}</h2>
-        {/* {customizeable.required && <p>Required</p>} */}
+        {customizeable.required && (
+          <p>
+            <span>*</span>
+            <span>Required</span>
+          </p>
+        )}
       </div>
       {customizeable.options.map((option) => {
         return (

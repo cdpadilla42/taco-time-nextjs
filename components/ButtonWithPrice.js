@@ -19,7 +19,7 @@ const StyledButton = styled.button`
   position: relative;
   transition: background-color 0.4s ease, color 0.4s ease;
 
-  &:hover {
+  &.verified:hover {
     background-color: #5794ff;
     color: white;
   }
@@ -70,9 +70,17 @@ const StyledButton = styled.button`
   }
 `;
 
-const ButtonWithPrice = ({ price, handleClick, message }) => {
+const ButtonWithPrice = ({
+  price,
+  handleClick,
+  message,
+  submissionVerified = true,
+}) => {
   return (
-    <StyledButton onClick={handleClick}>
+    <StyledButton
+      onClick={handleClick}
+      className={submissionVerified ? 'verified' : ''}
+    >
       <span className="message">{message}</span>
       <TransitionGroup component="span" className="total_price">
         <CSSTransition

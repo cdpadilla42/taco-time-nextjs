@@ -85,10 +85,10 @@ const StyledItemDetails = styled.div`
 const itemDisplay = () => {
   const [selectedOptions, setSelectedOptions] = useState({});
   const [quantity, setQuantity] = useState(1);
+  const [submissionVerified, setsubmissionVerified] = useState(false);
 
   /*
-
-  Handling required:
+  Handling required fields:
 
   Filter the list and put the required fields in the initial state with null values
   when submitting, if any value is null, error
@@ -115,6 +115,17 @@ const itemDisplay = () => {
       }
     });
   }, [item]);
+
+  function verifyRequiredCustomizationsSelected() {
+    return Object.keys(selectedOptions).every((key) => {
+      return selectedOptions[key];
+    });
+  }
+
+  useEffect(() => {
+    console.log('Verification', verifyRequiredCustomizationsSelected());
+    setsubmissionVerified(verifyRequiredCustomizationsSelected());
+  }, [selectedOptions]);
 
   return (
     <StyledItemDetails>
