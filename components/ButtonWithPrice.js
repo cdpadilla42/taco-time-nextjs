@@ -68,18 +68,62 @@ const StyledButton = styled.button`
       display: block;
     }
   }
+
+  &.error {
+    background-color: rgb(239, 51, 64, 0.5);
+    animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  }
+
+  @keyframes shake {
+    10%,
+    90% {
+      transform: translate3d(-1px, 0, 0);
+    }
+
+    20%,
+    80% {
+      transform: translate3d(2px, 0, 0);
+    }
+
+    30%,
+    50%,
+    70% {
+      transform: translate3d(-4px, 0, 0);
+    }
+
+    40%,
+    60% {
+      transform: translate3d(4px, 0, 0);
+    }
+  }
 `;
 
 const ButtonWithPrice = ({
   price,
   handleClick,
   message,
-  submissionVerified,
+  submissionVerified = true,
 }) => {
+  // TODO: Fill inner button message by having error state, then conditionally showing message based on error state
+
+  function buttonClick(e) {
+    const button = e.currentTarget;
+    if (submissionVerified) {
+      handleClick();
+    } else {
+      if (window !== undefined) {
+        window.alert('Must selected required options');
+        button.classList.add('error');
+        setTimeout(() => button.classList.remove('error'), 5000);
+      }
+    }
+  }
   return (
     <StyledButton
-      onClick={handleClick}
-      className={submissionVerified ? 'verified' : ''}
+      onClick={buttonClick}
+      className={
+        submissionVerified ? 'verified submit_button' : 'submit_button'
+      }
     >
       <span className="message">{message}</span>
       <TransitionGroup component="span" className="total_price">
