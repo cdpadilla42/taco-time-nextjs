@@ -124,7 +124,7 @@ const itemDisplay = () => {
     });
   }
 
-  function calculatePriceWithAddOns() {
+  function calculateAddOnsTotal() {
     // find every add on in state and check if there is an additional price
     // if so, add it to the total
     const addOnsTotalPrice = item.customizations.reduce((p, customization) => {
@@ -134,22 +134,31 @@ const itemDisplay = () => {
         );
         // if so, add to total
         if (optionObj.price) return optionObj.price;
+        // if nothing found, return 0
+        return 0;
       }
+
       const valueInState = selectedOptions[customization.name];
       // if not in state, continue
-      if (!valueInState) return;
+      if (!valueInState) return p;
       // access this customization in state
       // Check if single value or array
       if (typeof valueInState === 'string') {
         // if single value, check if there is an added price
-        extractPriceFromValue(valueInState);
+        return p + extractPriceFromValue(valueInState);
       } else {
-        // TODO if an array, iterate through the array and do the above
+        const valuesFromArr = valueInState.reduce((p, singleCustomization) => {
+          return p + extractPriceFromValue(singleCustomization);
+        }, 0);
+        return valuesFromArr + p;
       }
-
-      return addOnsTotalPrice;
     }, 0);
+    return addOnsTotalPrice;
   }
+
+  useEffect(() => {
+    console.log('calculatePriceWithAddOns', calculateAddOnsTotal());
+  }, [selectedOptions]);
 
   useEffect(() => {
     console.log('Verification', verifyRequiredCustomizationsSelected());
