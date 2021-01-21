@@ -187,7 +187,11 @@ const Cart = () => {
               key={item.cartItemId}
               timeout={{ exit: 200 }}
             >
-              <CartItem item={item} key={item.cartItemId} />
+              <CartItem
+                item={item}
+                key={item.cartItemId}
+                handleClose={handleClose}
+              />
             </CSSTransition>
           ))}
         </TransitionGroup>

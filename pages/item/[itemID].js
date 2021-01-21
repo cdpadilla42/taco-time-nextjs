@@ -39,7 +39,7 @@ const itemDisplay = () => {
     },
   });
 
-  return <CartItemForm item={item} />;
+  return <CartItemForm itemID={itemID} item={item} />;
 };
 
 export async function getServerSideProps({ params }) {

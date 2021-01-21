@@ -1,10 +1,10 @@
 import React from 'react';
+import Link from 'next/link';
 import { useDispatch } from 'react-redux';
 import { removeFromCart } from '../lib/redux';
 import { priceToString } from '../lib/utility';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
-const CartItem = ({ item }) => {
+const CartItem = ({ item, handleClose }) => {
   const dispatch = useDispatch();
 
   function handleItemRemoval(cartItemId) {
@@ -41,7 +41,11 @@ const CartItem = ({ item }) => {
   return (
     <div className="item_row">
       <div className="left">
-        <div className="item_details">{`${item.quantity} ${item.name}`}</div>
+        <div className="item_details">
+          <Link href={`/cart/${item.cartItemId}`}>
+            <a onClick={handleClose}>{`${item.quantity} ${item.name}`}</a>
+          </Link>
+        </div>
         {renderCusomizations()}
       </div>
       <div className="right">

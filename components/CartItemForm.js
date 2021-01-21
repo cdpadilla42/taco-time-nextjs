@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { priceToString } from '../lib/utility';
 import CustomizationDisplay from './CustomizationDisplay';
@@ -55,7 +55,7 @@ const StyledItemDetails = styled.div`
   }
 `;
 
-const CartItemForm = ({ item }) => {
+const CartItemForm = ({ item, itemID }) => {
   const [selectedOptions, setSelectedOptions] = useState({});
   const [quantity, setQuantity] = useState(1);
   const [submissionVerified, setsubmissionVerified] = useState(false);
