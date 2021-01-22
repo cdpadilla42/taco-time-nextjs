@@ -47,7 +47,7 @@ const Card = ({ item }) => {
   return (
     <Link href={`/item/${item._id}`}>
       <a style={{ textDecoration: 'none' }}>
-        <StyledCard onKeyUp={handleKey}>
+        <StyledCard>
           <div
             className="image_display"
             style={{ backgroundImage: `url('${item.img}')` }}
