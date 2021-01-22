@@ -41,20 +41,25 @@ const AddItemToCart = ({
   const dispatch = useDispatch();
   const router = useRouter();
   const message = 'Add Item to Cart';
+  const { CartItemID } = router.query;
+  console.log('from additemtocart', CartItemID);
 
   function handleAddToCartClick() {
-    dispatch({
-      type: 'ADD_TO_CART',
-      payload: {
-        id: itemID,
-        quantity,
-        selectedOptions,
-        price,
-        name,
-        cartItemId: uuid(),
-      },
-    });
-    router.push('/');
+    if (CartItemID) {
+    } else {
+      dispatch({
+        type: 'ADD_TO_CART',
+        payload: {
+          id: itemID,
+          quantity,
+          selectedOptions,
+          price,
+          name,
+          cartItemId: uuid(),
+        },
+      });
+      router.push('/');
+    }
   }
 
   return (

@@ -164,6 +164,7 @@ const CartItemForm = ({ item, itemID, cartItem }) => {
         name={item.name}
         submissionVerified={submissionVerified}
         calculateAddOnsTotal={calculateAddOnsTotal}
+        cartItemID={cartItem?.cartItemId}
       />
     </StyledItemDetails>
   );
