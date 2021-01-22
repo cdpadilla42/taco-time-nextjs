@@ -41,8 +41,8 @@ const AddItemToCart = ({
 }) => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const message = 'Add Item to Cart';
   const { CartItemID } = router.query;
+  const message = CartItemID ? 'Save Order Changes' : 'Add Item to Cart';
 
   function handleAddToCartClick() {
     if (CartItemID) {
