@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import styled from 'styled-components';
 import { useRouter } from 'next/router';
 
@@ -53,16 +54,24 @@ const Card = ({ item }) => {
   }
 
   return (
-    <StyledCard onClick={handleClick} tabIndex={0} onKeyUp={handleKey}>
-      <div
-        className="image_display"
-        style={{ backgroundImage: `url('${item.img}')` }}
-      ></div>
-      <div className="details">
-        <h4>{item.name}</h4>
-        <p>{item.description}</p>
-      </div>
-    </StyledCard>
+    <Link href={`/item/${item._id}`}>
+      <a style={{ textDecoration: 'none' }}>
+        <StyledCard
+          // onClick={handleClick}
+          tabIndex={0}
+          onKeyUp={handleKey}
+        >
+          <div
+            className="image_display"
+            style={{ backgroundImage: `url('${item.img}')` }}
+          ></div>
+          <div className="details">
+            <h4>{item.name}</h4>
+            <p>{item.description}</p>
+          </div>
+        </StyledCard>
+      </a>
+    </Link>
   );
 };
 
