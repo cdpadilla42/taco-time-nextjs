@@ -52,8 +52,7 @@ const EditCartItem = () => {
 
   console.log(item);
 
-  const cart = useSelector((state) => state.cart);
-  // return <CartItemForm />;
+  return <CartItemForm itemID={cartItem.id} item={item} cartItem={cartItem} />;
 
   return <p>{CartItemID}</p>;
 };

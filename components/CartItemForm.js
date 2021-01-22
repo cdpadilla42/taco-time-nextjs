@@ -55,9 +55,11 @@ const StyledItemDetails = styled.div`
   }
 `;
 
-const CartItemForm = ({ item, itemID }) => {
-  const [selectedOptions, setSelectedOptions] = useState({});
-  const [quantity, setQuantity] = useState(1);
+const CartItemForm = ({ item, itemID, cartItem }) => {
+  const [selectedOptions, setSelectedOptions] = useState(
+    cartItem?.selectedOptions || {}
+  );
+  const [quantity, setQuantity] = useState(cartItem?.quantity || 1);
   const [submissionVerified, setsubmissionVerified] = useState(false);
 
   /*
@@ -68,14 +70,16 @@ const CartItemForm = ({ item, itemID }) => {
   */
 
   useEffect(() => {
-    item.customizations.forEach((customization) => {
-      console.log(customization.name, customization.required);
-      if (customization.required) {
-        setSelectedOptions((prevState) => {
-          return { ...prevState, [customization.name]: null };
-        });
-      }
-    });
+    if (!Object.keys(selectedOptions).length) {
+      item.customizations.forEach((customization) => {
+        console.log(customization.name, customization.required);
+        if (customization.required) {
+          setSelectedOptions((prevState) => {
+            return { ...prevState, [customization.name]: null };
+          });
+        }
+      });
+    }
   }, [item]);
 
   console.log({ item });
