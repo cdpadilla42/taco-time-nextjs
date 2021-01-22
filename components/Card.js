@@ -44,23 +44,10 @@ const StyledCard = styled.div`
 const Card = ({ item }) => {
   const router = useRouter();
 
-  console.log(item.name, item);
-  function handleClick() {
-    router.push(`/item/${item._id}`);
-  }
-
-  function handleKey(e) {
-    if (e.key === 'Enter') handleClick();
-  }
-
   return (
     <Link href={`/item/${item._id}`}>
       <a style={{ textDecoration: 'none' }}>
-        <StyledCard
-          // onClick={handleClick}
-          tabIndex={0}
-          onKeyUp={handleKey}
-        >
+        <StyledCard onKeyUp={handleKey}>
           <div
             className="image_display"
             style={{ backgroundImage: `url('${item.img}')` }}
