@@ -2,7 +2,30 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { createSelector } from 'reselect';
+import { useQuery } from '@apollo/client';
+import gql from 'graphql-tag';
 import CartItemForm from '../../components/CartItemForm';
+
+const ItemByIdQuery = gql`
+  query getItem($id: ID!) {
+    itemById(id: $id) {
+      name
+      description
+      price
+      img
+      customizations {
+        name
+        title
+        required
+        selectMultiple
+        options {
+          name
+          price
+        }
+      }
+    }
+  }
+`;
 
 const EditCartItem = () => {
   const router = useRouter();
@@ -19,9 +42,20 @@ const EditCartItem = () => {
 
   console.log({ cartItem });
 
+  const {
+    data: { itemById: item },
+  } = useQuery(ItemByIdQuery, {
+    variables: {
+      id: cartItem.id,
+    },
+  });
+
+  console.log(item);
+
   const cart = useSelector((state) => state.cart);
-  return <p>{CartItemID}</p>;
   // return <CartItemForm />;
+
+  return <p>{CartItemID}</p>;
 };
 
 export default EditCartItem;
