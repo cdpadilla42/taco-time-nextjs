@@ -7,6 +7,7 @@ import NumberIncrementor from './NumberIncrementor';
 import { priceToString } from '../lib/utility';
 import ButtonWithPrice from './ButtonWithPrice';
 import { calcTotalPriceInCents } from '../lib/utility';
+import { editCartItem } from '../lib/redux';
 
 const StyledAddItemToCart = styled.div`
   position: sticky;
@@ -42,10 +43,20 @@ const AddItemToCart = ({
   const router = useRouter();
   const message = 'Add Item to Cart';
   const { CartItemID } = router.query;
-  console.log('from additemtocart', CartItemID);
 
   function handleAddToCartClick() {
     if (CartItemID) {
+      dispatch({
+        type: editCartItem.toString(),
+        payload: {
+          id: itemID,
+          quantity,
+          selectedOptions,
+          price,
+          name,
+          cartItemId: CartItemID,
+        },
+      });
     } else {
       dispatch({
         type: 'ADD_TO_CART',
@@ -58,8 +69,8 @@ const AddItemToCart = ({
           cartItemId: uuid(),
         },
       });
-      router.push('/');
     }
+    router.push('/');
   }
 
   return (
