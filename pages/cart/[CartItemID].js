@@ -28,6 +28,8 @@ const ItemByIdQuery = gql`
 `;
 
 const EditCartItem = () => {
+  if (window === undefined) return;
+
   const router = useRouter();
   const { CartItemID } = router.query;
   console.log({ CartItemID });
