@@ -35,7 +35,6 @@ const EditCartItem = () => {
 
   const router = useRouter();
   const { CartItemID } = router.query;
-  console.log({ CartItemID });
 
   const selectCartItem = createSelector(
     (state) => state.cart,
@@ -43,7 +42,6 @@ const EditCartItem = () => {
       cartItems.find((cartItem) => cartItem.cartItemId === CartItemID)
   );
 
-  const cart = useSelector((state) => state.cart);
   const cartItem = useSelector(selectCartItem) || { id: 0 };
 
   const { data, loading, error } = useQuery(ItemByIdQuery, {
@@ -51,13 +49,12 @@ const EditCartItem = () => {
       id: cartItem?.id,
     },
   });
-  if (!isClient) return null;
+
+  if (!isClient || cartItem.id === 0) return null;
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Something went wrong.</p>;
 
   const item = data.itemById;
-
-  console.log(item);
 
   return <CartItemForm itemID={cartItem?.id} item={item} cartItem={cartItem} />;
 };
