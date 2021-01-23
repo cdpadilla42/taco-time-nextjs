@@ -143,9 +143,9 @@ const Cart = () => {
   const { isCartOpen, cart: cartItems } = useSelector((state) => state);
   const message = 'Checkout';
   const router = useRouter();
-
+  let isClient = false;
   useEffect(() => {
-    console.log('getting cart info from local storage');
+    isClient = true;
   }, []);
 
   console.log('cartItems', cartItems);
@@ -174,7 +174,7 @@ const Cart = () => {
   }
 
   function renderEmptyCart() {
-    if (window === undefined) return;
+    if (!isClient) return;
     return <div className="empty_cart_prompt">No items in the cart!</div>;
   }
 
@@ -202,7 +202,6 @@ const Cart = () => {
           ))}
         </TransitionGroup>
       ) : (
-        // TODO: Pull me out into a render function that checks if window, and returns nothing if no window
         <div className="items_display">{renderEmptyCart()}</div>
       )}
       {cartItems.length !== 0 && (
