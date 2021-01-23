@@ -173,8 +173,14 @@ const Cart = () => {
     handleClose();
   }
 
+  function renderEmptyCart() {
+    if (window === undefined) return;
+    return <div className="empty_cart_prompt">No items in the cart!</div>;
+  }
+
   return (
     <StyledCart className={!isCartOpen && 'closed'}>
+      {/* Keep cart from populating without persistedState from local storage on the server */}
       <div className="heading">
         <h4>Your Order</h4>
         <button onClick={handleClose}>&times;</button>
@@ -196,9 +202,8 @@ const Cart = () => {
           ))}
         </TransitionGroup>
       ) : (
-        <div className="items_display">
-          <div className="empty_cart_prompt">No items in the cart!</div>
-        </div>
+        // TODO: Pull me out into a render function that checks if window, and returns nothing if no window
+        <div className="items_display">{renderEmptyCart()}</div>
       )}
       {cartItems.length !== 0 && (
         <>
