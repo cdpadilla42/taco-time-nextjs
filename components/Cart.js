@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ButtonWithPrice from '../components/ButtonWithPrice';
 import { useSelector, useDispatch } from 'react-redux';
@@ -143,9 +143,9 @@ const Cart = () => {
   const { isCartOpen, cart: cartItems } = useSelector((state) => state);
   const message = 'Checkout';
   const router = useRouter();
-  let isClient = false;
+  const [isClient, setIsClient] = useState(false);
   useEffect(() => {
-    isClient = true;
+    setIsClient(true);
   }, []);
 
   console.log('cartItems', cartItems);
