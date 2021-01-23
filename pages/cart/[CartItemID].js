@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { createSelector } from 'reselect';
@@ -28,7 +28,10 @@ const ItemByIdQuery = gql`
 `;
 
 const EditCartItem = () => {
-  if (window === undefined) return;
+  const [isClient, setClient] = useState(false);
+  useEffect(() => {
+    setClient(true);
+  }, []);
 
   const router = useRouter();
   const { CartItemID } = router.query;
@@ -40,17 +43,19 @@ const EditCartItem = () => {
       cartItems.find((cartItem) => cartItem.cartItemId === CartItemID)
   );
 
-  const cartItem = useSelector(selectCartItem);
+  const cart = useSelector((state) => state.cart);
+  const cartItem = useSelector(selectCartItem) || { id: 0 };
 
-  console.log({ cartItem });
-
-  const {
-    data: { itemById: item },
-  } = useQuery(ItemByIdQuery, {
+  const { data, loading, error } = useQuery(ItemByIdQuery, {
     variables: {
-      id: cartItem.id,
+      id: cartItem?.id,
     },
   });
+  if (!isClient) return null;
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Something went wrong.</p>;
+
+  const item = data.itemById;
 
   console.log(item);
 

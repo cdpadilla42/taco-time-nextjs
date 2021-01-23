@@ -136,6 +136,15 @@ const StyledCart = styled.div`
       align-items: center;
     }
   }
+
+  a {
+    color: black;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
 `;
 
 const Cart = () => {
