@@ -52,9 +52,7 @@ const EditCartItem = () => {
 
   console.log(item);
 
-  return <CartItemForm itemID={cartItem.id} item={item} cartItem={cartItem} />;
-
-  return <p>{CartItemID}</p>;
+  return <CartItemForm itemID={cartItem?.id} item={item} cartItem={cartItem} />;
 };
 
 export default EditCartItem;
