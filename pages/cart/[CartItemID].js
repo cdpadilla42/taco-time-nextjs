@@ -57,4 +57,8 @@ const EditCartItem = () => {
   return <CartItemForm itemID={cartItem?.id} item={item} cartItem={cartItem} />;
 };
 
+EditCartItem.getInitialProps = async (ctx) => {
+  return {};
+};
+
 export default EditCartItem;
