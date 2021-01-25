@@ -5,6 +5,7 @@ import { createSelector } from 'reselect';
 import { useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
 import CartItemForm from '../../components/CartItemForm';
+import Loading from '../../components/Loading';
 
 const ItemByIdQuery = gql`
   query getItem($id: ID!) {
@@ -51,7 +52,7 @@ const EditCartItem = () => {
   });
 
   if (!isClient || cartItem.id === 0) return null;
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loading />;
   if (error) return <p>Something went wrong.</p>;
 
   const item = data.itemById;
