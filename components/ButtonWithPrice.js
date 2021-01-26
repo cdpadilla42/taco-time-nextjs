@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import { displayTotalPrice, calcTotalPriceInCents } from '../lib/utility';
+import { displayTotalPrice } from '../lib/utility';
 
 const StyledButton = styled.button`
   box-sizing: border-box;

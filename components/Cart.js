@@ -4,7 +4,7 @@ import ButtonWithPrice from '../components/ButtonWithPrice';
 import { useSelector, useDispatch } from 'react-redux';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { useRouter } from 'next/router';
-import { toggleCart, removeFromCart } from '../lib/redux';
+import { toggleCart } from '../lib/redux';
 import CartItem from './CartItem';
 import { priceToString } from '../lib/utility';
 

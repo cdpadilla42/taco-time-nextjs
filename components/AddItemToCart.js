@@ -4,7 +4,6 @@ import { v4 as uuid } from 'uuid';
 import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import NumberIncrementor from './NumberIncrementor';
-import { priceToString } from '../lib/utility';
 import ButtonWithPrice from './ButtonWithPrice';
 import { calcTotalPriceInCents } from '../lib/utility';
 import { editCartItem } from '../lib/redux';
