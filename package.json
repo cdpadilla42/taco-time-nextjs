@@ -9,6 +9,8 @@
   "dependencies": {
     "@apollo/client": "^3.0.2",
     "@reduxjs/toolkit": "^1.5.0",
+    "@stripe/react-stripe-js": "^1.2.0",
+    "@stripe/stripe-js": "^1.11.0",
     "apollo-server-micro": "^2.14.2",
     "formik": "^2.2.6",
     "graphql": "^14.0.2",
@@ -19,6 +21,7 @@
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-redux": "^7.2.2",
+    "react-stripe-checkout": "^2.6.3",
     "react-transition-group": "^4.4.1",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",

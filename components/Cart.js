@@ -6,6 +6,7 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { useRouter } from 'next/router';
 import { toggleCart } from '../lib/redux';
 import CartItem from './CartItem';
+import TakeMoney from './TakeMoney';
 import { priceToString } from '../lib/utility';
 
 const StyledCart = styled.div`
@@ -228,11 +229,13 @@ const Cart = () => {
                 {priceToString(calcCartTax())}
               </div>
             </div>
-            <ButtonWithPrice
-              price={calcCartTotalWithTax()}
-              message={message}
-              handleClick={goToCheckout}
-            />
+            <TakeMoney price={calcCartTotalWithTax() + 1}>
+              <ButtonWithPrice
+                price={calcCartTotalWithTax()}
+                message={message}
+                handleClick={() => console.log('checking out')}
+              />
+            </TakeMoney>
           </div>
         </>
       )}
