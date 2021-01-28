@@ -10,6 +10,11 @@ const TakeMoney = ({ children, price, image, cartSize }) => {
     }
   }
 
+  function onToken(res) {
+    console.log('On Token');
+    console.log(res.id);
+  }
+
   return (
     <StripeCheckout
       name="¡Taco Time!"
@@ -18,6 +23,7 @@ const TakeMoney = ({ children, price, image, cartSize }) => {
       amount={price}
       currency="USD"
       stripeKey="pk_test_51IEN1HAZuIcIZEmnjHARBRUX7p8lcNCfaYU39iGFKAqUhrsJSnGCtPCgi6NFaI32g2fdMtQ6Lg1UTk16oC35KjhA00xgo59eJ7"
+      token={(res) => onToken(res)}
     >
       {children}
     </StripeCheckout>

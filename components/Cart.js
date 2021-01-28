@@ -242,7 +242,7 @@ const Cart = () => {
               </div>
             </div>
             <TakeMoney
-              price={calcCartTotalWithTax() + 1}
+              price={calcCartTotalWithTax()}
               image={extractFirstCartItemImage()}
               cartSize={showCartSize()}
             >
