@@ -1,11 +1,19 @@
 import React from 'react';
 import StripeCheckout from 'react-stripe-checkout';
 
-const TakeMoney = ({ children, price, image }) => {
+const TakeMoney = ({ children, price, image, cartSize }) => {
+  function renderDescription() {
+    if (cartSize === 1) {
+      return `Your order of ${cartSize} item`;
+    } else {
+      return `Your order of ${cartSize} items`;
+    }
+  }
+
   return (
     <StripeCheckout
-      name="Your Order"
-      description="So many tacos"
+      name="¡Taco Time!"
+      description={renderDescription()}
       image={image}
       amount={price}
       currency="USD"

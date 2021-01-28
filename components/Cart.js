@@ -164,6 +164,13 @@ const Cart = () => {
     dispatch(toggleCart());
   }
 
+  function showCartSize() {
+    if (!cartItems) return 0;
+    return cartItems.reduce((prev, item) => {
+      return prev + item.quantity;
+    }, 0);
+  }
+
   function extractFirstCartItemImage() {
     if (!cartItems) return;
     return cartItems[0].image;
@@ -237,6 +244,7 @@ const Cart = () => {
             <TakeMoney
               price={calcCartTotalWithTax() + 1}
               image={extractFirstCartItemImage()}
+              cartSize={showCartSize()}
             >
               <ButtonWithPrice
                 price={calcCartTotalWithTax()}
