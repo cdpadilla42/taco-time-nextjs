@@ -160,6 +160,7 @@ const CartItemForm = ({ item, itemID, cartItem }) => {
         setQuantity={setQuantity}
         price={addPriceAndAddons()}
         itemID={itemID}
+        image={item.img}
         selectedOptions={selectedOptions}
         name={item.name}
         submissionVerified={submissionVerified}

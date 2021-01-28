@@ -37,6 +37,7 @@ const AddItemToCart = ({
   selectedOptions,
   name,
   submissionVerified,
+  image,
 }) => {
   const dispatch = useDispatch();
   const router = useRouter();
@@ -65,6 +66,7 @@ const AddItemToCart = ({
           selectedOptions,
           price,
           name,
+          image,
           cartItemId: uuid(),
         },
       });

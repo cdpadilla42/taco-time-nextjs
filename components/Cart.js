@@ -164,6 +164,11 @@ const Cart = () => {
     dispatch(toggleCart());
   }
 
+  function extractFirstCartItemImage() {
+    if (!cartItems) return;
+    return cartItems[0].image;
+  }
+
   function calcCartPreTaxTotal() {
     return cartItems.reduce((prev, current) => {
       return prev + current.price * current.quantity;
@@ -229,7 +234,10 @@ const Cart = () => {
                 {priceToString(calcCartTax())}
               </div>
             </div>
-            <TakeMoney price={calcCartTotalWithTax() + 1}>
+            <TakeMoney
+              price={calcCartTotalWithTax() + 1}
+              image={extractFirstCartItemImage()}
+            >
               <ButtonWithPrice
                 price={calcCartTotalWithTax()}
                 message={message}
