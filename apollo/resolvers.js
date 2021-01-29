@@ -1,5 +1,5 @@
 import { Item } from './item';
-import { processToken } from '../lib/stripe';
+import stripe from '../lib/stripe';
 
 export const resolvers = {
   Query: {
@@ -44,8 +44,15 @@ export const resolvers = {
     async createOrder(_, args, ctx, info) {
       // 1. Recalculate the total for the price
       console.log(args);
+      const amount = 500;
       // 2. Create the stripe charge
-      processToken(args.token);
+      const charge = await stripe.charges.create({
+        amount,
+        currency: 'usd',
+        source: args.token,
+        description: 'greetings from the resolver',
+      });
+      console.log(charge);
       // 3. Convert CartItems to OrderItems
       // 4. Clean up Cart
       // 5. Return order to the client
