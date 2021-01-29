@@ -1,4 +1,5 @@
 import { Item } from './item';
+import { processToken } from '../lib/stripe';
 
 export const resolvers = {
   Query: {
@@ -44,6 +45,7 @@ export const resolvers = {
       // 1. Recalculate the total for the price
       console.log(args);
       // 2. Create the stripe charge
+      processToken(args.token);
       // 3. Convert CartItems to OrderItems
       // 4. Clean up Cart
       // 5. Return order to the client

@@ -35,7 +35,7 @@ const TakeMoney = ({ children, price, image, cartSize }) => {
       variables: {
         token: res.id,
       },
-    });
+    }).catch((err) => console.error(err));
   }
 
   return (
