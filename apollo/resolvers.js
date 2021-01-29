@@ -40,5 +40,14 @@ export const resolvers = {
       });
       return result;
     },
+    async createOrder(_, args, ctx, info) {
+      // 1. Recalculate the total for the price
+      console.log(args);
+      // 2. Create the stripe charge
+      // 3. Convert CartItems to OrderItems
+      // 4. Clean up Cart
+      // 5. Return order to the client
+      return args;
+    },
   },
 };
