@@ -35,6 +35,7 @@ input OptionInput {
 
 type Mutation {
   addItem(input: ItemInput): Item
+  createOrder(token: String!): Order!;
 }
 
 type Item {
@@ -58,4 +59,21 @@ type Customization {
 type Option {
   name: String!
   price: Int
+}
+
+type OrderItem {
+  id: ID! @unique
+  title: String!
+  description: String!
+  image: String!
+  largeImage: String!
+  price: Int!
+  quantity: Int! @default(value: "1")
+}
+
+type Order {
+  id: ID! @unique
+  items: [OrderItem!]!
+  total: Int!
+  charge: String!
 }
