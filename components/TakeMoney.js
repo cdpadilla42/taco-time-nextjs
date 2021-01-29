@@ -5,7 +5,7 @@ import { useMutation } from '@apollo/client';
 
 const CREATE_ORDER_MUTATION = gql`
   mutation createOrder($token: String!) {
-    createOrder($token) {
+    createOrder(token: $token) {
       id
       total
       charge
