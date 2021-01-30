@@ -43,15 +43,58 @@ export const resolvers = {
     },
     async createOrder(_, args, ctx, info) {
       // 1. Recalculate the total for the price
-      console.log(args);
+      const order = args.cart.cart;
+      const orderIDS = order.map((item) => item.id);
+      const itemsFromDB = await Item.find().where('_id').in(orderIDS).exec();
+      console.log(itemsFromDB);
+      // iterating through original order in case of duplicate items. Mongoose does not find these.
+      order.reduce((prev, item) => {
+        // find the matching item
+        const matchedItem = itemsFromDB.find((dbItem) => dbItem._id == item.id);
+        // find the price
+        console.log('matched item', matchedItem);
+        // find the customization price
+        let addOns = 0;
+        if (item.selectedOptions) {
+          console.log('searching for addons');
+          // todo reduce the selectedOptions to their total additional price
+          addOns = Object.keys(item.selectedOptions).reduce((prev, key) => {
+            console.log(
+              `searching for value of ${key} : ${item.selectedOptions[key]}`
+            );
+            const value = item.selectedOptions[key];
+            const foundOption = matchedItem.customizations.find(
+              (customization) => customization.name === key
+            );
+            console.log('foundOption', foundOption);
+            const foundCustomization = foundOption.options.find(
+              (option) => option.name == value
+            );
+            console.log('found customization', foundCustomization);
+            if (foundCustomization.price) {
+              return foundCustomization.price + prev;
+            }
+            return prev;
+          }, 0);
+        }
+        // TODO almost there! Figure out what's going on here!
+        // add together and multiply by quantity
+        const totalCostofSingleItem = (price + addOns) * item.quantity;
+        // add to current total
+        return prev + totalCostofSingleItem;
+      }, 0);
+
+      console.log('calculated total');
+
       const amount = 500;
       // 2. Create the stripe charge
-      const charge = await stripe.charges.create({
-        amount,
-        currency: 'usd',
-        source: args.token,
-        description: 'greetings from the resolver',
-      });
+      // TODO UNCOMMENT WHEN READY TO HOOK UP
+      // const charge = await stripe.charges.create({
+      //   amount,
+      //   currency: 'usd',
+      //   source: args.token,
+      //   description: 'greetings from the resolver',
+      // });
       console.log(charge);
       // 3. Convert CartItems to OrderItems
       // 4. Clean up Cart
