@@ -2,10 +2,11 @@ import React from 'react';
 import StripeCheckout from 'react-stripe-checkout';
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/client';
+import { useSelector } from 'react-redux';
 
 const CREATE_ORDER_MUTATION = gql`
-  mutation createOrder($token: String!) {
-    createOrder(token: $token) {
+  mutation createOrder($token: String!, $cart: CartInput!) {
+    createOrder(token: $token, cart: $cart) {
       id
       total
       charge
@@ -19,6 +20,7 @@ const CREATE_ORDER_MUTATION = gql`
 
 const TakeMoney = ({ children, price, image, cartSize }) => {
   const [createOrder, { data }] = useMutation(CREATE_ORDER_MUTATION);
+  const cart = useSelector((store) => store.cart);
 
   function renderDescription() {
     if (cartSize === 1) {
@@ -34,9 +36,17 @@ const TakeMoney = ({ children, price, image, cartSize }) => {
     createOrder({
       variables: {
         token: res.id,
+        // Insert into CartInput an object with the key of cart and that property of the cart from redux
+        cart: { cart: cart },
       },
     }).catch((err) => console.error(err));
   }
+
+  // function flattenCartOptions(cart) {
+  //   cart.forEach(item => {
+  //     if (item.selectedOptions?.remove && typeof item.selectedOptions?.remove)
+  //   })
+  // }
 
   return (
     <StripeCheckout

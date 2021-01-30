@@ -35,7 +35,7 @@ input OptionInput {
 
 type Mutation {
   addItem(input: ItemInput): Item
-  createOrder(token: String!): Order!
+  createOrder(token: String!, cart: CartInput!): Order!
 }
 
 type Item {
@@ -78,32 +78,21 @@ type Order {
   charge: String!
 }
 
-type CartItem {
+input CartItemInput {
   id: ID!
   quantity: Int!
-  selectedOptions: SelectedOptions
+  selectedOptions: SelectedOptionsInput
   price: Int
   name: String
   cartItemId: ID!
 }
 
-type CartInput {
-  Cart: [CartItem!]!
+input CartInput {
+  cart: [CartItemInput!]!
 }
 
-type SelectedOptions {
+input SelectedOptionsInput {
   tortilla: String
-  remove: RemoveInput
+  remove: [String!]
   spice: String
 }
-
-type RemoveString {
-  remove: [String]
-}
-
-type RemoveArray {
-  remove: String
-}
-
-type RemoveInput = RemoveArray | RemoveString
-
