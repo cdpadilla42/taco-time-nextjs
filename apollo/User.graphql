@@ -77,3 +77,33 @@ type Order {
   total: Int!
   charge: String!
 }
+
+type CartItem {
+  id: ID!
+  quantity: Int!
+  selectedOptions: SelectedOptions
+  price: Int
+  name: String
+  cartItemId: ID!
+}
+
+type CartInput {
+  Cart: [CartItem!]!
+}
+
+type SelectedOptions {
+  tortilla: String
+  remove: RemoveInput
+  spice: String
+}
+
+type RemoveString {
+  remove: [String]
+}
+
+type RemoveArray {
+  remove: String
+}
+
+type RemoveInput = RemoveArray | RemoveString
+
