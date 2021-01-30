@@ -85,6 +85,7 @@ input CartItemInput {
   price: Int
   name: String
   cartItemId: ID!
+  image: String
 }
 
 input CartInput {
