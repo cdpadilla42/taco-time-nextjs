@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import StripeCheckout from 'react-stripe-checkout';
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/client';
@@ -12,7 +12,7 @@ const CREATE_ORDER_MUTATION = gql`
       charge
       items {
         id
-        title
+        name
       }
     }
   }
@@ -30,7 +30,11 @@ const TakeMoney = ({ children, price, image, cartSize }) => {
     }
   }
 
-  function onToken(res) {
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
+
+  async function onToken(res) {
     console.log('On Token');
     console.log(res.id);
     createOrder({
