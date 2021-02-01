@@ -63,10 +63,9 @@ type Option {
 
 type OrderItem {
   id: ID!
-  title: String!
+  name: String!
   description: String!
   image: String!
-  largeImage: String!
   price: Int!
   quantity: Int!
 }
@@ -80,12 +79,12 @@ type Order {
 
 input CartItemInput {
   id: ID!
+  name: String
+  image: String
+  price: Int
   quantity: Int!
   selectedOptions: SelectedOptionsInput
-  price: Int
-  name: String
   cartItemId: ID!
-  image: String
 }
 
 input CartInput {

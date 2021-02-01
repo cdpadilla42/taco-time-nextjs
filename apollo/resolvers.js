@@ -48,6 +48,7 @@ export const resolvers = {
       const order = args.cart.cart;
       const orderIDS = order.map((item) => item.id);
       const itemsFromDB = await Item.find().where('_id').in(orderIDS).exec();
+      let orderItems = [];
       console.log('itemsFromDB', itemsFromDB);
       console.log('order', order);
       // iterating through original order in case of duplicate items. Mongoose does not find these.
@@ -60,7 +61,6 @@ export const resolvers = {
         let addOns = 0;
         if (item.selectedOptions) {
           console.log('searching for addons');
-          // todo reduce the selectedOptions to their total additional price
           addOns = Object.keys(item.selectedOptions).reduce((prev, key) => {
             console.log(
               `searching for value of ${key} : ${item.selectedOptions[key]}`
@@ -83,7 +83,7 @@ export const resolvers = {
             return prev;
           }, 0);
         }
-        // TODO almost there! Figure out what's going on here!
+
         console.log('addOns', addOns);
         // add together and multiply by quantity
         console.log({
@@ -93,6 +93,19 @@ export const resolvers = {
         });
         const totalCostofSingleItem =
           (matchedItem.price + addOns) * item.quantity;
+
+        // save price info to orderItems
+        const resultItem = {
+          id: matchedItem._id,
+          name: matchedItem.name,
+          description: matchedItem.description,
+          image: matchedItem.image,
+          price: totalCostofSingleItem,
+          quantity: item.quanitity,
+        };
+
+        orderItems.push(resultItem);
+
         // add to current total
         console.log('totalCostofSingleItem', totalCostofSingleItem);
         return prev + totalCostofSingleItem;
@@ -103,7 +116,6 @@ export const resolvers = {
       const amount = cartTotal + Math.floor(calcCartTax(cartTotal));
 
       // 2. Create the stripe charge
-      // TODO UNCOMMENT WHEN READY TO HOOK UP
       const charge = await stripe.charges.create({
         amount,
         currency: 'usd',
@@ -111,10 +123,14 @@ export const resolvers = {
         description: 'greetings from the resolver',
       });
       console.log(charge);
-      // 3. Convert CartItems to OrderItems
       // 4. Clean up Cart
       // 5. Return order to the client
-      return args;
+      return {
+        id: 1,
+        items: orderItems,
+        total: amount,
+        charge: charge.id,
+      };
     },
   },
 };
