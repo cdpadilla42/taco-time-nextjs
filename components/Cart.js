@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import { toggleCart } from '../lib/redux';
 import CartItem from './CartItem';
 import TakeMoney from './TakeMoney';
-import { priceToString } from '../lib/utility';
+import { priceToString, calcCartTax } from '../lib/utility';
 
 const StyledCart = styled.div`
   height: 100vh;
@@ -182,12 +182,8 @@ const Cart = () => {
     }, 0);
   }
 
-  function calcCartTax() {
-    return 0.025 * calcCartPreTaxTotal();
-  }
-
   function calcCartTotalWithTax() {
-    return calcCartPreTaxTotal() + calcCartTax();
+    return calcCartPreTaxTotal() + calcCartTax(calcCartPreTaxTotal());
   }
 
   function goToCheckout() {
@@ -238,7 +234,7 @@ const Cart = () => {
             <div className="quantity_row">
               <span className="quantity_text">Estimated Tax</span>
               <div className="quantity_row__right">
-                {priceToString(calcCartTax())}
+                {priceToString(calcCartTax(calcCartPreTaxTotal()))}
               </div>
             </div>
             <TakeMoney
