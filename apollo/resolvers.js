@@ -1,5 +1,6 @@
 import { Item } from './item';
 import stripe from '../lib/stripe';
+import { array } from 'prop-types';
 
 export const resolvers = {
   Query: {
@@ -46,9 +47,10 @@ export const resolvers = {
       const order = args.cart.cart;
       const orderIDS = order.map((item) => item.id);
       const itemsFromDB = await Item.find().where('_id').in(orderIDS).exec();
-      console.log(itemsFromDB);
+      console.log('itemsFromDB', itemsFromDB);
+      console.log('order', order);
       // iterating through original order in case of duplicate items. Mongoose does not find these.
-      order.reduce((prev, item) => {
+      const cartTotal = order.reduce((prev, item) => {
         // find the matching item
         const matchedItem = itemsFromDB.find((dbItem) => dbItem._id == item.id);
         // find the price
@@ -62,6 +64,9 @@ export const resolvers = {
             console.log(
               `searching for value of ${key} : ${item.selectedOptions[key]}`
             );
+            if (item.selectedOptions[key] instanceof Array) {
+              return prev;
+            }
             const value = item.selectedOptions[key];
             const foundOption = matchedItem.customizations.find(
               (customization) => customization.name === key
@@ -78,13 +83,17 @@ export const resolvers = {
           }, 0);
         }
         // TODO almost there! Figure out what's going on here!
+        console.log('addOns', addOns);
         // add together and multiply by quantity
+        console.log({ price, addOns, quanitity: item.quantity });
         const totalCostofSingleItem = (price + addOns) * item.quantity;
         // add to current total
+        console.log('totalCostofSingleItem', totalCostofSingleItem);
         return prev + totalCostofSingleItem;
+        console.log('no mans land');
       }, 0);
 
-      console.log('calculated total');
+      console.log('calculated total', cartTotal);
 
       const amount = 500;
       // 2. Create the stripe charge
