@@ -85,8 +85,13 @@ export const resolvers = {
         // TODO almost there! Figure out what's going on here!
         console.log('addOns', addOns);
         // add together and multiply by quantity
-        console.log({ price, addOns, quanitity: item.quantity });
-        const totalCostofSingleItem = (price + addOns) * item.quantity;
+        console.log({
+          price: matchedItem.price,
+          addOns,
+          quanitity: item.quantity,
+        });
+        const totalCostofSingleItem =
+          (matchedItem.price + addOns) * item.quantity;
         // add to current total
         console.log('totalCostofSingleItem', totalCostofSingleItem);
         return prev + totalCostofSingleItem;
