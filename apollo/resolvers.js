@@ -1,4 +1,5 @@
 import { Item } from './item';
+import { calcCartTax } from '../lib/utility';
 import stripe from '../lib/stripe';
 import { array } from 'prop-types';
 
@@ -95,20 +96,20 @@ export const resolvers = {
         // add to current total
         console.log('totalCostofSingleItem', totalCostofSingleItem);
         return prev + totalCostofSingleItem;
-        console.log('no mans land');
       }, 0);
 
       console.log('calculated total', cartTotal);
 
-      const amount = 500;
+      const amount = cartTotal + Math.floor(calcCartTax(cartTotal));
+
       // 2. Create the stripe charge
       // TODO UNCOMMENT WHEN READY TO HOOK UP
-      // const charge = await stripe.charges.create({
-      //   amount,
-      //   currency: 'usd',
-      //   source: args.token,
-      //   description: 'greetings from the resolver',
-      // });
+      const charge = await stripe.charges.create({
+        amount,
+        currency: 'usd',
+        source: args.token,
+        description: 'greetings from the resolver',
+      });
       console.log(charge);
       // 3. Convert CartItems to OrderItems
       // 4. Clean up Cart
