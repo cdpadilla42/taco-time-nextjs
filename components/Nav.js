@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleCart, clearToast } from '../lib/redux';
 import styled from 'styled-components';
 import wait from 'waait';
+import NProgress from 'nprogress';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 const StyledNav = styled.div`
@@ -91,11 +93,32 @@ const Nav = () => {
   const dispatch = useDispatch();
   const [isToastShowing, setIsToastShowing] = useState(false);
   const toastMessage = useSelector((state) => state.toastMessage);
+  const Router = useRouter();
 
   useEffect(() => {
     if (toastMessage === '') return;
     showToast(toastMessage);
   }, [toastMessage]);
+
+  useEffect(() => {
+    console.log('moving....');
+    const handleStart = () => NProgress.start();
+    const handleEnd = () => {
+      console.log('made it!');
+      NProgress.done();
+    };
+
+    Router.events.on('routeChangeStart', handleStart);
+    Router.events.on('routeChangeComplete', handleEnd);
+    Router.events.on('routeChangeError', handleEnd);
+
+    return () => {
+      // unsubscribe
+      Router.events.off('routeChangeStart', handleStart);
+      Router.events.off('routeChangeComplete', handleEnd);
+      Router.events.off('routeChangeError', handleEnd);
+    };
+  }, []);
 
   function handleClick() {
     dispatch(toggleCart());

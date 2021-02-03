@@ -3,6 +3,7 @@ import StripeCheckout from 'react-stripe-checkout';
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/client';
 import { useSelector } from 'react-redux';
+import NProgress from 'nprogress';
 
 const CREATE_ORDER_MUTATION = gql`
   mutation createOrder($token: String!, $cart: CartInput!) {
@@ -35,6 +36,7 @@ const TakeMoney = ({ children, price, image, cartSize }) => {
   }, [data]);
 
   async function onToken(res) {
+    NProgress.start();
     console.log('On Token');
     console.log(res.id);
     createOrder({
@@ -44,13 +46,8 @@ const TakeMoney = ({ children, price, image, cartSize }) => {
         cart: { cart: cart },
       },
     }).catch((err) => console.error(err));
+    NProgress.done();
   }
-
-  // function flattenCartOptions(cart) {
-  //   cart.forEach(item => {
-  //     if (item.selectedOptions?.remove && typeof item.selectedOptions?.remove)
-  //   })
-  // }
 
   return (
     <StripeCheckout
