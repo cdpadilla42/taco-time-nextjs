@@ -3,7 +3,7 @@ import { useApollo } from '../apollo/client';
 import Layout from '../components/Layout';
 import { Provider as ReduxProvider } from 'react-redux';
 import store from '../lib/redux';
-import 'nprogress/nprogress.css';
+import '../lib/nprogress.css';
 
 export default function App({ Component, pageProps }) {
   const apolloClient = useApollo(pageProps.initialApolloState);
