@@ -6,6 +6,7 @@ import { useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
 import CartItemForm from '../../components/CartItemForm';
 import Loading from '../../components/Loading';
+import FourOhFour from '../../components/404';
 
 const ItemByIdQuery = gql`
   query getItem($id: ID!) {
@@ -50,10 +51,10 @@ const EditCartItem = () => {
       id: cartItem?.id,
     },
   });
-
+  if (cartItem.id === 0) return <FourOhFour />;
   if (!isClient || cartItem.id === 0) return null;
   if (loading) return <Loading />;
-  if (error) return <p>Something went wrong.</p>;
+  if (error) return <FourOhFour />;
 
   const item = data.itemById;
 
