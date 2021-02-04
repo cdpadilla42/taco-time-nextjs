@@ -102,7 +102,7 @@ export const resolvers = {
           description: matchedItem.description,
           image: matchedItem.image,
           price: totalCostofSingleItem,
-          quantity: item.quanitity,
+          quantity: item.quantity,
         };
 
         orderItems.push(resultItem);
@@ -126,6 +126,7 @@ export const resolvers = {
       console.log(charge);
 
       // 3. Save Order to DB
+      console.log('orderItems', orderItems);
       const newOrder = await new Order({
         items: orderItems,
         total: amount,
@@ -134,20 +135,14 @@ export const resolvers = {
 
       const result = await newOrder.save((err, res) => {
         if (err) {
-          throw new Error(err);
+          console.error(err);
         } else {
-          console.log('Order saved to DB: ', result);
+          console.log('Order saved to DB: ', res);
           return res;
         }
       });
-      // 4. Clean up Cart
-      // 5. Return order to the client
-      return {
-        id: 1,
-        items: orderItems,
-        total: amount,
-        charge: charge.id,
-      };
+      // 4. Return order to the client
+      return result;
     },
   },
 };
