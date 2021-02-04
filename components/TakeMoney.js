@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useRouter } from 'next/router';
 import StripeCheckout from 'react-stripe-checkout';
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/client';
@@ -22,6 +23,7 @@ const CREATE_ORDER_MUTATION = gql`
 const TakeMoney = ({ children, price, image, cartSize }) => {
   const [createOrder, { data }] = useMutation(CREATE_ORDER_MUTATION);
   const cart = useSelector((store) => store.cart);
+  const router = useRouter();
 
   function renderDescription() {
     if (cartSize === 1) {
@@ -31,18 +33,18 @@ const TakeMoney = ({ children, price, image, cartSize }) => {
     }
   }
 
-  useEffect(() => {
-    console.log(data);
-    if (!data) return;
-    if (data.createOrder.id) {
-    }
-  }, [data]);
+  // useEffect(() => {
+  //   console.log(data);
+  //   if (!data) return;
+  //   if (data.createOrder.id) {
+  //   }
+  // }, [data]);
 
   async function onToken(res) {
     NProgress.start();
     console.log('On Token');
     console.log(res.id);
-    createOrder({
+    const result = await createOrder({
       variables: {
         token: res.id,
         // Insert into CartInput an object with the key of cart and that property of the cart from redux
@@ -50,7 +52,11 @@ const TakeMoney = ({ children, price, image, cartSize }) => {
       },
     }).catch((err) => console.error(err));
     // push url to result's id
-
+    console.log(result);
+    router.push({
+      pathname: '/order/[id]',
+      query: { id: result.data.createOrder._id },
+    });
     NProgress.done();
   }
 
