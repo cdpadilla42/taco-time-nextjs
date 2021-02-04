@@ -142,7 +142,8 @@ export const resolvers = {
         }
       });
       // 4. Return order to the client
-      return result;
+      console.log(newOrder);
+      return newOrder;
     },
   },
 };

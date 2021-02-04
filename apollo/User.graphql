@@ -62,7 +62,7 @@ type Option {
 }
 
 type OrderItem {
-  id: ID!
+  _id: ID!
   name: String!
   description: String!
   image: String!
@@ -71,7 +71,7 @@ type OrderItem {
 }
 
 type Order {
-  id: ID!
+  _id: ID!
   items: [OrderItem!]!
   total: Int!
   charge: String!

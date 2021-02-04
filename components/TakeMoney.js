@@ -8,11 +8,11 @@ import NProgress from 'nprogress';
 const CREATE_ORDER_MUTATION = gql`
   mutation createOrder($token: String!, $cart: CartInput!) {
     createOrder(token: $token, cart: $cart) {
-      id
+      _id
       total
       charge
       items {
-        id
+        _id
         name
       }
     }
@@ -33,6 +33,9 @@ const TakeMoney = ({ children, price, image, cartSize }) => {
 
   useEffect(() => {
     console.log(data);
+    if (!data) return;
+    if (data.createOrder.id) {
+    }
   }, [data]);
 
   async function onToken(res) {
@@ -46,6 +49,8 @@ const TakeMoney = ({ children, price, image, cartSize }) => {
         cart: { cart: cart },
       },
     }).catch((err) => console.error(err));
+    // push url to result's id
+
     NProgress.done();
   }
 
