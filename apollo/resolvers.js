@@ -1,4 +1,5 @@
 import { Item } from './item';
+import { Order } from './order';
 import { calcCartTax } from '../lib/utility';
 import stripe from '../lib/stripe';
 import { array } from 'prop-types';
@@ -123,6 +124,22 @@ export const resolvers = {
         description: 'greetings from the resolver',
       });
       console.log(charge);
+
+      // 3. Save Order to DB
+      const newOrder = await new Order({
+        items: orderItems,
+        total: amount,
+        charge: charge.id,
+      });
+
+      const result = await newOrder.save((err, res) => {
+        if (err) {
+          throw new Error(err);
+        } else {
+          console.log('Order saved to DB: ', result);
+          return res;
+        }
+      });
       // 4. Clean up Cart
       // 5. Return order to the client
       return {
