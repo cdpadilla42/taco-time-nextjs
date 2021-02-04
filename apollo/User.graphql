@@ -8,6 +8,7 @@ type Query {
   viewer: User
   item: [Item]
   itemById(id: ID!): Item
+  orderById(id: ID!): Order
 }
 
 input ItemInput {

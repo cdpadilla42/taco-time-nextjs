@@ -20,6 +20,11 @@ export const resolvers = {
       const result = await Item.findById(id);
       return result;
     },
+
+    async orderById(_, { id }) {
+      const result = await Order.findById(id);
+      return result;
+    },
   },
   Mutation: {
     // Possible enhancement: Seperate Customization entries to be reusable between items
