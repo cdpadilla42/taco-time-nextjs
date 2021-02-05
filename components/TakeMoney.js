@@ -45,22 +45,22 @@ const TakeMoney = ({ children, price, image, cartSize }) => {
 
   async function onToken(res) {
     NProgress.start();
-    console.log('On Token');
-    console.log(res.id);
     const result = await createOrder({
       variables: {
         token: res.id,
         // Insert into CartInput an object with the key of cart and that property of the cart from redux
         cart: { cart: cart },
       },
-    }).catch((err) => console.error(err));
+    }).catch((err) => {
+      console.error(err);
+      return;
+    });
     // push url to result's id
-    console.log(result);
     router.push({
       pathname: '/order/[id]',
       query: { id: result.data.createOrder._id },
     });
-    // TODO clear cart & close
+    // Clear and close cart
     dispatch(clearCart());
     dispatch(closeCart());
 
