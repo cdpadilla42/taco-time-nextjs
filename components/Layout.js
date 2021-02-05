@@ -1,9 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { createGlobalStyle } from 'styled-components';
 import Nav from './Nav';
 import Cart from '../components/Cart';
+import { useDispatch } from 'react-redux';
+import { closeCart } from '../lib/redux';
 
 const Layout = ({ children }) => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (window !== undefined) {
+      dispatch(closeCart());
+    }
+  });
+
   const GlobalStyle = createGlobalStyle`
     * {
       font-family: Inter, Helvetica, Arial, sans-serif;
