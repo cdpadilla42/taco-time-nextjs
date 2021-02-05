@@ -36,13 +36,6 @@ const TakeMoney = ({ children, price, image, cartSize }) => {
     }
   }
 
-  // useEffect(() => {
-  //   console.log(data);
-  //   if (!data) return;
-  //   if (data.createOrder.id) {
-  //   }
-  // }, [data]);
-
   async function onToken(res) {
     NProgress.start();
     const result = await createOrder({

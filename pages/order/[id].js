@@ -81,6 +81,7 @@ const OrderPage = () => {
   };
 
   if (loading) return <Loading />;
+  if (!order) return <Loading />;
   if (error) return <FourOhFour />;
 
   return (
@@ -95,7 +96,7 @@ const OrderPage = () => {
       </div>
       <div className="row total">
         <span>Total:</span>
-        <span> {priceToString(order.total)}</span>
+        <span> {priceToString(order?.total)}</span>
       </div>
       <div className="row fine_print">
         <span>Order ID: {order._id}</span>
