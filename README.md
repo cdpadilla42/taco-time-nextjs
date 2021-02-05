@@ -29,7 +29,7 @@ The back end is an Apollo Micro Server. Since this iteration of the app only nee
 
 ## Integration with Stripe API for Customer Checkout
 
-The latest feature and my favorite to work through was bringing in stripe’s checkout component and integrating with their api to charge credit cards for orders. In this implementation, testing mode is enabled so no charges are actually incurred, but test data is sent through the application. (Use card number 4242 4242 4242 4242) To ensure a secure checkout, the order is handled on the server. There, prices are recalculated with price information on items from the database to ensure correct charging. The order is then converted to a record in the database. Finally, an order is returned to the client with details on their purchase.
+The latest feature and my favorite to work through was bringing in Stripe’s checkout component and integrating with their api to charge credit cards for orders. In this implementation, testing mode is enabled so no charges are actually incurred, but test data is sent through the application. (Use card number 4242 4242 4242 4242) To ensure a secure checkout, the order is handled on the server. There, prices are recalculated with price information on items from the database to ensure correct charging. The order is then converted to a record in the database. Finally, an order is returned to the client with details on their purchase.
 
 ## Interacting with GraphQL API
 
