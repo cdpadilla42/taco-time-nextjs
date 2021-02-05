@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import Head from 'next/head';
 import { createGlobalStyle } from 'styled-components';
 import Nav from './Nav';
 import Cart from '../components/Cart';
@@ -72,6 +73,10 @@ const Layout = ({ children }) => {
   return (
     <>
       <GlobalStyle />
+      <Head>
+        <title>Taco Time</title>
+        <link rel="icon" type="image/png" href="/favicon.png"></link>
+      </Head>
       <div className="layout">
         <Cart />
         <Nav />
