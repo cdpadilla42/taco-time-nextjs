@@ -18,7 +18,7 @@ const StyledCard = styled.div`
   }
 
   .image_display {
-    width: 208px;
+    width: 100%;
     height: 140px;
     background-position: center;
     background-size: cover;
