@@ -1,10 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useRouter } from 'next/router';
 import StripeCheckout from 'react-stripe-checkout';
 import gql from 'graphql-tag';
 import { useMutation } from '@apollo/client';
 import { useSelector } from 'react-redux';
 import NProgress from 'nprogress';
+import { useDispatch } from 'react-redux';
+import { clearCart, closeCart } from '../lib/redux';
 
 const CREATE_ORDER_MUTATION = gql`
   mutation createOrder($token: String!, $cart: CartInput!) {
@@ -24,6 +26,7 @@ const TakeMoney = ({ children, price, image, cartSize }) => {
   const [createOrder, { data }] = useMutation(CREATE_ORDER_MUTATION);
   const cart = useSelector((store) => store.cart);
   const router = useRouter();
+  const dispatch = useDispatch();
 
   function renderDescription() {
     if (cartSize === 1) {
@@ -57,6 +60,10 @@ const TakeMoney = ({ children, price, image, cartSize }) => {
       pathname: '/order/[id]',
       query: { id: result.data.createOrder._id },
     });
+    // TODO clear cart & close
+    dispatch(clearCart());
+    dispatch(closeCart());
+
     NProgress.done();
   }
 
