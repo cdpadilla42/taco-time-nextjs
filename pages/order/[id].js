@@ -58,6 +58,7 @@ const OrderPage = () => {
   console.log(order);
 
   function calcPreTaxTotal() {
+    if (!order) return;
     return Math.floor(
       order.items.reduce((prev, item) => {
         return prev + item.price;
@@ -66,6 +67,7 @@ const OrderPage = () => {
   }
 
   const renderOrderItems = () => {
+    if (!order) return;
     return order.items.map((item) => {
       return (
         <div className="row">
