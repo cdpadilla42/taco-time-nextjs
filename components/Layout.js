@@ -12,7 +12,7 @@ const Layout = ({ children }) => {
     if (window !== undefined) {
       dispatch(closeCart());
     }
-  });
+  }, []);
 
   const GlobalStyle = createGlobalStyle`
     * {
