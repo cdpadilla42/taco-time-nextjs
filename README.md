@@ -23,7 +23,7 @@ Taco Time is a fictional restaurant taking inspiration from Taco Deli here in Au
 
 Next.js allows for choosing between Server Side Rendering and Static Page Generation on a page-by-page basis. For this application, assuming owners may need to post notice that an item has sold out, I’ve opted for SSR. On the server, the application grabs the data it needs and renders the html that will be sent to the client. This process alone took a considerable amount of fine tuning as the application needs to interact with Apollo’s cache and await results from MongoDB. I was able to eradicate a bit of a nasty bug in this process by having the getServerSideProps function wait for the DB to establish a connection before rendering the page.
 
-## Crafting Server-less Functions in Apollo
+## Crafting API Resolvers in Apollo
 
 The back end is an Apollo Micro Server. Since this iteration of the app only needed to interact with MongoDB to fetch items in the restaurant inventory, a lighter server seemed a great fit! The server takes in hand-crafted GraphQL schemas and resolvers. The resolvers then fetch the data from MongoDB through interacting with Mongoose schemas. A mutation method was implemented for me to add items to the database as a developer. A possible expansion would be to create a view for restaurant owners to interact with an elegant UI to do this themselves.
 
