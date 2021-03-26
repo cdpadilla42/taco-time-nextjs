@@ -23,7 +23,6 @@ const Layout = ({ children }) => {
 
     body {
       margin: 0;
-      width: 100vw;
       overflow-x: hidden;
     }
 
@@ -32,17 +31,11 @@ const Layout = ({ children }) => {
       padding: 0;
     }
 
-    .page_wrap {
-      overflow-y: scroll;
-      height: calc(100vh - 50px);
-    }
 
     .layout {
-      width: 100vw;
-      height: 100vh;
+
       position: relative;
-      overflow-y: hidden;
-      overflow-x: hidden;
+
     }
 
     main {
