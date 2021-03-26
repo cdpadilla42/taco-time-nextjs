@@ -12,7 +12,7 @@ import { priceToString, calcCartTax } from '../lib/utility';
 const StyledCart = styled.div`
   height: 100vh;
   transform: translateX(0);
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   background-color: #fff;
