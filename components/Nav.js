@@ -17,8 +17,9 @@ const StyledNav = styled.div`
   color: #ef3340;
   font-weight: 700;
   border-top: 3px solid #ef3340;
-  box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.1);
-  position: sticky;
+
+  position: fixed;
+  width: calc(100vw - 2rem);
   top: 0;
   left: 0;
 

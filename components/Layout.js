@@ -5,6 +5,7 @@ import Nav from './Nav';
 import Cart from '../components/Cart';
 import { useDispatch } from 'react-redux';
 import { closeCart } from '../lib/redux';
+import Search from './Search';
 
 const Layout = ({ children }) => {
   const dispatch = useDispatch();
@@ -36,6 +37,10 @@ const Layout = ({ children }) => {
 
       position: relative;
 
+    }
+
+    .page_wrap {
+      margin-top: 53px;
     }
 
     main {
@@ -75,6 +80,7 @@ const Layout = ({ children }) => {
         <Cart />
         <Nav />
         <div className="page_wrap">
+          {/* <Search /> */}
           <main>{children}</main>
         </div>
       </div>
