@@ -1,5 +1,22 @@
 import { useCombobox } from 'downshift';
+import { gql, useLazyQuery, useMutation } from '@apollo/client';
 import styled from 'styled-components';
+
+const SEARCH_ITEMS = gql`
+  query SEARCH_ITEMS($searchTerm: String!) {
+    allItems(
+      where: {
+        OR: [
+          { name_contains_i: $searchTerm }
+          { description_contains_i: $searchTerm }
+        ]
+      }
+    ) {
+      name
+      description
+    }
+  }
+`;
 
 const StyledSearch = styled.form`
   input {
@@ -28,7 +45,6 @@ const DropDownItem = styled.div`
 
 export default function Search() {
   const items = [];
-  const loading = false;
   const {
     inputValue,
     getMenuProps,
@@ -48,8 +64,16 @@ export default function Search() {
     },
   });
 
-  function handleSubmit(e) {
+  const [searchItems, { data, loading, error }] = useLazyQuery(SEARCH_ITEMS, {
+    variables: {
+      searchTerm: inputValue,
+    },
+  });
+
+  async function handleSubmit(e) {
     e.preventDefault();
+    await searchItems();
+    console.log(data);
   }
 
   return (

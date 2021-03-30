@@ -80,7 +80,7 @@ const Layout = ({ children }) => {
         <Cart />
         <Nav />
         <div className="page_wrap">
-          {/* <Search /> */}
+          <Search />
           <main>{children}</main>
         </div>
       </div>
