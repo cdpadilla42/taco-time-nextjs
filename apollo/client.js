@@ -11,8 +11,8 @@ function createIsomorphLink() {
   } else {
     const { HttpLink } = require('@apollo/client/link/http');
     return new HttpLink({
-      uri: '/api/graphql',
-      credentials: 'same-origin',
+      uri: 'http://localhost:3000/admin/api',
+      // credentials: 'same-origin',
     });
   }
 }
