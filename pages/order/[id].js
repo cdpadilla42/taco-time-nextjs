@@ -5,6 +5,7 @@ import { useQuery, gql } from '@apollo/client';
 import Loading from '../../components/Loading';
 import FourOhFour from '../../components/404';
 import { priceToString, calcCartTax } from '../../lib/utility';
+import { initializeApollo } from '../../apollo/client';
 
 const StyledOrderPage = styled.div`
   max-width: 500px;
@@ -31,17 +32,17 @@ const StyledOrderPage = styled.div`
 `;
 
 const GET_ORDER = gql`
-  query orderById($id: ID!) {
-    orderById(id: $id) {
-      _id
+  query GET_ORDER($id: ID!) {
+    Order(where: { id: $id }) {
+      id
+      total
+      charge
       items {
         name
         description
         price
         quantity
       }
-      total
-      charge
     }
   }
 `;
@@ -51,10 +52,13 @@ const OrderPage = () => {
   const { data, loading, error } = useQuery(GET_ORDER, {
     variables: {
       id: router.query.id,
+      test: 'test',
     },
   });
 
-  const order = data?.orderById;
+  console.log({ params: router.query.id });
+
+  const order = data?.Order;
   console.log(order);
 
   function calcPreTaxTotal() {
@@ -107,5 +111,28 @@ const OrderPage = () => {
     </StyledOrderPage>
   );
 };
+
+export async function getServerSideProps({ params }) {
+  try {
+    const apolloClient = initializeApollo();
+
+    const variables = {
+      id: params.id,
+    };
+
+    await apolloClient.query({
+      query: GET_ORDER,
+      variables,
+    });
+
+    return {
+      props: {
+        initialApolloState: apolloClient.cache.extract(),
+      },
+    };
+  } catch (err) {
+    throw new Error(err);
+  }
+}
 
 export default OrderPage;

@@ -51,7 +51,7 @@ const TakeMoney = ({ children, price, image, cartSize }) => {
     // push url to result's id
     router.push({
       pathname: '/order/[id]',
-      query: { id: result.data.createOrder._id },
+      query: { id: result.data.checkout.id },
     });
     // Clear and close cart
     dispatch(clearCart());
