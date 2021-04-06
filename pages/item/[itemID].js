@@ -7,8 +7,8 @@ import gql from 'graphql-tag';
 import CartItemForm from '../../components/CartItemForm';
 
 const ItemByIdQuery = gql`
-  query getItem($id: ID!) {
-    itemById(id: $id) {
+  query Item($id: ID!) {
+    Item(where: { id: $id }) {
       name
       description
       price
@@ -32,7 +32,7 @@ const itemDisplay = () => {
   const { itemID } = router.query;
 
   const {
-    data: { itemById: item },
+    data: { Item: item },
   } = useQuery(ItemByIdQuery, {
     variables: {
       id: itemID,
@@ -43,7 +43,7 @@ const itemDisplay = () => {
 };
 
 export async function getServerSideProps({ params }) {
-  await connectDb()();
+  // await connectDb()();
 
   const apolloClient = initializeApollo();
 

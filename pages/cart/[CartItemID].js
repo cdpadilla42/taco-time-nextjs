@@ -10,7 +10,7 @@ import FourOhFour from '../../components/404';
 
 const ItemByIdQuery = gql`
   query getItem($id: ID!) {
-    itemById(id: $id) {
+    Item(where: { id: $id }) {
       name
       description
       price
@@ -56,7 +56,7 @@ const EditCartItem = () => {
   if (loading) return <Loading />;
   if (error) return <FourOhFour />;
 
-  const item = data.itemById;
+  const item = data.Item;
 
   return <CartItemForm itemID={cartItem?.id} item={item} cartItem={cartItem} />;
 };

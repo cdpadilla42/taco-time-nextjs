@@ -9,13 +9,13 @@ import { useDispatch } from 'react-redux';
 import { clearCart, closeCart } from '../lib/redux';
 
 const CREATE_ORDER_MUTATION = gql`
-  mutation createOrder($token: String!, $cart: CartInput!) {
-    createOrder(token: $token, cart: $cart) {
-      _id
+  mutation checkout($token: String!, $cart: CartInput!) {
+    checkout(token: $token, cart: $cart) {
+      id
       total
       charge
       items {
-        _id
+        id
         name
       }
     }

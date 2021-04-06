@@ -8,13 +8,13 @@ import connectDb from '../lib/mongoose';
 
 const ItemsQuery = gql`
   query ItemQuery {
-    item {
+    allItems {
       name
       price
       img
       description
       category
-      _id
+      id
     }
   }
 `;
@@ -39,16 +39,18 @@ const StyledIndex = styled.div`
 `;
 
 const Index = () => {
-  const {
-    data: { item: itemsArr },
-  } = useQuery(ItemsQuery);
+  const { data, error } = useQuery(ItemsQuery);
+
+  const itemsArr = data?.allItems;
+
+  console.log(data);
 
   function filterByCategory(categoryQuery) {
     return itemsArr.filter((item) => item.category === categoryQuery);
   }
-  console.log('filtered by lunch');
 
-  console.log(itemsArr);
+  if (error) return <p>Woops! Something went wrong...</p>;
+
   return (
     <StyledIndex>
       <h1>Menu</h1>
@@ -66,27 +68,17 @@ const Index = () => {
       <CardCarousel itemsArr={filterByCategory('lunch')} />
     </StyledIndex>
   );
-
-  // return (
-  //   <div>w
-  //     You're signed in as {viewer.name} and you're {viewer.status} goto{' '}
-  //     <Link href="/about">
-  //       <a>static</a>
-  //     </Link>{' '}
-  //     page.
-  //   </div>
-  // )
 };
 
 export async function getServerSideProps() {
   try {
-    const asyncDB = connectDb();
-    await asyncDB();
     const apolloClient = initializeApollo();
 
     await apolloClient.query({
       query: ItemsQuery,
     });
+
+    console.log(apolloClient.cache.extract());
 
     return {
       props: {
@@ -94,7 +86,7 @@ export async function getServerSideProps() {
       },
     };
   } catch (e) {
-    console.error(e);
+    throw new Error(e);
   }
 }
 

@@ -45,7 +45,7 @@ const Card = ({ item }) => {
   const router = useRouter();
 
   return (
-    <Link href={`/item/${item._id}`}>
+    <Link href={`/item/${item.id}`}>
       <a style={{ textDecoration: 'none' }}>
         <StyledCard>
           <div

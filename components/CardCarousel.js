@@ -17,7 +17,7 @@ const CardCarousel = ({ itemsArr }) => {
   return (
     <StyledCardCarousel>
       {itemsArr.map((item) => (
-        <Card item={item} key={item._id} />
+        <Card item={item} key={item.id} />
       ))}
     </StyledCardCarousel>
   );
