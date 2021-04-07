@@ -16,6 +16,7 @@
     "formik": "^2.2.6",
     "graphql": "^14.0.2",
     "graphql-tools": "^7.0.2",
+    "lodash.debounce": "^4.0.8",
     "mongoose": "^5.11.8",
     "next": "latest",
     "nprogress": "^0.2.0",

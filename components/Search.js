@@ -1,6 +1,7 @@
 import { useCombobox } from 'downshift';
 import { gql, useLazyQuery, useMutation } from '@apollo/client';
 import styled from 'styled-components';
+import { debounce } from 'lodash';
 
 const SEARCH_ITEMS = gql`
   query SEARCH_ITEMS($searchTerm: String!) {
@@ -13,7 +14,7 @@ const SEARCH_ITEMS = gql`
       }
     ) {
       name
-      description
+      img
     }
   }
 `;
@@ -41,10 +42,16 @@ const DropDownItem = styled.div`
   border-bottom: 1px solid rgba(0, 0, 0, 0.5);
   border-bottom: 1px solid rgba(0, 0, 0, 0.5);
   width: 100%;
+  background: ${(props) => (props.highlighted ? '#f7f7f7' : 'white')};
 `;
 
 export default function Search() {
-  const items = [];
+  const [searchItems, { data, loading, error }] = useLazyQuery(SEARCH_ITEMS);
+
+  const searchItemsButChill = debounce(searchItems, 350);
+
+  const items = data?.allItems || [];
+
   const {
     inputValue,
     getMenuProps,
@@ -57,6 +64,11 @@ export default function Search() {
     items,
     onInputValueChange() {
       console.log('input changed');
+      searchItemsButChill({
+        variables: {
+          searchTerm: inputValue,
+        },
+      });
     },
     itemToString: (item) => item?.name || '',
     onSelectedItemChange({ selectedItem }) {
@@ -64,16 +76,8 @@ export default function Search() {
     },
   });
 
-  const [searchItems, { data, loading, error }] = useLazyQuery(SEARCH_ITEMS, {
-    variables: {
-      searchTerm: inputValue,
-    },
-  });
-
-  async function handleSubmit(e) {
+  function handleSubmit(e) {
     e.preventDefault();
-    await searchItems();
-    console.log(data);
   }
 
   return (
@@ -89,7 +93,16 @@ export default function Search() {
         />
       </div>
       <DropDown {...getMenuProps()}>
-        {isOpen && 'items here'}
+        {isOpen &&
+          items.map((item, index) => (
+            <DropDownItem
+              key={item.id}
+              {...getItemProps({ item })}
+              highlighted={index === highlightedIndex}
+            >
+              {item.name}
+            </DropDownItem>
+          ))}
         {isOpen && !items.length && !loading && (
           <DropDownItem>Sorry, No items found for {inputValue}</DropDownItem>
         )}
