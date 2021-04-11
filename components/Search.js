@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { useCombobox } from 'downshift';
 import { gql, useLazyQuery, useMutation } from '@apollo/client';
 import styled from 'styled-components';
@@ -15,6 +16,7 @@ const SEARCH_ITEMS = gql`
     ) {
       name
       img
+      id
     }
   }
 `;
@@ -47,8 +49,8 @@ const DropDownItem = styled.div`
 
 export default function Search() {
   const [searchItems, { data, loading, error }] = useLazyQuery(SEARCH_ITEMS);
-
-  const searchItemsButChill = debounce(searchItems, 350);
+  const Router = useRouter();
+  const searchItemsButChill = debounce(searchItems, 500);
 
   const items = data?.allItems || [];
 
@@ -73,11 +75,13 @@ export default function Search() {
     itemToString: (item) => item?.name || '',
     onSelectedItemChange({ selectedItem }) {
       console.log(`selected ${selectedItem.name}`);
+      Router.push(`/item/${selectedItem.id}`);
     },
   });
 
   function handleSubmit(e) {
     e.preventDefault();
+    Router;
   }
 
   return (
