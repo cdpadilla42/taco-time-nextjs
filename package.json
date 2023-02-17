@@ -4,7 +4,8 @@
   "scripts": {
     "dev": "next -p 7777",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "test": "jest --watchAll"
   },
   "dependencies": {
     "@apollo/client": "^3.0.2",
@@ -35,7 +36,12 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^12.1.2",
+    "@types/jest": "^29.4.0",
     "babel-plugin-import-graphql": "^2.7.0",
-    "babel-plugin-styled-components": "^1.12.0"
+    "babel-plugin-styled-components": "^1.12.0",
+    "jest": "^29.4.3",
+    "jest-environment-jsdom": "^29.4.3"
   }
 }

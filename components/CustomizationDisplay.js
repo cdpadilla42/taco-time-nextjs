@@ -48,12 +48,10 @@ const CustomizationDisplay = ({
         }
       }
     });
-    console.log(customizeable.name, option.name);
   }
 
   function isOptionSelected(customizableName, option) {
     const customization = selectedOptions[customizableName];
-    console.log({ customization });
     if (customization === undefined) {
       return false;
     }
@@ -84,7 +82,9 @@ const CustomizationDisplay = ({
                 : 'option'
             }
             key={option.name}
+            data-value={option.name}
             onClick={() => handleClick(option)}
+            data-testid="option"
           >
             <span>
               <span>{option.name}</span>

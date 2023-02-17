@@ -82,8 +82,6 @@ const CartItemForm = ({ item, itemID, cartItem }) => {
     }
   }, [item]);
 
-  console.log({ item });
-
   function verifyRequiredCustomizationsSelected() {
     return Object.keys(selectedOptions).every((key) => {
       return selectedOptions[key];
@@ -126,12 +124,9 @@ const CartItemForm = ({ item, itemID, cartItem }) => {
     return calculateAddOnsTotal() + item.price;
   }
 
-  useEffect(() => {
-    console.log('calculatePriceWithAddOns', calculateAddOnsTotal());
-  }, [selectedOptions]);
+  useEffect(() => {}, [selectedOptions]);
 
   useEffect(() => {
-    console.log('Verification', verifyRequiredCustomizationsSelected());
     setsubmissionVerified(verifyRequiredCustomizationsSelected());
   }, [selectedOptions]);
 
@@ -139,7 +134,7 @@ const CartItemForm = ({ item, itemID, cartItem }) => {
     <StyledItemDetails>
       <div className="container">
         <img src={item.img} alt="" />
-        <h2>{item.name}</h2>
+        <h2 data-testid="item-header">{item.name}</h2>
         <p>{priceToString(item.price)}</p>
         <p>{item.description}</p>
       </div>
