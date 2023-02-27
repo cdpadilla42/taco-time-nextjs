@@ -1,12 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { v4 as uuid } from 'uuid';
-import { useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import NumberIncrementor from './NumberIncrementor';
 import ButtonWithPrice from './ButtonWithPrice';
 import { calcTotalPriceInCents } from '../lib/utility';
-import { editCartItem } from '../lib/redux';
 
 const StyledAddItemToCart = styled.div`
   position: sticky;
@@ -33,46 +30,11 @@ const AddItemToCart = ({
   quantity,
   setQuantity,
   price,
-  itemID,
-  selectedOptions,
-  name,
   submissionVerified,
-  image,
+  onSubmit,
+  isCartItem,
 }) => {
-  const dispatch = useDispatch();
-  const router = useRouter();
-  const { CartItemID } = router.query;
-  const message = CartItemID ? 'Save Order Changes' : 'Add Item to Cart';
-
-  function handleAddToCartClick() {
-    if (CartItemID) {
-      dispatch({
-        type: editCartItem.toString(),
-        payload: {
-          id: itemID,
-          quantity,
-          selectedOptions,
-          price,
-          name,
-          cartItemId: CartItemID,
-        },
-      });
-    } else {
-      dispatch({
-        type: 'ADD_TO_CART',
-        payload: {
-          id: itemID,
-          quantity,
-          selectedOptions,
-          price,
-          name,
-          image,
-          cartItemId: uuid(),
-        },
-      });
-    }
-    router.push('/');
-  }
+  const message = isCartItem ? 'Save Order Changes' : 'Add Item to Cart';
 
   return (
     <StyledAddItemToCart>
@@ -84,7 +46,7 @@ const AddItemToCart = ({
       </div>
       <ButtonWithPrice
         price={calcTotalPriceInCents(price, quantity)}
-        handleClick={handleAddToCartClick}
+        handleClick={onSubmit}
         message={message}
         submissionVerified={submissionVerified}
       />

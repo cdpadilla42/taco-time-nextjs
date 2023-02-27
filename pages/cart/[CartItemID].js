@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createSelector } from 'reselect';
 import { useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
 import CartItemForm from '../../components/CartItemForm';
 import Loading from '../../components/Loading';
 import FourOhFour from '../../components/404';
+import { editCartItem } from '../../lib/redux';
 
 const ItemByIdQuery = gql`
   query getItem($id: ID!) {
@@ -29,7 +30,8 @@ const ItemByIdQuery = gql`
   }
 `;
 
-const EditCartItem = () => {
+const CartItemPage = () => {
+  const dispatch = useDispatch();
   const [isClient, setClient] = useState(false);
   useEffect(() => {
     setClient(true);
@@ -58,11 +60,31 @@ const EditCartItem = () => {
 
   const item = data.itemById;
 
-  return <CartItemForm itemID={cartItem?.id} item={item} cartItem={cartItem} />;
+  const handleSubmit = (values) => {
+    console.log({ values });
+    dispatch({
+      type: editCartItem.toString(),
+      payload: {
+        ...values,
+        cartItemId: cartItem?.cartItemId,
+      },
+    });
+
+    router.push('/');
+  };
+
+  return (
+    <CartItemForm
+      itemID={cartItem?.id}
+      item={item}
+      cartItem={cartItem}
+      onSubmit={handleSubmit}
+    />
+  );
 };
 
-EditCartItem.getInitialProps = async (ctx) => {
+CartItemPage.getInitialProps = async (ctx) => {
   return {};
 };
 
-export default EditCartItem;
+export default CartItemPage;

@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
 import CartItemForm from '../../components/CartItemForm';
+import { useDispatch } from 'react-redux';
 
 const ItemByIdQuery = gql`
   query getItem($id: ID!) {
@@ -28,6 +29,7 @@ const ItemByIdQuery = gql`
 `;
 
 const itemDisplay = () => {
+  const dispatch = useDispatch();
   const router = useRouter();
   const { itemID } = router.query;
 
@@ -39,7 +41,18 @@ const itemDisplay = () => {
     },
   });
 
-  return <CartItemForm itemID={itemID} item={item} />;
+  const handleSubmit = (values) => {
+    dispatch({
+      type: 'ADD_TO_CART',
+      payload: {
+        ...values,
+      },
+    });
+
+    router.push('/');
+  };
+
+  return <CartItemForm itemID={itemID} item={item} onSubmit={handleSubmit} />;
 };
 
 export async function getServerSideProps({ params }) {

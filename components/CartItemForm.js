@@ -1,66 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { useDispatch } from 'react-redux';
+import { useRouter } from 'next/router';
+import { v4 as uuid } from 'uuid';
 import { priceToString } from '../lib/utility';
 import CustomizationDisplay from './CustomizationDisplay';
 import AddItemToCart from './AddItemToCart';
 
-const StyledItemDetails = styled.div`
-  img {
-    display: block;
-    width: 300px;
-    margin: 0 auto;
-  }
-
-  .options .title {
-    background-color: rgba(0, 0, 0, 0.05);
-    padding: 0.6rem;
-    margin: 0;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-
-    h2 {
-      margin: 1rem 0.5rem;
-    }
-  }
-
-  /* single option */
-  .option {
-    border: 2px solid rgba(0, 0, 0, 0.1);
-    margin: 1rem;
-    padding: 1rem;
-    box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.04);
-    width: calc(100% - 2rem);
-    display: block;
-    background-color: rgba(0, 0, 0, 0);
-    font-family: inherit;
-    font-size: inherit;
-    text-align: left;
-    box-sizing: border-box;
-    transition: background-color 0.4s ease;
-  }
-
-  .option:hover {
-    cursor: pointer;
-    background-color: rgba(0, 0, 0, 0.08);
-  }
-
-  .option.selected {
-    border: 2px solid rgba(0, 0, 0, 1);
-    background-color: rgba(0, 0, 0, 0.08);
-  }
-
-  .added-price {
-    display: block;
-    float: right;
-  }
-`;
-
-const CartItemForm = ({ item, itemID, cartItem }) => {
+const CartItemForm = ({ item, itemID, cartItem, onSubmit }) => {
+  const dispatch = useDispatch();
+  const router = useRouter();
   const [selectedOptions, setSelectedOptions] = useState(
     cartItem?.selectedOptions || {}
   );
   const [quantity, setQuantity] = useState(cartItem?.quantity || 1);
   const [submissionVerified, setsubmissionVerified] = useState(false);
+  const { CartItemID } = router.query;
 
   /*
   Handling required fields:
@@ -130,6 +85,23 @@ const CartItemForm = ({ item, itemID, cartItem }) => {
     setsubmissionVerified(verifyRequiredCustomizationsSelected());
   }, [selectedOptions]);
 
+  const handleSubmit = () => {
+    const payloadObj = {
+      id: itemID,
+      quantity,
+      selectedOptions,
+      price: addPriceAndAddons(),
+      name: item.name,
+    };
+    if (CartItemID) {
+      payloadObj.cartItemID = CartItemID;
+    } else {
+      payloadObj.image = item.img;
+      payloadObj.cartItemId = uuid();
+    }
+    onSubmit(payloadObj);
+  };
+
   return (
     <StyledItemDetails>
       <div className="container">
@@ -161,9 +133,62 @@ const CartItemForm = ({ item, itemID, cartItem }) => {
         submissionVerified={submissionVerified}
         calculateAddOnsTotal={calculateAddOnsTotal}
         cartItemID={cartItem?.cartItemId}
+        onSubmit={handleSubmit}
+        isCartItem={!!CartItemID}
       />
     </StyledItemDetails>
   );
 };
 
 export default CartItemForm;
+
+const StyledItemDetails = styled.div`
+  img {
+    display: block;
+    width: 300px;
+    margin: 0 auto;
+  }
+
+  .options .title {
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 0.6rem;
+    margin: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+
+    h2 {
+      margin: 1rem 0.5rem;
+    }
+  }
+
+  /* single option */
+  .option {
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    margin: 1rem;
+    padding: 1rem;
+    box-shadow: 0 1px 8px 0 rgba(0, 0, 0, 0.04);
+    width: calc(100% - 2rem);
+    display: block;
+    background-color: rgba(0, 0, 0, 0);
+    font-family: inherit;
+    font-size: inherit;
+    text-align: left;
+    box-sizing: border-box;
+    transition: background-color 0.4s ease;
+  }
+
+  .option:hover {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.08);
+  }
+
+  .option.selected {
+    border: 2px solid rgba(0, 0, 0, 1);
+    background-color: rgba(0, 0, 0, 0.08);
+  }
+
+  .added-price {
+    display: block;
+    float: right;
+  }
+`;

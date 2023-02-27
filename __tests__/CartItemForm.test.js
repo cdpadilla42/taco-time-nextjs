@@ -3,8 +3,9 @@
  */
 import React from 'react';
 import * as reactRedux from 'react-redux';
-import { render, cleanup, waitFor } from '@testing-library/react';
+import { render, cleanup, waitFor, fireEvent } from '@testing-library/react';
 import CartItemForm from '../components/CartItemForm';
+import ButtonWithPrice from '../components/ButtonWithPrice';
 
 jest.mock('uuid', () => ({
   v4: () => '',
@@ -29,22 +30,22 @@ jest.mock('next/router', () => ({
 //   }
 //   return selector(store);
 // };
+const dispatchMock = reactRedux.useDispatch;
 
-// beforeEach(() => {
-//   useDispatchMock.mockImplementation(() => () => {});
-//   useSelectorMock.mockImplementation((selector) =>
-//     mockSelectors(selector, mockStore)
-//   );
-// });
+beforeEach(() => {
+  dispatchMock.mockImplementation(() => (args) => {});
+  // useSelectorMock.mockImplementation((selector) =>
+  //   mockSelectors(selector, mockStore)
+  // );
+});
 
-// afterEach(() => {
-//   useDispatchMock.mockClear();
-//   useSelectorMock.mockClear();
-//   cleanup();
-// });
+afterEach(() => {
+  dispatchMock.mockClear();
+  // useSelectorMock.mockClear();
+  // cleanup();
+});
 
 // const useSelectorMock = reactRedux.useSelector;
-// const useDispatchMock = reactRedux.useDispatch;
 
 test('<CartItemForm />', async () => {
   const chipsAndGuac = {
@@ -81,10 +82,53 @@ test('<CartItemForm />', async () => {
     ],
   };
 
+  const formExpectedValue = {
+    cartItemId: '',
+    id: '5feb9e4a351036315ff4588a',
+    image: '/guacamole-12.jpg',
+    name: 'Guacamole & Chips',
+    price: 200,
+    quantity: 1,
+    selectedOptions: {
+      spice: 'Mild',
+    },
+  };
+
+  const handleSubmit = jest.fn();
+
   const rendered = render(
-    <CartItemForm item={chipsAndGuac} itemID={'5feb9e4a351036315ff4588a'} />
+    <CartItemForm
+      item={chipsAndGuac}
+      itemID={'5feb9e4a351036315ff4588a'}
+      onSubmit={handleSubmit}
+    />
   );
+
   const pageTitleElm = await rendered.findByTestId('item-header');
 
   expect(pageTitleElm.innerHTML).toEqual('Guacamole &amp; Chips');
+
+  const customizationSection = await rendered.findByTestId(
+    'customization-section'
+  );
+
+  const sectionText = customizationSection.querySelector(
+    '[data-testid="customization-heading"]'
+  ).innerHTML;
+
+  expect(sectionText).toEqual(chipsAndGuac.customizations[0].title);
+
+  const spiceOptions = await rendered.findAllByTestId('option');
+  const firstOption = spiceOptions[0];
+
+  fireEvent.click(firstOption);
+
+  const addItemButtonElm = await rendered.findByTestId('add-item');
+
+  expect(addItemButtonElm.className.includes('selected'));
+
+  fireEvent.click(addItemButtonElm);
+
+  expect(handleSubmit).toBeCalledTimes(1);
+  expect(handleSubmit).toBeCalledWith(formExpectedValue);
 });

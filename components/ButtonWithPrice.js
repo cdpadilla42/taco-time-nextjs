@@ -127,6 +127,7 @@ const ButtonWithPrice = ({
       className={
         submissionVerified ? 'verified submit_button' : 'submit_button'
       }
+      data-testid="add-item"
     >
       <span className="message">
         {errorActive ? 'Please select required options' : message}

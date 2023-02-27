@@ -64,8 +64,8 @@ const CustomizationDisplay = ({
 
   return (
     <>
-      <div className="title">
-        <h2>{customizeable.title}</h2>
+      <div className="title" data-testid="customization-section">
+        <h2 data-testid="customization-heading">{customizeable.title}</h2>
         {customizeable.required && (
           <p>
             <span>*</span>
