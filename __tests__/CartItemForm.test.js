@@ -5,14 +5,12 @@ import React from 'react';
 import * as reactRedux from 'react-redux';
 import { render, cleanup, waitFor, fireEvent } from '@testing-library/react';
 import CartItemForm from '../components/CartItemForm';
-import ButtonWithPrice from '../components/ButtonWithPrice';
 
 jest.mock('uuid', () => ({
   v4: () => '',
 }));
 
 jest.mock('react-redux', () => ({
-  useSelector: jest.fn(),
   useDispatch: jest.fn(),
 }));
 
@@ -22,30 +20,16 @@ jest.mock('next/router', () => ({
   }),
 }));
 
-// Use this code if you are dependent on the state in Redux
-
-// const mockSelectors = (selector, store) => {
-//   if (selector === ourSuperComplexCustomSelector) {
-//     return true; // or what we want to
-//   }
-//   return selector(store);
-// };
 const dispatchMock = reactRedux.useDispatch;
 
 beforeEach(() => {
   dispatchMock.mockImplementation(() => (args) => {});
-  // useSelectorMock.mockImplementation((selector) =>
-  //   mockSelectors(selector, mockStore)
-  // );
 });
 
 afterEach(() => {
   dispatchMock.mockClear();
-  // useSelectorMock.mockClear();
-  // cleanup();
+  cleanup();
 });
-
-// const useSelectorMock = reactRedux.useSelector;
 
 test('<CartItemForm />', async () => {
   const chipsAndGuac = {
