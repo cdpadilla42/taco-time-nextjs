@@ -31,7 +31,8 @@
     "reselect": "^4.0.0",
     "stripe": "^8.132.0",
     "styled-components": "^5.2.1",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "waait": "^1.0.5"
   },
   "license": "MIT",
   "devDependencies": {

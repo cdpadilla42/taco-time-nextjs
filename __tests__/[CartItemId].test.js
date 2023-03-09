@@ -2,9 +2,7 @@
  * @jest-environment jsdom
  */
 import React from 'react';
-import * as reactRedux from 'react-redux';
-import { render, cleanup, waitFor, fireEvent } from '@testing-library/react';
-import styled from 'styled-components';
+import { cleanup, fireEvent } from '@testing-library/react';
 import CartItemPage from '../pages/cart/[CartItemID]';
 import { renderWithProviders } from '../lib/testUtils';
 import { initStore } from '../lib/redux';
@@ -47,20 +45,6 @@ const chipsAndGuac = {
 jest.mock('uuid', () => ({
   v4: () => '',
 }));
-
-// jest.mock('styled-components', () => {
-//   const mock = () => () => jest.fn();
-//   mock.div = () => jest.fn();
-//   mock.div.withConfig = () => jest.fn();
-//   mock.button = () => jest.fn();
-//   mock.button.withConfig = () => jest.fn();
-//   mock.form = () => jest.fn();
-//   mock.form.withConfig = () => jest.fn();
-//   return {
-//     __esModule: true,
-//     default: mock,
-//   };
-// });
 
 jest.mock('next/router', () => {
   return {
@@ -106,21 +90,19 @@ test('<CartItemPage />', async () => {
     price: 200,
     quantity: 1,
     selectedOptions: {
-      spice: 'Mild',
+      spice: 'Medium',
     },
   };
 
   const handleSubmit = jest.fn();
 
-  const store = initStore({ cart: [formExpectedValue] });
-  // store.dispatch({
-  //   type: 'ADD_TO_CART',
-  //   payload: {
-  //     ...formExpectedValue,
-  //   },
-  // });
-
-  console.log(store.getState());
+  const store = initStore();
+  store.dispatch({
+    type: 'ADD_TO_CART',
+    payload: {
+      ...formExpectedValue,
+    },
+  });
 
   const rendered = renderWithProviders(
     <Layout
@@ -152,19 +134,36 @@ test('<CartItemPage />', async () => {
   const spiceOptions = await rendered.findAllByTestId('option');
   const firstOption = spiceOptions[0];
 
+  expect(!firstOption.className.includes('selected'));
+
   fireEvent.click(firstOption);
 
-  // TODO Select the cart checkout button
+  const updateCartItemButtonElm = await rendered.findByTitle(
+    'Save Order Changes'
+  );
 
-  const addItemButtonElm = await rendered.findByTestId('add-item');
+  expect(firstOption.className.includes('selected'));
 
-  expect(addItemButtonElm.className.includes('selected'));
-
-  fireEvent.click(addItemButtonElm);
+  fireEvent.click(updateCartItemButtonElm);
 
   const cartItemRows = await rendered.findAllByTestId('cart-item-row');
 
-  console.log(cartItemRows);
+  const firstItemElm = cartItemRows[0];
 
-  // Expect that what's rendering in the cart is what you expect it to be.
+  const firstItemTitle = firstItemElm.querySelector(
+    '[data-testid="cart-item-title"]'
+  );
+  const customizationElms = firstItemElm.querySelectorAll(
+    '[data-testid="cart-item-customization"]'
+  );
+
+  expect(firstItemTitle.innerHTML).toEqual('1 Guacamole &amp; Chips');
+
+  const expectedCustomizations = ['Mild'];
+
+  expect(customizationElms.length).toEqual(expectedCustomizations.length);
+
+  customizationElms.forEach((customizationElm, i) => {
+    expect(customizationElm.innerHTML).toEqual(expectedCustomizations[i]);
+  });
 });

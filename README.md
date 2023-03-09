@@ -34,3 +34,7 @@ The latest feature and my favorite to work through was bringing in Stripe’s ch
 ## Interacting with GraphQL API
 
 To interact with the API, Apollo Client is used within the SSR functions. To allow for flexibility, the client initialization method is written to check for whether it is being used on the server or client. The benefit of only grabbing the relevant data is best seen between the menu page and an individual items page. The menu only needs the name, image, description, and category of an item. The GraphQL query then only requests what it needs. The full item display pages, then, will request further data, such as customizations, options, and price.
+
+## Integration Tests with React Testing Library and Jest
+
+This app utilizes automated testing for the client form logic. The tests follow the guiding principles behind React Testing Library: components should be asserted based on how the user would interact with the site. This means _not_ asserting implementation details such as the Redux state, but verifying desired behaviors by checking values in the DOM itself. My favorite instance of this is in `[CartItemId].test.js`. Here, I'm setting up the test with a utility Redux provider, am using Redux Dispatch to setup my initial state, and from there, write a test that interacts with the form and verifies correct behavior through values in the DOM.

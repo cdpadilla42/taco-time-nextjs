@@ -22,13 +22,19 @@ const CartItem = ({ item, handleClose }) => {
         {Object.values(item.selectedOptions).map((customization) => {
           if (typeof customization === 'string') {
             return (
-              <li key={`${item.cartItemId}${customization}`}>
+              <li
+                key={`${item.cartItemId}${customization}`}
+                data-testid="cart-item-customization"
+              >
                 {customization}
               </li>
             );
           } else {
             return customization.map((customizationItem) => (
-              <li key={`${item.cartItemId}${customizationItem}`}>
+              <li
+                key={`${item.cartItemId}${customizationItem}`}
+                data-testid="cart-item-customization"
+              >
                 {customizationItem}
               </li>
             ));
@@ -38,12 +44,17 @@ const CartItem = ({ item, handleClose }) => {
     );
   }
 
+  console.log(item);
+
   return (
-    <div className="item_row">
+    <div className="item_row" data-testid="cart-item-row">
       <div className="left">
         <div className="item_details">
           <Link href={`/cart/${item.cartItemId}`}>
-            <a onClick={handleClose}>{`${item.quantity} ${item.name}`}</a>
+            <a
+              onClick={handleClose}
+              data-testid="cart-item-title"
+            >{`${item.quantity} ${item.name}`}</a>
           </Link>
         </div>
         {renderCusomizations()}

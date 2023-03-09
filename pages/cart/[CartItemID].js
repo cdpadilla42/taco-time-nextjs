@@ -46,6 +46,8 @@ const CartItemPage = () => {
       cartItems.find((cartItem) => cartItem.cartItemId === CartItemID)
   );
 
+  console.log(CartItemID);
+
   const cartItem = useSelector(selectCartItem) || { id: 0 };
 
   const { data, loading, error } = useQuery(ItemByIdQuery, {
@@ -53,12 +55,15 @@ const CartItemPage = () => {
       id: cartItem?.id,
     },
   });
+  console.log(cartItem);
   if (cartItem.id === 0) return <FourOhFour />;
   if (!isClient || cartItem.id === 0) return null;
   if (loading) return <Loading />;
   if (error) return <FourOhFour />;
 
   const item = data.itemById;
+
+  console.log(item);
 
   const handleSubmit = (values) => {
     console.log({ values });
